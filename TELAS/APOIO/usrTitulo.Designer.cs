@@ -1,4 +1,4 @@
-﻿namespace ConsoleTestes
+﻿namespace PainelTestes
 {
     partial class usrTitulo
     {
@@ -35,20 +35,25 @@
             // 
             this.cmdTitulo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdTitulo.BackColor = System.Drawing.SystemColors.Desktop;
+            this.cmdTitulo.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmdTitulo.ForeColor = System.Drawing.Color.Yellow;
             this.cmdTitulo.Location = new System.Drawing.Point(0, 0);
             this.cmdTitulo.Margin = new System.Windows.Forms.Padding(4);
             this.cmdTitulo.Name = "cmdTitulo";
             this.cmdTitulo.Size = new System.Drawing.Size(455, 40);
             this.cmdTitulo.TabIndex = 0;
             this.cmdTitulo.Text = "<<< TITULO >>>";
-            this.cmdTitulo.UseVisualStyleBackColor = true;
+            this.cmdTitulo.UseVisualStyleBackColor = false;
             // 
             // usrTitulo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.DarkMagenta;
             this.Controls.Add(this.cmdTitulo);
             this.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.ForeColor = System.Drawing.Color.Yellow;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "usrTitulo";
             this.Size = new System.Drawing.Size(455, 40);

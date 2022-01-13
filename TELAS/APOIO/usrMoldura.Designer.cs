@@ -1,6 +1,6 @@
-﻿namespace PainelTestes
+﻿namespace PainelTestes.TELAS.CONTROLES
 {
-    partial class usrScriptTeste
+    partial class usrMoldura
     {
         /// <summary> 
         /// Variável de designer necessária.
@@ -28,36 +28,35 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.txtCode = new System.Windows.Forms.TextBox();
+            this.usrTitulo = new PainelTestes.usrTitulo();
             this.SuspendLayout();
             // 
-            // txtCode
+            // usrTitulo
             // 
-            this.txtCode.AcceptsReturn = true;
-            this.txtCode.BackColor = System.Drawing.SystemColors.Window;
-            this.txtCode.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtCode.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtCode.Location = new System.Drawing.Point(0, 40);
-            this.txtCode.Multiline = true;
-            this.txtCode.Name = "txtCode";
-            this.txtCode.Size = new System.Drawing.Size(652, 313);
-            this.txtCode.TabIndex = 5;
+            this.usrTitulo.BackColor = System.Drawing.Color.DarkMagenta;
+            this.usrTitulo.Dock = System.Windows.Forms.DockStyle.Top;
+            this.usrTitulo.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.usrTitulo.ForeColor = System.Drawing.Color.Yellow;
+            this.usrTitulo.Location = new System.Drawing.Point(0, 0);
+            this.usrTitulo.Margin = new System.Windows.Forms.Padding(4);
+            this.usrTitulo.Name = "usrTitulo";
+            this.usrTitulo.Size = new System.Drawing.Size(556, 40);
+            this.usrTitulo.TabIndex = 4;
             // 
-            // usrScriptTeste
+            // usrMoldura
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.txtCode);
-            this.Name = "usrScriptTeste";
-            this.Size = new System.Drawing.Size(652, 353);
-            this.Controls.SetChildIndex(this.txtCode, 0);
+            this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.Controls.Add(this.usrTitulo);
+            this.Name = "usrMoldura";
+            this.Size = new System.Drawing.Size(556, 427);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.TextBox txtCode;
+        private usrTitulo usrTitulo;
     }
 }

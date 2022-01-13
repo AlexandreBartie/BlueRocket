@@ -3,14 +3,14 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <RootNamespace>ConsoleTestes</RootNamespace>
+    <RootNamespace>PainelTestes</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <AssemblyVersion></AssemblyVersion>
     <FileVersion></FileVersion>
     <Version>1.0.0</Version>
     <ApplicationIcon>banco-dados.ico</ApplicationIcon>
     <UseWindowsForms>True</UseWindowsForms>
-    <StartupObject>ConsoleTestes.Program</StartupObject>
+    <StartupObject>PainelTestes.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,7 +22,18 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Properties\" />
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

@@ -1,5 +1,4 @@
-﻿using PainelTestes.TELAS.CONTROLES;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,19 +6,18 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-namespace PainelTestes
+namespace PainelTestes.TELAS.CONTROLES
 {
-
-    public partial class usrScriptTeste : usrMoldura
+    public partial class usrResultadoTeste : usrMoldura
     {
 
         private TestPainelScript Painel;
 
-        public usrScriptTeste()
+        public usrResultadoTeste()
         {
             InitializeComponent();
 
-            SetTitulo(prmTexto: "Script INI");
+            SetTitulo(prmTexto: "Resultado Gerado");
 
         }
 
@@ -28,14 +26,17 @@ namespace PainelTestes
 
             Painel = prmPainel;
 
-            Painel.SetPadrao(txtCode, prmEditavel: true);
+            Painel.SetPadrao(txtMassaDados);
+            Painel.SetPadrao(txtLogExecucao);
 
         }
 
         public void Exibir()
         {
 
-            txtCode.Text = Painel.Console.Log.code;
+            txtMassaDados.Text = Painel.Console.Log.resultado;
+
+            txtLogExecucao.Text = Painel.Console.Log.txt;
 
         }
 

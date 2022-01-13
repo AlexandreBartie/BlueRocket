@@ -2,10 +2,13 @@ using System;
 using System.Data.SqlClient;
 using System.Windows.Forms;
 
-namespace ConsoleTestes
+namespace PainelTestes
 {
     static class Program
     {
+
+        static TestPainelScript Painel;
+
         static void Main(string[] args)
         {
 
@@ -17,10 +20,10 @@ namespace ConsoleTestes
             {
 
                 Args.path_ini = @"c:\MassaTestes\POC\Console\INI\";
-                Args.path_out = @"C:\MassaTestes\POC\Console\OUT\ConsoleTestes\";
+                Args.path_out = @"C:\MassaTestes\POC\Console\OUT\PainelTestes\";
                 Args.db = @"{ 'branch': '1085', 'port': '1521', 'service': 'INTEGRATION.Prod01.redelocal.oraclevcn.com' }";
 
-                ConsoleTestes(Args);
+                ModoExecucao(Args);
 
             }
             catch
@@ -35,7 +38,7 @@ namespace ConsoleTestes
 
         }
 
-        static void ConsoleTestes(ArgsGerador prmArgs)
+        static void ModoExecucao(ArgsGerador prmArgs)
         {
 
             string formato = "-ini: {0} -out: {1} -db: {2}";
@@ -46,11 +49,11 @@ namespace ConsoleTestes
             try
             {
 
-                ConsoleScriptTestes Projeto = new ConsoleScriptTestes();
+                Painel = new TestPainelScript();
 
-                Projeto.SetApp(prmArgs.db, prmNomeApp: Application.ProductName, prmVersaoApp: Application.ProductVersion);
+                Painel.SetApp(prmArgs.db, prmNomeApp: Application.ProductName, prmVersaoApp: Application.ProductVersion);
 
-                Projeto.ModoExecucao(prmArgs.path_ini, prmArgs.path_out);
+                Painel.Setup(prmArgs.path_ini, prmArgs.path_out);
 
             }
             catch

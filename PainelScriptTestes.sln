@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31919.166
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleScriptTestes", "ConsoleScriptTestes.csproj", "{03F7853C-E1D0-4811-AE16-05E7A552313D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PainelScriptTestes", "PainelScriptTestes.csproj", "{03F7853C-E1D0-4811-AE16-05E7A552313D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
