@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>ConsoleTestes</RootNamespace>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <AssemblyVersion></AssemblyVersion>
+    <FileVersion></FileVersion>
+    <Version>1.0.0</Version>
+    <ApplicationIcon>banco-dados.ico</ApplicationIcon>
+    <UseWindowsForms>True</UseWindowsForms>
+    <StartupObject>ConsoleTestes.Program</StartupObject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="banco-dados.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MyDooggy" Version="1.0.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+
+</Project>
