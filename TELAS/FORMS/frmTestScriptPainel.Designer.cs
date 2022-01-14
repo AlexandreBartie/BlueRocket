@@ -1,4 +1,4 @@
-﻿namespace MassaTestes
+﻿namespace DooggyCLI.Telas
 {
     partial class frmTestScriptPainel
     {
@@ -28,15 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.usrProjetoTeste = new PainelTestes.TELAS.CONTROLES.usrProjetoTeste();
-            this.splSeparador = new System.Windows.Forms.Splitter();
-            this.containerScript = new System.Windows.Forms.SplitContainer();
-            this.usrScriptTeste = new PainelTestes.usrScriptTeste();
-            this.usrResultadoTeste = new PainelTestes.TELAS.CONTROLES.usrResultadoTeste();
-            ((System.ComponentModel.ISupportInitialize)(this.containerScript)).BeginInit();
-            this.containerScript.Panel1.SuspendLayout();
-            this.containerScript.Panel2.SuspendLayout();
-            this.containerScript.SuspendLayout();
+            this.usrProjetoTeste = new DooggyCLI.Telas.usrTesteProject();
+            this.splSeparadorH = new System.Windows.Forms.Splitter();
+            this.usrResultadoTeste = new DooggyCLI.Telas.usrTestResult();
+            this.splSeparadorV = new System.Windows.Forms.Splitter();
+            this.usrScriptTeste = new DooggyCLI.Telas.usrTestCode();
             this.SuspendLayout();
             // 
             // usrProjetoTeste
@@ -48,51 +44,41 @@
             this.usrProjetoTeste.Size = new System.Drawing.Size(557, 755);
             this.usrProjetoTeste.TabIndex = 8;
             // 
-            // splSeparador
+            // splSeparadorH
             // 
-            this.splSeparador.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.splSeparador.Location = new System.Drawing.Point(557, 0);
-            this.splSeparador.Name = "splSeparador";
-            this.splSeparador.Size = new System.Drawing.Size(3, 755);
-            this.splSeparador.TabIndex = 9;
-            this.splSeparador.TabStop = false;
+            this.splSeparadorH.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.splSeparadorH.Location = new System.Drawing.Point(557, 0);
+            this.splSeparadorH.Name = "splSeparadorH";
+            this.splSeparadorH.Size = new System.Drawing.Size(3, 755);
+            this.splSeparadorH.TabIndex = 9;
+            this.splSeparadorH.TabStop = false;
             // 
-            // containerScript
+            // usrResultadoTeste
             // 
-            this.containerScript.Cursor = System.Windows.Forms.Cursors.HSplit;
-            this.containerScript.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.containerScript.Location = new System.Drawing.Point(560, 0);
-            this.containerScript.Name = "containerScript";
-            this.containerScript.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.usrResultadoTeste.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.usrResultadoTeste.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.usrResultadoTeste.Location = new System.Drawing.Point(560, 379);
+            this.usrResultadoTeste.Name = "usrResultadoTeste";
+            this.usrResultadoTeste.Size = new System.Drawing.Size(697, 376);
+            this.usrResultadoTeste.TabIndex = 14;
             // 
-            // containerScript.Panel1
+            // splSeparadorV
             // 
-            this.containerScript.Panel1.Controls.Add(this.usrScriptTeste);
-            // 
-            // containerScript.Panel2
-            // 
-            this.containerScript.Panel2.Controls.Add(this.usrResultadoTeste);
-            this.containerScript.Size = new System.Drawing.Size(697, 755);
-            this.containerScript.SplitterDistance = 375;
-            this.containerScript.TabIndex = 10;
+            this.splSeparadorV.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.splSeparadorV.Location = new System.Drawing.Point(560, 376);
+            this.splSeparadorV.Name = "splSeparadorV";
+            this.splSeparadorV.Size = new System.Drawing.Size(697, 3);
+            this.splSeparadorV.TabIndex = 15;
+            this.splSeparadorV.TabStop = false;
             // 
             // usrScriptTeste
             // 
             this.usrScriptTeste.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.usrScriptTeste.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.usrScriptTeste.Location = new System.Drawing.Point(0, 0);
+            this.usrScriptTeste.Location = new System.Drawing.Point(560, 0);
             this.usrScriptTeste.Name = "usrScriptTeste";
-            this.usrScriptTeste.Size = new System.Drawing.Size(697, 375);
-            this.usrScriptTeste.TabIndex = 0;
-            // 
-            // usrResultadoTeste
-            // 
-            this.usrResultadoTeste.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.usrResultadoTeste.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.usrResultadoTeste.Location = new System.Drawing.Point(0, 0);
-            this.usrResultadoTeste.Name = "usrResultadoTeste";
-            this.usrResultadoTeste.Size = new System.Drawing.Size(697, 376);
-            this.usrResultadoTeste.TabIndex = 0;
+            this.usrScriptTeste.Size = new System.Drawing.Size(697, 376);
+            this.usrScriptTeste.TabIndex = 16;
             // 
             // frmTestScriptPainel
             // 
@@ -100,27 +86,25 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(1257, 755);
-            this.Controls.Add(this.containerScript);
-            this.Controls.Add(this.splSeparador);
+            this.Controls.Add(this.usrScriptTeste);
+            this.Controls.Add(this.splSeparadorV);
+            this.Controls.Add(this.usrResultadoTeste);
+            this.Controls.Add(this.splSeparadorH);
             this.Controls.Add(this.usrProjetoTeste);
             this.Name = "frmTestScriptPainel";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Console SCRIPT INI";
             this.Load += new System.EventHandler(this.frmTestDataFactoryConsole_Load);
-            this.containerScript.Panel1.ResumeLayout(false);
-            this.containerScript.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.containerScript)).EndInit();
-            this.containerScript.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private PainelTestes.TELAS.CONTROLES.usrProjetoTeste usrProjetoTeste;
-        private System.Windows.Forms.Splitter splSeparador;
-        private System.Windows.Forms.SplitContainer containerScript;
-        private PainelTestes.usrScriptTeste usrScriptTeste;
-        private PainelTestes.TELAS.CONTROLES.usrResultadoTeste usrResultadoTeste;
+        private usrTesteProject usrProjetoTeste;
+        private System.Windows.Forms.Splitter splSeparadorH;
+        private usrTestResult usrResultadoTeste;
+        private System.Windows.Forms.Splitter splSeparadorV;
+        private usrTestCode usrScriptTeste;
     }
 }

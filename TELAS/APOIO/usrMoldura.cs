@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-namespace PainelTestes.TELAS.CONTROLES
+namespace DooggyCLI.Telas
 {
     public partial class usrMoldura : UserControl
     {

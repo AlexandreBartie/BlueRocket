@@ -1,5 +1,4 @@
-﻿using PainelTestes;
-using Dooggy;
+﻿using Dooggy;
 using Dooggy.Factory.Console;
 using System;
 using System.Collections.Generic;
@@ -9,24 +8,30 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-namespace MassaTestes
+namespace DooggyCLI.Telas
 {
     public partial class frmTestScriptPainel : Form
     {
 
-        private TestPainelScript Painel;
+        private EditorScripts Editor;
 
         public frmTestScriptPainel()
         {
             InitializeComponent();
         }
 
-        public void Setup(TestPainelScript prmPainel)
+        public void Setup(EditorScripts prmEditor)
         {
 
-            Painel = prmPainel;
+            Editor = prmEditor;
 
-            Painel.ScriptSelecionado += ScriptSelecionado;
+            Editor.Config.SetPadrao(splSeparadorH);
+            Editor.Config.SetPadrao(splSeparadorV);
+
+            Editor.ScriptSelected += ScriptSelected;
+            Editor.ScriptCodeChanged += ScriptCodeChanged;
+
+            Editor.Refresh();
 
             this.ShowDialog();
 
@@ -42,20 +47,31 @@ namespace MassaTestes
         private void IniciarSetup()
         {
 
-            usrProjetoTeste.Setup(Painel);
+            usrProjetoTeste.Setup(Editor);
 
-            usrScriptTeste.Setup(Painel);
+            usrScriptTeste.Setup(Editor);
 
-            usrResultadoTeste.Setup(Painel);
+            usrResultadoTeste.Setup(Editor);
 
         }
 
-        private void ScriptSelecionado()
+        private void ScriptSelected()
         {
 
             usrScriptTeste.Exibir();
 
             usrResultadoTeste.Exibir();
+
+        }
+
+        private void ScriptCodeChanged()
+        {
+
+            usrProjetoTeste.Formatar();
+
+            usrScriptTeste.Formatar();
+
+            usrResultadoTeste.Formatar();
 
 
         }

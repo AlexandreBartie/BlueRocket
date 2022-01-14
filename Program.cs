@@ -2,12 +2,12 @@ using System;
 using System.Data.SqlClient;
 using System.Windows.Forms;
 
-namespace PainelTestes
+namespace DooggyCLI
 {
     static class Program
     {
 
-        static TestPainelScript Painel;
+        static PainelCLI Painel;
 
         static void Main(string[] args)
         {
@@ -49,7 +49,7 @@ namespace PainelTestes
             try
             {
 
-                Painel = new TestPainelScript();
+                Painel = new PainelCLI();
 
                 Painel.SetApp(prmArgs.db, prmNomeApp: Application.ProductName, prmVersaoApp: Application.ProductVersion);
 
@@ -63,7 +63,7 @@ namespace PainelTestes
 
     }
 
-    public class ArgsGerador
+    internal class ArgsGerador
     {
 
         public string path_ini;

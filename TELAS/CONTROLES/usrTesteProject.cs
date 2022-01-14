@@ -6,17 +6,16 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using DooggyCLI;
 
-namespace PainelTestes.TELAS.CONTROLES
+namespace DooggyCLI.Telas
 {
-    public partial class usrProjetoTeste : usrMoldura
+    public partial class usrTesteProject : usrMoldura
     {
 
-        private TestPainelScript Painel;
+        private EditorScripts Editor;
 
-        private TestConsole Console => Painel.Console;
-
-        public usrProjetoTeste()
+        public usrTesteProject()
         {
             InitializeComponent();
 
@@ -25,39 +24,50 @@ namespace PainelTestes.TELAS.CONTROLES
         }
         private void trvProjeto_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            if (IsExibirScript())
-                Painel.OnScriptSelecionado();
+            if (IsRootSelected())
+                Editor.OnRootINISelected();
+
+            else if (IsScriptSelected())
+                Editor.OnScriptSelected();
 
         }
-        public void Setup(TestPainelScript prmPainel)
+        public void Setup(EditorScripts prmEditor)
         {
 
-            Painel = prmPainel;
+            Editor = prmEditor;
 
-            Painel.SetPadrao(trvProjeto);
+            Editor.Config.SetPadrao(trvProjeto);
 
             Popular();
 
         }
-
         public void Popular()
         {
 
             TreeNode Pai = AddNode(prmItem: "ini");
 
-            foreach (TestConsoleScript file in Console.GetScripts())
-                AddNode(prmItem: file.Log.nome_INI, Pai);
+            foreach (TestScript Script in Editor.Scripts)
+                AddNode(prmItem: Script.Log.nome_INI, Pai);
 
             Pai.Expand();
 
         }
 
-        private bool IsExibirScript()
+        public void Formatar()
+        {
+
+            trvProjeto.SelectedNode.ForeColor = Editor.GetForeColor();
+
+        }
+
+        private bool IsRootSelected() => (trvProjeto.SelectedNode.Parent == null);
+
+        private bool IsScriptSelected()
         {
 
             if ((trvProjeto.SelectedNode != null) && (trvProjeto.SelectedNode.Parent != null))
 
-                if (Console.SetScript(prmKey: trvProjeto.SelectedNode.Text))
+                if (Editor.SetScript(prmKey: trvProjeto.SelectedNode.Text))
                     return true;
 
             return false;

@@ -8,14 +8,11 @@ using System.Windows.Forms;
 
 namespace DooggyCLI.Telas
 {
-    public partial class usrTitulo : UserControl
+    public partial class usrActionScript : UserControl
     {
-        public usrTitulo()
+        public usrActionScript()
         {
             InitializeComponent();
         }
-
-        public void SetTitulo(string prmTexto) { cmdTitulo.Text = prmTexto; }
-
     }
 }

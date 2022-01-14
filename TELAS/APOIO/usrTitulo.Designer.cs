@@ -1,4 +1,4 @@
-﻿namespace PainelTestes
+﻿namespace DooggyCLI.Telas
 {
     partial class usrTitulo
     {
@@ -33,11 +33,10 @@
             // 
             // cmdTitulo
             // 
-            this.cmdTitulo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdTitulo.BackColor = System.Drawing.SystemColors.Desktop;
+            this.cmdTitulo.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.cmdTitulo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cmdTitulo.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmdTitulo.ForeColor = System.Drawing.Color.Yellow;
+            this.cmdTitulo.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.cmdTitulo.Location = new System.Drawing.Point(0, 0);
             this.cmdTitulo.Margin = new System.Windows.Forms.Padding(4);
             this.cmdTitulo.Name = "cmdTitulo";

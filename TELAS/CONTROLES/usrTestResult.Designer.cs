@@ -1,6 +1,6 @@
-﻿namespace PainelTestes.TELAS.CONTROLES
+﻿namespace DooggyCLI.Telas
 {
-    partial class usrResultadoTeste
+    partial class usrTestResult
     {
         /// <summary> 
         /// Variável de designer necessária.

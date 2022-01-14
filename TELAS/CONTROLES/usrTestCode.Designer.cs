@@ -1,6 +1,6 @@
-﻿namespace PainelTestes
+﻿namespace DooggyCLI.Telas
 {
-    partial class usrScriptTeste
+    partial class usrTestCode
     {
         /// <summary> 
         /// Variável de designer necessária.
@@ -28,28 +28,37 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.usrAction = new DooggyCLI.Telas.usrActionScript();
             this.txtCode = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
+            // usrAction
+            // 
+            this.usrAction.BackColor = System.Drawing.Color.Silver;
+            this.usrAction.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.usrAction.Location = new System.Drawing.Point(0, 394);
+            this.usrAction.Name = "usrAction";
+            this.usrAction.Size = new System.Drawing.Size(767, 39);
+            this.usrAction.TabIndex = 10;
+            // 
             // txtCode
             // 
-            this.txtCode.AcceptsReturn = true;
-            this.txtCode.BackColor = System.Drawing.SystemColors.Window;
             this.txtCode.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtCode.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.txtCode.Location = new System.Drawing.Point(0, 40);
             this.txtCode.Multiline = true;
             this.txtCode.Name = "txtCode";
-            this.txtCode.Size = new System.Drawing.Size(652, 313);
-            this.txtCode.TabIndex = 5;
+            this.txtCode.Size = new System.Drawing.Size(767, 354);
+            this.txtCode.TabIndex = 13;
             // 
-            // usrScriptTeste
+            // usrTestCode
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.txtCode);
-            this.Name = "usrScriptTeste";
-            this.Size = new System.Drawing.Size(652, 353);
+            this.Controls.Add(this.usrAction);
+            this.Name = "usrTestCode";
+            this.Size = new System.Drawing.Size(767, 433);
+            this.Controls.SetChildIndex(this.usrAction, 0);
             this.Controls.SetChildIndex(this.txtCode, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -57,7 +66,7 @@
         }
 
         #endregion
-
+        private usrActionScript usrAction;
         private System.Windows.Forms.TextBox txtCode;
     }
 }

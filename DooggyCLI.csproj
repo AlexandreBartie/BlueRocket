@@ -3,14 +3,14 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <RootNamespace>PainelTestes</RootNamespace>
+    <RootNamespace>DooggyCLI</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <AssemblyVersion></AssemblyVersion>
     <FileVersion></FileVersion>
     <Version>1.0.0</Version>
     <ApplicationIcon>banco-dados.ico</ApplicationIcon>
     <UseWindowsForms>True</UseWindowsForms>
-    <StartupObject>PainelTestes.Program</StartupObject>
+    <StartupObject>DooggyCLI.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MyDooggy" Version="1.0.7" />
+    <ProjectReference Include="..\DOOGGY\DOOGGY.csproj" />
   </ItemGroup>
 
   <ItemGroup>

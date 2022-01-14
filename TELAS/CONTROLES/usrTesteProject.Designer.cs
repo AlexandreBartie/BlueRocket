@@ -1,6 +1,6 @@
 ﻿namespace DooggyCLI.Telas
 {
-    partial class usrMoldura
+    partial class usrTesteProject
     {
         /// <summary> 
         /// Variável de designer necessária.
@@ -28,35 +28,34 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.usrTitulo = new usrTitulo();
+            this.trvProjeto = new System.Windows.Forms.TreeView();
             this.SuspendLayout();
             // 
-            // usrTitulo
+            // trvProjeto
             // 
-            this.usrTitulo.BackColor = System.Drawing.Color.DarkMagenta;
-            this.usrTitulo.Dock = System.Windows.Forms.DockStyle.Top;
-            this.usrTitulo.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.usrTitulo.ForeColor = System.Drawing.Color.Yellow;
-            this.usrTitulo.Location = new System.Drawing.Point(0, 0);
-            this.usrTitulo.Margin = new System.Windows.Forms.Padding(4);
-            this.usrTitulo.Name = "usrTitulo";
-            this.usrTitulo.Size = new System.Drawing.Size(556, 40);
-            this.usrTitulo.TabIndex = 4;
+            this.trvProjeto.BackColor = System.Drawing.SystemColors.Info;
+            this.trvProjeto.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.trvProjeto.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.trvProjeto.Location = new System.Drawing.Point(0, 40);
+            this.trvProjeto.Name = "trvProjeto";
+            this.trvProjeto.Size = new System.Drawing.Size(557, 466);
+            this.trvProjeto.TabIndex = 7;
+            this.trvProjeto.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.trvProjeto_AfterSelect);
             // 
-            // usrMoldura
+            // usrProjetoTeste
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.Controls.Add(this.usrTitulo);
-            this.Name = "usrMoldura";
-            this.Size = new System.Drawing.Size(556, 427);
+            this.Controls.Add(this.trvProjeto);
+            this.Name = "usrProjetoTeste";
+            this.Size = new System.Drawing.Size(557, 506);
+            this.Controls.SetChildIndex(this.trvProjeto, 0);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private usrTitulo usrTitulo;
+        private System.Windows.Forms.TreeView trvProjeto;
     }
 }
