@@ -17,9 +17,14 @@ namespace DooggyCLI.Telas
         private void txtCode_TextChanged(object sender, EventArgs e)
         {
 
-            Editor.SetCode(txtCode.Text);
-            
-            Editor.OnScriptCodeChanged();
+            if (Editor.TemScript)
+            {
+
+                Editor.SetCode(txtCode.Text);
+
+                Editor.OnScriptChanged();
+
+            }
 
         }
         
@@ -39,22 +44,35 @@ namespace DooggyCLI.Telas
 
             Editor.Config.SetPadrao(txtCode, prmEditavel: true);
 
+            usrAction.Setup(prmEditor);
+
         }
 
-        public void Exibir()
+        public void View()
         {
 
-            txtCode.Text = Editor.Log.code;
+            if (Editor.TemScript)
+            {
+
+                SetTitulo(prmTexto: Editor.Script.title);
+
+                txtCode.Enabled = Editor.Script.IsEnabled;
+
+                txtCode.Text = Editor.Script.code;
+                txtCode.ForeColor = Editor.GetForeColor();
+
+            }
+            else
+            {
+
+                SetTitulo(prmTexto: "SCRIPT INI");
+
+                txtCode.Enabled = false;
+
+                txtCode.Text = "";
+
+            }
 
         }
-
-        public void Formatar()
-        {
-
-            txtCode.ForeColor = Editor.GetForeColor();
-
-        }
-
-
     }
 }

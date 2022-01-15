@@ -36,42 +36,48 @@
             // cmdUndo
             // 
             this.cmdUndo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdUndo.Location = new System.Drawing.Point(740, 4);
+            this.cmdUndo.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.cmdUndo.Location = new System.Drawing.Point(740, 3);
             this.cmdUndo.Name = "cmdUndo";
-            this.cmdUndo.Size = new System.Drawing.Size(94, 30);
+            this.cmdUndo.Size = new System.Drawing.Size(94, 22);
             this.cmdUndo.TabIndex = 6;
             this.cmdUndo.Text = "UNDO";
             this.cmdUndo.UseVisualStyleBackColor = true;
+            this.cmdUndo.Click += new System.EventHandler(this.cmdUndo_Click);
             // 
             // cmdSave
             // 
             this.cmdSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdSave.Location = new System.Drawing.Point(619, 4);
+            this.cmdSave.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.cmdSave.Location = new System.Drawing.Point(619, 3);
             this.cmdSave.Name = "cmdSave";
-            this.cmdSave.Size = new System.Drawing.Size(97, 30);
+            this.cmdSave.Size = new System.Drawing.Size(97, 22);
             this.cmdSave.TabIndex = 5;
             this.cmdSave.Text = "SAVE CODE";
             this.cmdSave.UseVisualStyleBackColor = true;
+            this.cmdSave.Click += new System.EventHandler(this.cmdSave_Click);
             // 
             // cmdPlay
             // 
-            this.cmdPlay.Location = new System.Drawing.Point(3, 4);
+            this.cmdPlay.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.cmdPlay.Location = new System.Drawing.Point(3, 3);
             this.cmdPlay.Name = "cmdPlay";
-            this.cmdPlay.Size = new System.Drawing.Size(97, 30);
+            this.cmdPlay.Size = new System.Drawing.Size(97, 22);
             this.cmdPlay.TabIndex = 7;
             this.cmdPlay.Text = "PLAY >>>";
             this.cmdPlay.UseVisualStyleBackColor = true;
+            this.cmdPlay.Click += new System.EventHandler(this.cmdPlay_Click);
             // 
             // usrActionScript
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Silver;
+            this.BackColor = System.Drawing.Color.Gainsboro;
             this.Controls.Add(this.cmdPlay);
             this.Controls.Add(this.cmdUndo);
             this.Controls.Add(this.cmdSave);
             this.Name = "usrActionScript";
-            this.Size = new System.Drawing.Size(837, 38);
+            this.Size = new System.Drawing.Size(837, 29);
             this.ResumeLayout(false);
 
         }

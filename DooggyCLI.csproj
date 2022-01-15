@@ -8,13 +8,14 @@
     <AssemblyVersion></AssemblyVersion>
     <FileVersion></FileVersion>
     <Version>1.0.0</Version>
-    <ApplicationIcon>banco-dados.ico</ApplicationIcon>
+    <ApplicationIcon>DooggyCLI.ico</ApplicationIcon>
     <UseWindowsForms>True</UseWindowsForms>
     <StartupObject>DooggyCLI.Program</StartupObject>
+    <PackageIcon>DooggyCLI.png</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="banco-dados.ico" />
+    <Content Include="DooggyCLI.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,6 +35,13 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="DooggyCLI.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

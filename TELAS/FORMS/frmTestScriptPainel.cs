@@ -28,8 +28,13 @@ namespace DooggyCLI.Telas
             Editor.Config.SetPadrao(splSeparadorH);
             Editor.Config.SetPadrao(splSeparadorV);
 
-            Editor.ScriptSelected += ScriptSelected;
-            Editor.ScriptCodeChanged += ScriptCodeChanged;
+            Editor.ProjectRefresh += ProjectRefresh;
+
+            Editor.ScriptChanged += ScriptView;
+
+            Editor.ScriptPlay += ScriptPlay;
+            Editor.ScriptSave += ScriptSave;
+            Editor.ScriptUndo += ScriptUndo;
 
             Editor.Refresh();
 
@@ -55,27 +60,55 @@ namespace DooggyCLI.Telas
 
         }
 
-        private void ScriptSelected()
+        private void ProjectRefresh()
         {
 
-            usrScriptTeste.Exibir();
+            Editor.Refresh();
 
-            usrResultadoTeste.Exibir();
+            usrProjetoTeste.Refresh();
+
+            ScriptView();
 
         }
 
-        private void ScriptCodeChanged()
+        private void ScriptView()
         {
 
-            usrProjetoTeste.Formatar();
+            usrProjetoTeste.View();
 
-            usrScriptTeste.Formatar();
+            usrScriptTeste.View();
 
-            usrResultadoTeste.Formatar();
-
+            usrResultadoTeste.View();
 
         }
 
-    }
+        private void ScriptPlay()
+        {
+
+            Editor.Script.PlayCode();
+
+            Editor.OnScriptChanged();
+
+        }
+
+        private void ScriptSave()
+        {
+
+            Editor.Script.SaveCode();
+
+            Editor.OnScriptChanged();
+
+        }
+
+        private void ScriptUndo()
+        {
+
+            Editor.Script.UndoCode();
+
+            Editor.OnScriptChanged();
+
+        }
+
+     }
 
 }

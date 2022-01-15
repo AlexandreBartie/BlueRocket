@@ -9,16 +9,19 @@ using System.Windows.Forms;
 
 namespace DooggyCLI
 {
-    public delegate void Notify_EditorExit();
-    public delegate void Notify_EditorRefresh();
-    public delegate void Notify_EditorSaveAll();
 
-    public delegate void Notify_RootINISelected();
+    public delegate void Notify_ProjectPlayAll();
+    public delegate void Notify_ProjectSaveAll();
+    public delegate void Notify_ProjectRefresh();
+    public delegate void Notify_ProjectExit();
 
-    public delegate void Notify_ScriptSelected();
-    public delegate void Notify_ScriptCodeChanged();
-    public delegate void Notify_ScriptCodeSave();
-    public delegate void Notify_ScriptCodeUndo();
+    public delegate void Notify_RootSelected();
+
+    public delegate void Notify_ScriptChanged();
+
+    public delegate void Notify_ScriptPlay();
+    public delegate void Notify_ScriptSave();
+    public delegate void Notify_ScriptUndo();
 
     public class EditorScripts : EditorEvents
     {
@@ -38,46 +41,60 @@ namespace DooggyCLI
 
         public void SetCode(string prmCode) => Script.SetCode(prmCode);
 
-        public bool SetScript(string prmKey) => Scripts.Find(prmKey);
 
     }
     public class EditorEvents : EditorMode
     {
 
-        public event Notify_RootINISelected RootINISelected;
+        public event Notify_ProjectRefresh ProjectRefresh;
 
-        public event Notify_ScriptSelected ScriptSelected;
-        public event Notify_ScriptCodeChanged ScriptCodeChanged;
-        public event Notify_ScriptCodeSave ScriptCodeSave;
-        public event Notify_ScriptCodeUndo ScriptCodeUndo;
+        public event Notify_RootSelected RootSelected;
 
-        public void OnRootINISelected()
+        public event Notify_ScriptChanged ScriptChanged;
+
+        public event Notify_ScriptPlay ScriptPlay;
+        public event Notify_ScriptSave ScriptSave;
+        public event Notify_ScriptUndo ScriptUndo;
+
+        public void OnProjectRefresh()
         {
-            RootINISelected?.Invoke();
+            ProjectRefresh?.Invoke();
         }
 
-        public void OnScriptSelected()
+        public void OnRootSelected()
         {
-            ScriptSelected?.Invoke();
+            RootSelected?.Invoke();
         }
 
-        public void OnScriptCodeChanged()
+        public void OnScriptChecked(bool prmHabilitar)
         {
-
-            //SetModoEdicao(prmON: true);
-
-            ScriptCodeChanged?.Invoke();
+            SetEnabled(prmHabilitar); OnScriptChanged();
         }
 
-        public void OnScriptCodeSave()
+        public void OnScriptChanged()
         {
-            ScriptCodeSave?.Invoke();
+            ScriptChanged?.Invoke();
         }
 
-        public void OnScriptCodeUndo()
+        public void OnScriptPlay()
         {
-            ScriptCodeUndo?.Invoke();
+            ScriptPlay?.Invoke();
         }
+
+        public void OnScriptSave()
+        {
+            ScriptSave?.Invoke();
+        }
+
+        public void OnScriptUndo()
+        {
+            ScriptUndo?.Invoke();
+        }
+
+        public bool SetScript(string prmKey) => Scripts.Find(prmKey);
+
+        public void SetEnabled(bool prmHabilitar) => Script.SetEnabled(prmHabilitar);
+
     }
     public class EditorMode
     {
@@ -92,9 +109,8 @@ namespace DooggyCLI
 
         public TestConsole Console => Painel.Console;
 
-        //public bool IsEdicao;
-
-        //public void SetModoEdicao(bool prmON) => IsEdicao = IsEdicao || prmON;
+        public bool TemScript => (Script != null);
+        public bool TemScripts => (Scripts.Count > 0);
 
         public EditorMode()
         {
@@ -105,16 +121,21 @@ namespace DooggyCLI
 
         public Color GetForeColor()
         {
-            if (Script.IsChanged)
-                return Config.ColorCode.cor_modificado;
-            else
-                return Config.ColorCode.cor_consulta;
+            
+            if (Script.IsEnabled)
+                if (Script.IsChanged)
+                    return Config.ColorCode.cor_modificado;
+                else
+                    return Config.ColorCode.cor_habilitada;
+
+            return Config.ColorCode.cor_consulta;
         }
     }
     public class EditorConfig
     {
 
         private Font FontPadrao;
+        private Font FontTreeView;
 
         public EditorConfigColor ColorCode;
 
@@ -123,11 +144,22 @@ namespace DooggyCLI
 
             FontPadrao = new Font("Consolas", 12);
 
+            FontTreeView= new Font("Consolas", 10);
+
             ColorCode = new EditorConfigColor();
 
         }
 
         public void SetPadrao(TextBox prmTextBox) => SetPadrao(prmTextBox, prmEditavel: false);
+        public void SetPadrao(Button prmBotao)
+        {
+
+            prmBotao.BackColor = Color.Black;
+            prmBotao.ForeColor = Color.White;
+
+            prmBotao.FlatStyle = FlatStyle.Flat;
+
+        }
         public void SetPadrao(TextBox prmTextBox, bool prmEditavel)
         {
 
@@ -138,19 +170,19 @@ namespace DooggyCLI
 
             prmTextBox.ScrollBars = ScrollBars.Both;
 
-            prmTextBox.Enabled = true;
-
             prmTextBox.ReadOnly = !prmEditavel;
 
         }
         public void SetPadrao(TreeView prmTreeView)
         {
 
-            SetControl(prmTreeView);
+            SetControl(prmTreeView, FontTreeView);
 
             prmTreeView.LabelEdit = false;
 
             prmTreeView.FullRowSelect = true;
+
+            prmTreeView.CheckBoxes = true;
 
             prmTreeView.Scrollable = true;
 
@@ -172,10 +204,18 @@ namespace DooggyCLI
             prmTitulo.ForeColor = Color.White;
 
         }
-        private void SetControl(Control prmControle)
+        public void SetPadrao(usrActionScript prmAction)
         {
 
-            prmControle.Font = FontPadrao;
+            prmAction.BackColor = Color.Aquamarine;
+
+        }
+
+        private void SetControl(Control prmControle) => SetControl(prmControle, prmFont: FontPadrao);
+        private void SetControl(Control prmControle, Font prmFont)
+        {
+
+            prmControle.Font = prmFont;
 
             prmControle.BackColor = Color.LightYellow;
 
@@ -185,6 +225,7 @@ namespace DooggyCLI
     public class EditorConfigColor
     {
         public Color cor_consulta => Color.Black;
+        public Color cor_habilitada => Color.Green;
         public Color cor_modificado => Color.Blue;
         public Color cor_erro => Color.Red;
 
@@ -194,13 +235,22 @@ namespace DooggyCLI
 
         private TestConsoleScript Script;
 
-        public string name => Log.nome_INI;
+        private TestConsole Console => Script.Console;
+        public TestConsoleLog Log => Script.Log;
+
+
+        public string name => Log.name_INI;
 
         public string code;
 
-        public TestConsoleLog Log => Script.Log;
+        public string title => Log.name_INI + title_ext;
+        private string title_ext { get { if (IsChanged) return "(*)"; return ""; } }
 
+        public bool IsEnabled = false;
+        public bool IsCanPlay => (IsChanged && IsDBOk);
         public bool IsChanged => (code != Log.code);
+
+        private bool IsDBOk => Console.IsDbOK;
 
         public TestScript(TestConsoleScript prmScript)
         {
@@ -212,6 +262,11 @@ namespace DooggyCLI
         }
 
         public void SetCode(string prmCode) => code = prmCode;
+        public void SetEnabled(bool prmHabilitar) => IsEnabled = prmHabilitar;
+
+        public void PlayCode() => Console.Play(code);
+        public bool SaveCode() => Console.SaveCode(prmCode: code);
+        public void UndoCode() => SetCode(prmCode: Log.code);
 
     }
 
@@ -234,24 +289,26 @@ namespace DooggyCLI
         private void Popular()
         {
 
-            foreach (TestConsoleScript Script in Editor.Console.GetScripts())
+            Editor.Console.Load();
+
+            foreach (TestConsoleScript Script in Editor.Console.Scripts)
                 Add(Script);
 
         }
 
         private void Add(TestConsoleScript prmScript) => base.Add(new TestScript(prmScript));
 
-        public bool Find(string prmName)
+        public bool Find(string prmKey)
         {
 
             foreach (TestScript Script in this)
                 
-                if (xString.IsEqual(Script.name, prmName))
+                if (xString.IsEqual(Script.name, prmKey))
                 {
 
                     Corrente = Script;
 
-                    return true;
+                    return Sincronizar();
 
                 }
 
@@ -259,6 +316,7 @@ namespace DooggyCLI
 
         }
 
+        private bool Sincronizar() => Editor.Console.SetScript(prmKey: Corrente.name);
 
     }
 

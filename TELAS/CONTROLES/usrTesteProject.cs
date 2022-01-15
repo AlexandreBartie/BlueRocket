@@ -15,6 +15,12 @@ namespace DooggyCLI.Telas
 
         private EditorScripts Editor;
 
+        private bool IsNodeSelected => (trvProjeto.SelectedNode != null);
+
+        private bool IsRootSelected => (IsNodeSelected && (trvProjeto.SelectedNode.Parent == null));
+
+        private bool IsItemSelected => (IsNodeSelected && !IsRootSelected);
+
         public usrTesteProject()
         {
             InitializeComponent();
@@ -22,13 +28,27 @@ namespace DooggyCLI.Telas
             SetTitulo(prmTexto: "Lista de Arquivos INI");
 
         }
+
+        private void mnuRefresh_Click(object sender, EventArgs e) => Editor.OnProjectRefresh();
+
+        private void trvProjeto_AfterCheck(object sender, TreeViewEventArgs e)
+        {
+
+            if (IsRootSelected)
+                InverterTodos();
+
+            else if (IsScriptSelected(prmKey: e.Node.Text))
+                Editor.OnScriptChecked(prmHabilitar: e.Node.Checked);
+
+        }
+
         private void trvProjeto_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            if (IsRootSelected())
-                Editor.OnRootINISelected();
+            if (IsRootSelected)
+                Editor.OnRootSelected();
 
-            else if (IsScriptSelected())
-                Editor.OnScriptSelected();
+            else if (IsScriptSelected(prmKey: trvProjeto.SelectedNode.Text))
+                Editor.OnScriptChanged();
 
         }
         public void Setup(EditorScripts prmEditor)
@@ -38,39 +58,69 @@ namespace DooggyCLI.Telas
 
             Editor.Config.SetPadrao(trvProjeto);
 
-            Popular();
+            Refresh();
 
         }
-        public void Popular()
+        
+        public new void Refresh()
         {
+
+            Popular();
+
+            StatusView();
+
+        }
+        
+        private void Popular()
+        {
+
+            trvProjeto.Nodes.Clear();
 
             TreeNode Pai = AddNode(prmItem: "ini");
 
             foreach (TestScript Script in Editor.Scripts)
-                AddNode(prmItem: Script.Log.nome_INI, Pai);
+                AddNode(prmItem: Script.Log.name_INI, Pai);
 
             Pai.Expand();
 
         }
 
-        public void Formatar()
+        public void View()
         {
 
-            trvProjeto.SelectedNode.ForeColor = Editor.GetForeColor();
+            if (Editor.TemScript)
+                trvProjeto.SelectedNode.ForeColor = Editor.GetForeColor();
+
+            StatusView();
 
         }
 
-        private bool IsRootSelected() => (trvProjeto.SelectedNode.Parent == null);
-
-        private bool IsScriptSelected()
+        private void StatusView()
         {
 
-            if ((trvProjeto.SelectedNode != null) && (trvProjeto.SelectedNode.Parent != null))
+            rodDBStatusOnLine.Visible = Editor.Console.IsDbOK;
 
-                if (Editor.SetScript(prmKey: trvProjeto.SelectedNode.Text))
+            rodDBStatusOffLine.Visible = !Editor.Console.IsDbOK;
+
+        }
+
+        private bool IsScriptSelected(string prmKey)
+        {
+
+            if (IsItemSelected)
+
+                if (Editor.SetScript(prmKey))
                     return true;
 
             return false;
+
+        }
+
+        private void InverterTodos()
+        {
+
+            //foreach (TreeNode item in trvProjeto.SelectedNode.Nodes)
+                //item.Checked = !(item.Checked);
 
         }
 

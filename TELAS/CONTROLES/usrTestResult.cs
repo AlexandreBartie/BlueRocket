@@ -32,21 +32,27 @@ namespace DooggyCLI.Telas
 
         }
 
-        public void Exibir()
+        public void View()
         {
 
-            txtMassaDados.Text = Editor.Log.resultado;
+            if (Editor.TemScript)
+            {
 
-            txtLogExecucao.Text = Editor.Log.txt;
+                txtMassaDados.Text = Editor.Log.data;
+                txtLogExecucao.Text = Editor.Log.txt;
 
-        }
+                txtMassaDados.ForeColor = Editor.GetForeColor();
+                txtLogExecucao.ForeColor = Editor.GetForeColor();
 
-        public void Formatar()
-        {
-            
-            txtMassaDados.ForeColor = Editor.GetForeColor();
+            }
+            else
+            {
 
-            txtLogExecucao.ForeColor = Editor.GetForeColor();
+                txtMassaDados.Text = "";
+                txtLogExecucao.Text = "";
+
+            }
+
 
         }
 

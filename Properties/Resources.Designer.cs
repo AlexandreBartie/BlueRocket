@@ -63,9 +63,9 @@ namespace DooggyCLI.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap cancelar {
+        internal static System.Drawing.Bitmap off_line {
             get {
-                object obj = ResourceManager.GetObject("cancelar", resourceCulture);
+                object obj = ResourceManager.GetObject("off-line", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,9 +73,9 @@ namespace DooggyCLI.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap confirmar {
+        internal static System.Drawing.Bitmap on_line {
             get {
-                object obj = ResourceManager.GetObject("confirmar", resourceCulture);
+                object obj = ResourceManager.GetObject("on-line", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

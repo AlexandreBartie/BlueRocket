@@ -34,12 +34,12 @@
             // 
             // usrAction
             // 
-            this.usrAction.BackColor = System.Drawing.Color.Silver;
+            this.usrAction.BackColor = System.Drawing.Color.Gainsboro;
             this.usrAction.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.usrAction.Location = new System.Drawing.Point(0, 394);
+            this.usrAction.Location = new System.Drawing.Point(0, 404);
             this.usrAction.Name = "usrAction";
-            this.usrAction.Size = new System.Drawing.Size(767, 39);
-            this.usrAction.TabIndex = 10;
+            this.usrAction.Size = new System.Drawing.Size(767, 29);
+            this.usrAction.TabIndex = 14;
             // 
             // txtCode
             // 
@@ -47,8 +47,9 @@
             this.txtCode.Location = new System.Drawing.Point(0, 40);
             this.txtCode.Multiline = true;
             this.txtCode.Name = "txtCode";
-            this.txtCode.Size = new System.Drawing.Size(767, 354);
-            this.txtCode.TabIndex = 13;
+            this.txtCode.Size = new System.Drawing.Size(767, 364);
+            this.txtCode.TabIndex = 15;
+            this.txtCode.TextChanged += new System.EventHandler(this.txtCode_TextChanged);
             // 
             // usrTestCode
             // 
@@ -66,6 +67,7 @@
         }
 
         #endregion
+
         private usrActionScript usrAction;
         private System.Windows.Forms.TextBox txtCode;
     }

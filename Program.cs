@@ -19,8 +19,8 @@ namespace DooggyCLI
             try
             {
 
-                Args.path_ini = @"c:\MassaTestes\POC\Console\INI\";
-                Args.path_out = @"C:\MassaTestes\POC\Console\OUT\PainelTestes\";
+                Args.path_ini = @"c:\MassaTestes\POC\CLI\INI\";
+                Args.path_out = @"C:\MassaTestes\POC\CLI\OUT\";
                 Args.db = @"{ 'branch': '1085', 'port': '1521', 'service': 'INTEGRATION.Prod01.redelocal.oraclevcn.com' }";
 
                 ModoExecucao(Args);
