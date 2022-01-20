@@ -9,6 +9,7 @@ namespace DooggyCLI
 
         static PainelCLI Painel;
 
+        [STAThread]
         static void Main(string[] args)
         {
 
@@ -49,15 +50,17 @@ namespace DooggyCLI
             try
             {
 
+                string arquivoCFG = @"C:\MassaTestes\POC\CLI\Integracao-SIA.cfg";
+
                 Painel = new PainelCLI();
 
                 Painel.SetApp(prmArgs.db, prmNomeApp: Application.ProductName, prmVersaoApp: Application.ProductVersion);
 
-                Painel.Setup(prmArgs.path_ini, prmArgs.path_out);
+                Painel.Start(arquivoCFG);
 
             }
-            catch
-            { }
+            catch (Exception e)
+            { Console.WriteLine(e.Message); };
 
         }
 

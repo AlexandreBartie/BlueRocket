@@ -1,6 +1,6 @@
 ﻿namespace DooggyCLI.Telas
 {
-    partial class frmTestScriptPainel
+    partial class frmEditorCLI
     {
         /// <summary>
         /// Required designer variable.
@@ -28,14 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmTestScriptPainel));
-            this.usrProjetoTeste = new DooggyCLI.Telas.usrTesteProject();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmEditorCLI));
+            this.usrProjetoTeste = new DooggyCLI.Telas.usrTestProject();
             this.splSeparadorH = new System.Windows.Forms.Splitter();
             this.usrResultadoTeste = new DooggyCLI.Telas.usrTestResult();
             this.splSeparadorV = new System.Windows.Forms.Splitter();
             this.usrScriptTeste = new DooggyCLI.Telas.usrTestCode();
-            this.Notify = new System.Windows.Forms.NotifyIcon(this.components);
             this.SuspendLayout();
             // 
             // usrProjetoTeste
@@ -83,13 +81,7 @@
             this.usrScriptTeste.Size = new System.Drawing.Size(697, 401);
             this.usrScriptTeste.TabIndex = 16;
             // 
-            // Notify
-            // 
-            this.Notify.Icon = ((System.Drawing.Icon)(resources.GetObject("Notify.Icon")));
-            this.Notify.Text = "Notify";
-            this.Notify.Visible = true;
-            // 
-            // frmTestScriptPainel
+            // frmEditorCLI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -101,7 +93,7 @@
             this.Controls.Add(this.splSeparadorH);
             this.Controls.Add(this.usrProjetoTeste);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "frmTestScriptPainel";
+            this.Name = "frmEditorCLI";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Console SCRIPT INI";
             this.Load += new System.EventHandler(this.frmTestDataFactoryConsole_Load);
@@ -111,11 +103,10 @@
 
         #endregion
 
-        private usrTesteProject usrProjetoTeste;
+        private usrTestProject usrProjetoTeste;
         private System.Windows.Forms.Splitter splSeparadorH;
         private usrTestResult usrResultadoTeste;
         private System.Windows.Forms.Splitter splSeparadorV;
         private usrTestCode usrScriptTeste;
-        private System.Windows.Forms.NotifyIcon Notify;
     }
 }

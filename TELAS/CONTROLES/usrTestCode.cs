@@ -12,7 +12,7 @@ namespace DooggyCLI.Telas
     public partial class usrTestCode : usrMoldura
     {
 
-        private EditorScripts Editor;
+        private EditorCLI Editor;
 
         private void txtCode_TextChanged(object sender, EventArgs e)
         {
@@ -20,7 +20,7 @@ namespace DooggyCLI.Telas
             if (Editor.TemScript)
             {
 
-                Editor.SetCode(txtCode.Text);
+                Editor.Console.SetCode(txtCode.Text);
 
                 Editor.OnScriptChanged();
 
@@ -37,12 +37,12 @@ namespace DooggyCLI.Telas
 
         }
 
-        public void Setup(EditorScripts prmEditor)
+        public void Setup(EditorCLI prmEditor)
         {
 
             Editor = prmEditor;
 
-            Editor.Config.SetPadrao(txtCode, prmEditavel: true);
+            Editor.Format.SetMemo(txtCode, prmEditavel: true);
 
             usrAction.Setup(prmEditor);
 
@@ -56,10 +56,10 @@ namespace DooggyCLI.Telas
 
                 SetTitulo(prmTexto: Editor.Script.title);
 
-                txtCode.Enabled = Editor.Script.IsEnabled;
+                txtCode.Enabled = !Editor.Script.IsLocked;
 
                 txtCode.Text = Editor.Script.code;
-                txtCode.ForeColor = Editor.GetForeColor();
+                txtCode.ForeColor = Editor.GetColorCode();
 
             }
             else
@@ -73,6 +73,9 @@ namespace DooggyCLI.Telas
 
             }
 
+            usrAction.Refresh();
+
         }
+
     }
 }

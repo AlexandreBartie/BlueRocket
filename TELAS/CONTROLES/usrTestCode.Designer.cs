@@ -28,18 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.usrAction = new DooggyCLI.Telas.usrActionScript();
             this.txtCode = new System.Windows.Forms.TextBox();
+            this.usrAction = new usrActionCode();
             this.SuspendLayout();
-            // 
-            // usrAction
-            // 
-            this.usrAction.BackColor = System.Drawing.Color.Gainsboro;
-            this.usrAction.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.usrAction.Location = new System.Drawing.Point(0, 404);
-            this.usrAction.Name = "usrAction";
-            this.usrAction.Size = new System.Drawing.Size(767, 29);
-            this.usrAction.TabIndex = 14;
             // 
             // txtCode
             // 
@@ -47,9 +38,17 @@
             this.txtCode.Location = new System.Drawing.Point(0, 40);
             this.txtCode.Multiline = true;
             this.txtCode.Name = "txtCode";
-            this.txtCode.Size = new System.Drawing.Size(767, 364);
+            this.txtCode.Size = new System.Drawing.Size(767, 368);
             this.txtCode.TabIndex = 15;
             this.txtCode.TextChanged += new System.EventHandler(this.txtCode_TextChanged);
+            // 
+            // usrAction
+            // 
+            this.usrAction.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.usrAction.Location = new System.Drawing.Point(0, 408);
+            this.usrAction.Name = "usrAction";
+            this.usrAction.Size = new System.Drawing.Size(767, 25);
+            this.usrAction.TabIndex = 16;
             // 
             // usrTestCode
             // 
@@ -67,8 +66,7 @@
         }
 
         #endregion
-
-        private usrActionScript usrAction;
         private System.Windows.Forms.TextBox txtCode;
+        private usrActionCode usrAction;
     }
 }

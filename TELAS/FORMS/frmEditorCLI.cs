@@ -10,31 +10,34 @@ using System.Windows.Forms;
 
 namespace DooggyCLI.Telas
 {
-    public partial class frmTestScriptPainel : Form
+    public partial class frmEditorCLI : Form
     {
 
-        private EditorScripts Editor;
+        private EditorCLI Editor;
 
-        public frmTestScriptPainel()
+        public frmEditorCLI()
         {
             InitializeComponent();
         }
 
-        public void Setup(EditorScripts prmEditor)
+        public void Setup(EditorCLI prmEditor)
         {
 
             Editor = prmEditor;
 
-            Editor.Config.SetPadrao(splSeparadorH);
-            Editor.Config.SetPadrao(splSeparadorV);
+            Editor.Format.SetPadrao(splSeparadorH);
+            Editor.Format.SetPadrao(splSeparadorV);
+
+            Editor.MultiSelection += MultiSelection;
 
             Editor.ProjectRefresh += ProjectRefresh;
 
-            Editor.ScriptChanged += ScriptView;
+            Editor.ScriptLocked += ScriptLocked;
+            Editor.ScriptChanged += ScriptChanged;
 
-            Editor.ScriptPlay += ScriptPlay;
-            Editor.ScriptSave += ScriptSave;
-            Editor.ScriptUndo += ScriptUndo;
+            Editor.CodePlay += ScriptPlay;
+            Editor.CodeSave += ScriptSave;
+            Editor.CodeUndo += ScriptUndo;
 
             Editor.Refresh();
 
@@ -45,18 +48,17 @@ namespace DooggyCLI.Telas
         private void frmTestDataFactoryConsole_Load(object sender, EventArgs e)
         {
 
-            IniciarSetup();
-
-        }
-
-        private void IniciarSetup()
-        {
-
             usrProjetoTeste.Setup(Editor);
 
             usrScriptTeste.Setup(Editor);
 
             usrResultadoTeste.Setup(Editor);
+
+        }
+        private void MultiSelection()
+        {
+
+            usrProjetoTeste.MultiSelection();
 
         }
 
@@ -67,11 +69,11 @@ namespace DooggyCLI.Telas
 
             usrProjetoTeste.Refresh();
 
-            ScriptView();
+            ScriptChanged();
 
         }
 
-        private void ScriptView()
+        private void ScriptChanged()
         {
 
             usrProjetoTeste.View();
@@ -82,6 +84,15 @@ namespace DooggyCLI.Telas
 
         }
 
+        private void ScriptLocked()
+        {
+
+            Editor.Script.SetLocked();
+
+            Editor.OnScriptChanged();
+
+        }
+        
         private void ScriptPlay()
         {
 

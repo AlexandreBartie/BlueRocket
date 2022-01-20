@@ -12,7 +12,7 @@ namespace DooggyCLI.Telas
     public partial class usrTestResult : usrMoldura
     {
 
-        private EditorScripts Editor;
+        private EditorCLI Editor;
 
         public usrTestResult()
         {
@@ -22,13 +22,13 @@ namespace DooggyCLI.Telas
 
         }
 
-        public void Setup(EditorScripts prmEditor)
+        public void Setup(EditorCLI prmEditor)
         {
 
             Editor = prmEditor;
 
-            Editor.Config.SetPadrao(txtMassaDados);
-            Editor.Config.SetPadrao(txtLogExecucao);
+            Editor.Format.SetMemo(txtMassaDados);
+            Editor.Format.SetMemo(txtLogExecucao);
 
         }
 
@@ -38,11 +38,11 @@ namespace DooggyCLI.Telas
             if (Editor.TemScript)
             {
 
-                txtMassaDados.Text = Editor.Log.data;
-                txtLogExecucao.Text = Editor.Log.txt;
+                txtMassaDados.Text = Editor.Result.data;
+                txtLogExecucao.Text = Editor.Result.log;
 
-                txtMassaDados.ForeColor = Editor.GetForeColor();
-                txtLogExecucao.ForeColor = Editor.GetForeColor();
+                txtMassaDados.ForeColor = Editor.GetColorLog();
+                txtLogExecucao.ForeColor = Editor.GetColorLog();
 
             }
             else

@@ -8,18 +8,18 @@
     <AssemblyVersion></AssemblyVersion>
     <FileVersion></FileVersion>
     <Version>1.0.0</Version>
-    <ApplicationIcon>DooggyCLI.ico</ApplicationIcon>
+    <ApplicationIcon>Rocket.ico</ApplicationIcon>
     <UseWindowsForms>True</UseWindowsForms>
     <StartupObject>DooggyCLI.Program</StartupObject>
-    <PackageIcon>DooggyCLI.png</PackageIcon>
+    <PackageIcon>Rocket.png</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="DooggyCLI.ico" />
+    <Content Include="Rocket.ico" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DOOGGY\DOOGGY.csproj" />
+    <PackageReference Include="MyDooggy" Version="1.0.8" />
   </ItemGroup>
 
   <ItemGroup>
@@ -39,6 +39,14 @@
 
   <ItemGroup>
     <None Update="DooggyCLI.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Update="Rocket.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Update="RocketCLI.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>

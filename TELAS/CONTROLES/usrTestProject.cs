@@ -10,18 +10,18 @@ using DooggyCLI;
 
 namespace DooggyCLI.Telas
 {
-    public partial class usrTesteProject : usrMoldura
+    public partial class usrTestProject : usrMoldura
     {
 
-        private EditorScripts Editor;
+        private EditorCLI Editor;
+
+        private TreeNode Root;
 
         private bool IsNodeSelected => (trvProjeto.SelectedNode != null);
-
         private bool IsRootSelected => (IsNodeSelected && (trvProjeto.SelectedNode.Parent == null));
-
         private bool IsItemSelected => (IsNodeSelected && !IsRootSelected);
 
-        public usrTesteProject()
+        public usrTestProject()
         {
             InitializeComponent();
 
@@ -31,43 +31,46 @@ namespace DooggyCLI.Telas
 
         private void mnuRefresh_Click(object sender, EventArgs e) => Editor.OnProjectRefresh();
 
+        private void trvProjeto_DoubleClick(object sender, EventArgs e)
+        {
+            if (IsItemSelected)
+                Editor.OnScriptLocked();
+        }
+
         private void trvProjeto_AfterCheck(object sender, TreeViewEventArgs e)
         {
 
             if (IsRootSelected)
                 InverterTodos();
 
-            else if (IsScriptSelected(prmKey: e.Node.Text))
-                Editor.OnScriptChecked(prmHabilitar: e.Node.Checked);
-
         }
 
         private void trvProjeto_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            if (IsRootSelected)
-                Editor.OnRootSelected();
 
-            else if (IsScriptSelected(prmKey: trvProjeto.SelectedNode.Text))
+            if (IsScriptSelected(prmKey: trvProjeto.SelectedNode.Text))
                 Editor.OnScriptChanged();
 
         }
-        public void Setup(EditorScripts prmEditor)
+        public void Setup(EditorCLI prmEditor)
         {
 
             Editor = prmEditor;
 
-            Editor.Config.SetPadrao(trvProjeto);
+            Editor.Format.SetPadrao(trvProjeto);
+
+            usrAction.Setup(Editor.Painel);
 
             Refresh();
 
         }
-        
+    
         public new void Refresh()
         {
 
             Popular();
 
-            StatusView();
+            usrAction.Refresh();
 
         }
         
@@ -76,12 +79,12 @@ namespace DooggyCLI.Telas
 
             trvProjeto.Nodes.Clear();
 
-            TreeNode Pai = AddNode(prmItem: "ini");
+            Root = AddNode(prmItem: "ini");
 
             foreach (TestScript Script in Editor.Scripts)
-                AddNode(prmItem: Script.Log.name_INI, Pai);
+                AddNode(prmItem: Script.Result.name_INI, Root);
 
-            Pai.Expand();
+            Root.Expand();
 
         }
 
@@ -89,18 +92,19 @@ namespace DooggyCLI.Telas
         {
 
             if (Editor.TemScript)
-                trvProjeto.SelectedNode.ForeColor = Editor.GetForeColor();
+                trvProjeto.SelectedNode.ForeColor = Editor.GetColorLog();
 
-            StatusView();
+            usrAction.Refresh();
 
         }
 
-        private void StatusView()
-        {
+        public void MultiSelection()
+        { 
+            trvProjeto.CheckBoxes = Editor.IsMultiSelection; 
+            
+            Root.Expand();
 
-            rodDBStatusOnLine.Visible = Editor.Console.IsDbOK;
-
-            rodDBStatusOffLine.Visible = !Editor.Console.IsDbOK;
+            usrAction.Refresh();
 
         }
 

@@ -11,19 +11,19 @@ namespace DooggyCLI.Telas
     public partial class usrTitulo : UserControl
     {
 
-        private EditorScripts Editor;
+        private EditorCLI Editor;
 
         public usrTitulo()
         {
             InitializeComponent();
         }
 
-        public void Setup(EditorScripts prmEditor)
+        public void Setup(EditorCLI prmEditor)
         {
 
             Editor = prmEditor;
 
-            Editor.Config.SetPadrao(cmdTitulo);
+            Editor.Format.SetPadrao(cmdTitulo);
 
         }
         public void SetTitulo(string prmTexto) { cmdTitulo.Text = prmTexto; }
