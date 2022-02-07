@@ -44,6 +44,7 @@
             this.cmdTitulo.TabIndex = 0;
             this.cmdTitulo.Text = "<<< TITULO >>>";
             this.cmdTitulo.UseVisualStyleBackColor = false;
+            this.cmdTitulo.Click += new System.EventHandler(this.cmdTitulo_Click);
             // 
             // usrTitulo
             // 

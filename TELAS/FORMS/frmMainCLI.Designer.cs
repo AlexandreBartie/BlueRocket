@@ -1,6 +1,6 @@
 ﻿namespace DooggyCLI.Telas
 {
-    partial class frmEditorCLI
+    partial class frmMainCLI
     {
         /// <summary>
         /// Required designer variable.
@@ -28,29 +28,31 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmEditorCLI));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMainCLI));
             this.usrProjetoTeste = new DooggyCLI.Telas.usrTestProject();
             this.splSeparadorH = new System.Windows.Forms.Splitter();
             this.usrResultadoTeste = new DooggyCLI.Telas.usrTestResult();
             this.splSeparadorV = new System.Windows.Forms.Splitter();
             this.usrScriptTeste = new DooggyCLI.Telas.usrTestCode();
+            this.usrWaiting = new DooggyCLI.Telas.usrWaiting();
+            this.usrMenu = new DooggyCLI.TELAS.ACTION.usrActionMain();
             this.SuspendLayout();
             // 
             // usrProjetoTeste
             // 
             this.usrProjetoTeste.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.usrProjetoTeste.Dock = System.Windows.Forms.DockStyle.Left;
-            this.usrProjetoTeste.Location = new System.Drawing.Point(0, 0);
+            this.usrProjetoTeste.Location = new System.Drawing.Point(0, 27);
             this.usrProjetoTeste.Name = "usrProjetoTeste";
-            this.usrProjetoTeste.Size = new System.Drawing.Size(557, 780);
+            this.usrProjetoTeste.Size = new System.Drawing.Size(557, 753);
             this.usrProjetoTeste.TabIndex = 8;
             // 
             // splSeparadorH
             // 
             this.splSeparadorH.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.splSeparadorH.Location = new System.Drawing.Point(557, 0);
+            this.splSeparadorH.Location = new System.Drawing.Point(557, 27);
             this.splSeparadorH.Name = "splSeparadorH";
-            this.splSeparadorH.Size = new System.Drawing.Size(3, 780);
+            this.splSeparadorH.Size = new System.Drawing.Size(3, 753);
             this.splSeparadorH.TabIndex = 9;
             this.splSeparadorH.TabStop = false;
             // 
@@ -76,12 +78,30 @@
             // 
             this.usrScriptTeste.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.usrScriptTeste.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.usrScriptTeste.Location = new System.Drawing.Point(560, 0);
+            this.usrScriptTeste.Location = new System.Drawing.Point(560, 27);
             this.usrScriptTeste.Name = "usrScriptTeste";
-            this.usrScriptTeste.Size = new System.Drawing.Size(697, 401);
+            this.usrScriptTeste.Size = new System.Drawing.Size(697, 374);
             this.usrScriptTeste.TabIndex = 16;
             // 
-            // frmEditorCLI
+            // usrWaiting
+            // 
+            this.usrWaiting.BackColor = System.Drawing.Color.Transparent;
+            this.usrWaiting.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.usrWaiting.Location = new System.Drawing.Point(516, 291);
+            this.usrWaiting.Name = "usrWaiting";
+            this.usrWaiting.Size = new System.Drawing.Size(194, 162);
+            this.usrWaiting.TabIndex = 17;
+            this.usrWaiting.Visible = false;
+            // 
+            // usrMenu
+            // 
+            this.usrMenu.Dock = System.Windows.Forms.DockStyle.Top;
+            this.usrMenu.Location = new System.Drawing.Point(0, 0);
+            this.usrMenu.Name = "usrMenu";
+            this.usrMenu.Size = new System.Drawing.Size(1257, 27);
+            this.usrMenu.TabIndex = 18;
+            // 
+            // frmMainCLI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -92,8 +112,10 @@
             this.Controls.Add(this.usrResultadoTeste);
             this.Controls.Add(this.splSeparadorH);
             this.Controls.Add(this.usrProjetoTeste);
+            this.Controls.Add(this.usrWaiting);
+            this.Controls.Add(this.usrMenu);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "frmEditorCLI";
+            this.Name = "frmMainCLI";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Console SCRIPT INI";
             this.Load += new System.EventHandler(this.frmTestDataFactoryConsole_Load);
@@ -108,5 +130,7 @@
         private usrTestResult usrResultadoTeste;
         private System.Windows.Forms.Splitter splSeparadorV;
         private usrTestCode usrScriptTeste;
+        private usrWaiting usrWaiting;
+        private TELAS.ACTION.usrActionMain usrMenu;
     }
 }

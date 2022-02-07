@@ -5,87 +5,54 @@ using System.Text;
 
 namespace DooggyCLI
 {
-    public class PageCLI : FormBase
+    public class EditorPageCLI : EditorPageBase
     {
         
-        private PageCLI_Painel Main;
+        private EditorPageCLI_Main Main;
 
-        private PageCLI_Editor Editor;
+        private EditorPageCLI_About About;
 
-        private PageCLI_About About;
-
-        public PageCLI(PainelCLI prmPainel)
+        public EditorPageCLI(EditorCLI prmEditor)
         {
 
-            Painel = prmPainel;
+            Editor = prmEditor;
 
-            Main = new PageCLI_Painel();
+            Main = new EditorPageCLI_Main();
 
-            Editor = new PageCLI_Editor();
-
-            About = new PageCLI_About();
+            About = new EditorPageCLI_About();
 
         }
 
-        public void PainelShow() => Main.Show();
-        public void EditorShow() => Editor.Show();
+        public void MainShow() => Main.Show();
         public void AboutShow() => About.Show();
 
+        public void SetAction(string prmTexto) => Main.SetAction(prmTexto);
+
     }
-    
-    
-    public class PageCLI_Painel : FormBase
+
+    public class EditorPageCLI_Main : EditorPageBase
     {
 
-        private frmPainelCLI FormLocal;
+        private frmMainCLI FormLocal;
 
-        public void Show()
-        {
+        public void Show() { FormLocal = new frmMainCLI(); FormLocal.Setup(Editor); }
 
-            FormLocal = new frmPainelCLI();
-
-            FormLocal.Setup(Painel);
-
-        }
+        public void SetAction(string prmTexto) => FormLocal.SetAction(prmTexto);
 
     }
 
-    public class PageCLI_Editor : FormBase
-    {
-
-        private frmEditorCLI FormLocal;
-
-        public void Show()
-        {
-
-            FormLocal = new frmEditorCLI();
-
-            FormLocal.Setup(Painel.Editor);
-
-        }
-
-    }
-
-
-    public class PageCLI_About : FormBase
+    public class EditorPageCLI_About : EditorPageBase
     {
 
         private frmAboutBox FormLocal;
 
-        public void Show()
-        {
-
-            FormLocal = new frmAboutBox();
-
-            FormLocal.Setup(Painel);
-
-        }
+        public void Show() { FormLocal = new frmAboutBox(); FormLocal.Setup(Editor); }
 
     }
 
-    public class FormBase
+    public class EditorPageBase
     {
-        public static PainelCLI Painel;
+        public static EditorCLI Editor;
     }
 
 }

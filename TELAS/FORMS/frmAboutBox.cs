@@ -10,7 +10,7 @@ namespace DooggyCLI
     partial class frmAboutBox : Form
     {
 
-        private PainelCLI Painel;
+        private EditorCLI Editor;
 
         private void cmdClose_Click(object sender, EventArgs e) => this.Close();
 
@@ -21,10 +21,10 @@ namespace DooggyCLI
 
         }
 
-        public void Setup(PainelCLI prmPainel)
+        public void Setup(EditorCLI prmEditor)
         {
 
-            Painel = prmPainel;
+            Editor = prmEditor;
 
             //Painel.Format.SetPadrao(splSeparadorH);
             //Painel.Format.SetPadrao(splSeparadorV);

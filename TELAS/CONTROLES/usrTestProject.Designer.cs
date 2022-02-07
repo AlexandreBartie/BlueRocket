@@ -42,6 +42,7 @@
             this.trvProjeto.Name = "trvProjeto";
             this.trvProjeto.Size = new System.Drawing.Size(663, 441);
             this.trvProjeto.TabIndex = 7;
+            this.trvProjeto.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.trvProjeto_AfterCheck);
             this.trvProjeto.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.trvProjeto_AfterSelect);
             this.trvProjeto.DoubleClick += new System.EventHandler(this.trvProjeto_DoubleClick);
             // 

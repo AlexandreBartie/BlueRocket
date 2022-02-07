@@ -13,13 +13,19 @@ namespace DooggyCLI.Telas
         
         private EditorCLI Editor;
 
-        private void rodCodeEditionON_Click(object sender, EventArgs e) => Editor.OnScriptLocked();
-        private void rodCodeEditionOFF_Click(object sender, EventArgs e) => Editor.OnScriptLocked();
+        private void rodCodeEditionON_Click(object sender, EventArgs e) => Editor.OnScriptCodeLocked();
+        private void rodCodeEditionOFF_Click(object sender, EventArgs e) => Editor.OnScriptCodeLocked();
 
-        private void rodPlayCode_Click(object sender, EventArgs e) => Editor.OnCodePlay();
-        private void rodPlaySave_Click(object sender, EventArgs e) => Editor.OnPlaySave();
-        private void rodSaveCode_Click(object sender, EventArgs e) => Editor.OnCodeSave();
-        private void rodUndoCode_Click(object sender, EventArgs e) => Editor.OnCodeUndo();
+        private void rodPlayCode_Click(object sender, EventArgs e) => Editor.OnScriptCodePlay();
+
+        private void rodStopPlaying_Click(object sender, EventArgs e) => Editor.OnScriptPlayStop();
+
+        private void rodPlaySave_Click(object sender, EventArgs e) => Editor.OnScriptPlaySave();
+        private void rodSaveCode_Click(object sender, EventArgs e) => Editor.OnScriptCodeSave();
+        private void rodUndoCode_Click(object sender, EventArgs e) => Editor.OnScriptCodeUndo();
+
+        private void rodLogOK_Click(object sender, EventArgs e) => Editor.OnScriptResultOK();
+        private void rodLogError_Click(object sender, EventArgs e) => Editor.OnScriptResultError();
 
         public usrActionCode()
         {
@@ -39,7 +45,6 @@ namespace DooggyCLI.Telas
 
         public new void Refresh()
         {
-
             rodStatus.Visible = Editor.TemScript;
 
             if (Editor.TemScript)
@@ -47,13 +52,17 @@ namespace DooggyCLI.Telas
 
                 Editor.Format.SetTurnOnOff(prmON: Editor.Script.ICanEdit, rodCodeEditionON, rodCodeEditionOFF);
 
+                rodLogOK.Visible = Editor.Script.IsLogOK && !Editor.Script.IsPlaying;
+                rodLogError.Visible = Editor.Script.IsLogError && !Editor.Script.IsPlaying;
+
                 rodCodePlay.Visible = Editor.Script.ICanPlay;
-                rodStopPlay.Visible = Editor.IsCodePlaying ;
+
+                rodCodePlaying.Visible = Editor.Script.IsPlaying;
+                rodCodeStop.Visible = false;
 
                 rodPlaySave.Visible = Editor.Script.ICanPlaySave;
                 rodCodeSave.Visible = Editor.Script.ICanSave;
                 rodCodeUndo.Visible = Editor.Script.ICanUndo;
-
             }
 
         }

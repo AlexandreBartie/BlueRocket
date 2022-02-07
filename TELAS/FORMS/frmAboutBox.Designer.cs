@@ -115,7 +115,7 @@
             this.lblFramework.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lblFramework.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblFramework.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.lblFramework.Location = new System.Drawing.Point(48, 232);
+            this.lblFramework.Location = new System.Drawing.Point(50, 229);
             this.lblFramework.Name = "lblFramework";
             this.lblFramework.Size = new System.Drawing.Size(152, 23);
             this.lblFramework.TabIndex = 22;

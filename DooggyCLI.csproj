@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MyDooggy" Version="1.0.8" />
+    <ProjectReference Include="..\DOOGGY\DOOGGY.csproj" />
   </ItemGroup>
 
   <ItemGroup>

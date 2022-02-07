@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dooggy;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,7 @@ namespace DooggyCLI.Telas
     public partial class usrActionConfig : UserControl
     {
 
-        Thread td;
-
-        private PainelCLI Painel;
+        private EditorCLI Editor;
 
         public usrActionConfig()
         {
@@ -22,79 +21,25 @@ namespace DooggyCLI.Telas
         }
         private void cmdPath_Click(object sender, EventArgs e)
         {
-            SelecionarArquivoCFG();
+            //SelecionarArquivoCFG();
         }
 
-        public void Setup(PainelCLI prmPainel)
+        public void Setup(EditorCLI prmEditor)
         {
-            Painel = prmPainel;
+            Editor = prmEditor;
 
-            Painel.Format.SetPadrao(txtPath, prmEditavel: false);
-            Painel.Format.SetPadrao(cmdPath);
+           // Painel.Format.SetPadrao(txtPath, prmEditavel: false);
+           // Painel.Format.SetPadrao(cmdPath);
 
         }
 
         public new void Refresh()
         {
 
-            txtPath.Text = Painel.Console.Config.Input.arquivoCFG;
+            txtPath.Text = Editor.Project.nome;
 
         }
 
-        private void TreadSelecionarArquivoCFG()
-        {
-
-            td = new Thread(new ThreadStart(this.SelecionarArquivoCFG));
-            td.IsBackground = true;
-            td.Start();
-
-        }
-
-        [STAThread]
-        private void SelecionarArquivoCFG()
-        {
-
-            //OpenFileDialog painel = new OpenFileDialog();
-
-            Invoker I = new Invoker();
-
-            I.Dialog.Filter = "Config files (*.cfg)|*.cfg";
-
-            if (I.Invoke() == DialogResult.OK)
-            {
-                Painel.OnProjectSelected(prmArquivoCFG: I.Dialog.FileName);
-            }
-
-        }
-
-    }
-    public class Invoker
-    {
-        
-        public OpenFileDialog Dialog;
-
-        private Thread Thread;
-        private DialogResult Result;
-
-        public Invoker()
-        {
-            Dialog = new OpenFileDialog();
-            Thread = new Thread(new ThreadStart(InvokeMethod));
-            Thread.SetApartmentState(ApartmentState.STA);
-            Result = DialogResult.None;
-        }
-
-        public DialogResult Invoke()
-        {
-            Thread.Start();
-            Thread.Join();
-            return Result;
-        }
-
-        private void InvokeMethod()
-        {
-            Result = Dialog.ShowDialog();
-        }
     }
 
 }

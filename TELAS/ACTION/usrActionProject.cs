@@ -12,48 +12,49 @@ namespace DooggyCLI.Telas
     public partial class usrActionProject : UserControl
     {
 
-        private PainelCLI Painel;
-        private EditorCLI Editor => Painel.Editor;
+        private EditorCLI Editor;
 
         public usrActionProject()
         {
             InitializeComponent();
         }
+        private void usrActionProject_Load(object sender, EventArgs e) => this.Size = rodStatus.Size;
 
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e) => Painel.Page.AboutShow();
-        private void rodMultiSelection_Click(object sender, EventArgs e) => Editor.OnMultiSelection(rodMultiSelection.Checked);
-        private void rodProjectRefresh_Click(object sender, EventArgs e) => Editor.OnProjectRefresh();
+        private void rodMultiSelect_Click(object sender, EventArgs e) => Editor.OnMultiSelect(rodMultiSelect.Checked);
+        private void rodDBStatusOffLine_Click(object sender, EventArgs e) => Editor.OnProjectDBConnect();
 
-
-        private void rodSaveAll_Click(object sender, EventArgs e)
+        public void Setup(EditorCLI prmEditor)
         {
-
-        }
-
-        private void rodPlayAll_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        public void Setup(PainelCLI prmPainel)
-        {
-            Painel = prmPainel;
+            Editor = prmEditor;
 
             Editor.Format.SetPadrao(rodStatus);
         }
-        private void usrActionProject_Load(object sender, EventArgs e)
+        public void View()
         {
-            this.Size = rodStatus.Size;
+
+            rodMultiSelect.Visible = Editor.TemScript;
+
+            rodSeparator.Visible = Editor.IsRunning;
+            rodProgressBar.Visible = Editor.IsRunning;
+
+            rodStatusDB.Visible = Editor.TemProject;
+
+            Editor.Format.SetTurnOnOff(prmON: Editor.IsDbOK, rodDBStatusOnLine, rodDBStatusOffLine, rodStatusDB);
+
+            ViewBatch();
         }
 
-        public new void Refresh()
+        public void ViewBatch()
         {
-            Editor.Format.SetTurnOnOff(prmON: Editor.IsDbOk, rodDBStatusOnLine, rodDBStatusOffLine);
-
-            rodCodePlayAll.Visible = Editor.ICanPlayAll;
-            rodPlaySaveAll.Visible = Editor.ICanSaveAll;
-
+            if (Editor.IsRunning)
+            {
+                rodProgressBar.Minimum = 0;
+                rodProgressBar.Value = Editor.Batch.cont;
+                rodProgressBar.Maximum = Editor.Batch.qtde;
+            }
         }
+
+        public void SetAction(string prmTexto) => rodAction.Text = prmTexto;
 
     }
 }

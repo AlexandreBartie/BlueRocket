@@ -8,10 +8,15 @@ using System.Windows.Forms;
 
 namespace DooggyCLI.Telas
 {
+    public delegate void Notify_TituloClick();
     public partial class usrTitulo : UserControl
     {
 
+        public event Notify_TituloClick TituloClick;
+
         private EditorCLI Editor;
+
+        private void cmdTitulo_Click(object sender, EventArgs e) => TituloClick?.Invoke();
 
         public usrTitulo()
         {
@@ -20,12 +25,11 @@ namespace DooggyCLI.Telas
 
         public void Setup(EditorCLI prmEditor)
         {
-
             Editor = prmEditor;
 
             Editor.Format.SetPadrao(cmdTitulo);
-
         }
+
         public void SetTitulo(string prmTexto) { cmdTitulo.Text = prmTexto; }
 
     }

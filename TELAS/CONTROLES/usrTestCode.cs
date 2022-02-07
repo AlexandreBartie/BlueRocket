@@ -14,6 +14,7 @@ namespace DooggyCLI.Telas
 
         private EditorCLI Editor;
 
+        private void txtCode_KeyPress(object sender, KeyPressEventArgs e) => Editor.OnScriptCodeEditing();
         private void txtCode_TextChanged(object sender, EventArgs e)
         {
 
@@ -22,12 +23,13 @@ namespace DooggyCLI.Telas
 
                 Editor.Console.SetCode(txtCode.Text);
 
-                Editor.OnScriptChanged();
+                Editor.OnScriptCodeChanged();
 
             }
 
         }
-        
+     
+
         public usrTestCode()
         {
          
@@ -42,7 +44,7 @@ namespace DooggyCLI.Telas
 
             Editor = prmEditor;
 
-            Editor.Format.SetMemo(txtCode, prmEditavel: true);
+            Editor.Format.SetMemo(txtCode);
 
             usrAction.Setup(prmEditor);
 
@@ -56,11 +58,12 @@ namespace DooggyCLI.Telas
 
                 SetTitulo(prmTexto: Editor.Script.title);
 
-                txtCode.Enabled = !Editor.Script.IsLocked;
+                txtCode.Enabled = true;
+                txtCode.ReadOnly = Editor.Script.IsLocked;
 
                 txtCode.Text = Editor.Script.code;
-                txtCode.ForeColor = Editor.GetColorCode();
-
+                txtCode.ForeColor = Editor.Script.Cor.GetCodeForeColor();
+                txtCode.BackColor = Editor.Script.Cor.GetCodeBackColor();
             }
             else
             {
