@@ -6,12 +6,12 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using DooggyCLI;
 using Dooggy;
 using Dooggy.Tools.Util;
 using Dooggy.Lib.Vars;
+using Rocket;
 
-namespace DooggyCLI.Telas
+namespace Rocket.Telas
 {
     public partial class usrTestProject : usrMoldura
     {

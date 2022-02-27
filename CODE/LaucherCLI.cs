@@ -2,12 +2,12 @@
 using System.Diagnostics;
 using System.Collections.Generic;
 using Dooggy.Factory;
-using DooggyCLI.Telas;
+using Rocket.Telas;
 using System.Drawing;
 using System.Windows.Forms;
 using Dooggy.Factory.Console;
 
-namespace DooggyCLI
+namespace Rocket
 {
 
     public class LaucherCLI

@@ -5,9 +5,9 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using DooggyCLI;
+using Rocket;
 
-namespace DooggyCLI.Telas
+namespace Rocket.Telas
 {
     public partial class usrTestCode : usrMoldura
     {

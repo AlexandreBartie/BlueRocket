@@ -1,4 +1,4 @@
-﻿namespace DooggyCLI.Telas
+﻿namespace Rocket.Telas
 {
     partial class usrTestProject
     {
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.trvProjeto = new System.Windows.Forms.TreeView();
-            this.usrAction = new DooggyCLI.Telas.usrActionProject();
+            this.usrAction = new Rocket.Telas.usrActionProject();
             this.SuspendLayout();
             // 
             // trvProjeto

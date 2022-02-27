@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dooggy.Factory;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -6,12 +7,8 @@ using System.Drawing;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
-using Dooggy;
-using Dooggy.Factory;
-using Dooggy.Tools.Util;
-using DooggyCLI;
 
-namespace DooggyCLI.Telas
+namespace Rocket.Telas
 {
 
     public enum ePageResult : int

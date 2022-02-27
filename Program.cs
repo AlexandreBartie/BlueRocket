@@ -1,28 +1,32 @@
+using Rocket;
 using System;
 using System.Data.SqlClient;
 using System.Windows.Forms;
 
-namespace DooggyCLI
+namespace Rocket
 {
     static class Program
     {
 
         static EditorCLI Editor;
         
-        static string arquivoCFG = @"C:\MassaTestes\VICTOR\victuor.cfg";
+        //static string arquivoCFG = @"C:\MassaTestes\VICTOR\victor.cfg";
         //static string arquivoCFG = @"C:\MassaTestes\POC\CLI\projeto-teste.cfg";
 
         [STAThread]
         static void Main(string[] args)
         {
-          
+
+            Editor = new EditorCLI();
+
             Console.WriteLine(string.Format("Programa: {0} - Versão: {1}", Application.ProductName, Application.ProductVersion));
 
             try
             {
-
-                ModoExecucao(arquivoCFG);
-
+                if (args.Length == 0)
+                    ModoPainel();
+                else
+                    ModoGerador(prmArquivoCFG: args[0]);
             }
             catch
             {
@@ -36,15 +40,27 @@ namespace DooggyCLI
 
         }
 
-        static void ModoExecucao(string prmArquivoCFG)
+        static void ModoPainel()
         {
 
             try
             {
 
-                Editor = new EditorCLI();
+                Editor.Start();
 
-                Editor.Start(); // prmArquivoCFG);
+            }
+            catch (Exception e)
+            { Console.WriteLine(e.Message); };
+
+        }
+
+        static void ModoGerador(string prmArquivoCFG)
+        {
+
+            try
+            {
+
+                Editor.Start(prmArquivoCFG);
 
             }
             catch (Exception e)

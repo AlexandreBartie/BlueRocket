@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-namespace DooggyCLI.Telas
+namespace Rocket.Telas
 {
     public partial class usrWaiting : UserControl
     {

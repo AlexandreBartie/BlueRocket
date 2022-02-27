@@ -1,13 +1,13 @@
-﻿using DooggyCLI.Telas;
+﻿using Rocket.Telas;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DooggyCLI
+namespace Rocket
 {
     public class EditorPageCLI : EditorPageBase
     {
-        
+
         private EditorPageCLI_Main Main;
 
         private EditorPageCLI_About About;

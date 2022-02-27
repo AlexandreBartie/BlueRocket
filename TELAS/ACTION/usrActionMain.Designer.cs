@@ -1,4 +1,4 @@
-﻿namespace DooggyCLI.TELAS.ACTION
+﻿namespace Rocket.TELAS.ACTION
 {
     partial class usrActionMain
     {
@@ -99,7 +99,7 @@
             // 
             // mnuProjectRefresh
             // 
-            this.mnuProjectRefresh.Image = global::DooggyCLI.Properties.Resources.refresh;
+            this.mnuProjectRefresh.Image = global::Rocket.Properties.Resources.refresh;
             this.mnuProjectRefresh.Name = "mnuProjectRefresh";
             this.mnuProjectRefresh.Size = new System.Drawing.Size(180, 22);
             this.mnuProjectRefresh.Text = "Refresh";
@@ -147,7 +147,7 @@
             // 
             // mnuPlayAll
             // 
-            this.mnuPlayAll.Image = global::DooggyCLI.Properties.Resources.play;
+            this.mnuPlayAll.Image = global::Rocket.Properties.Resources.play;
             this.mnuPlayAll.Name = "mnuPlayAll";
             this.mnuPlayAll.Size = new System.Drawing.Size(180, 22);
             this.mnuPlayAll.Text = "Play All";
@@ -155,7 +155,7 @@
             // 
             // mnuSaveAll
             // 
-            this.mnuSaveAll.Image = global::DooggyCLI.Properties.Resources.confirm;
+            this.mnuSaveAll.Image = global::Rocket.Properties.Resources.confirm;
             this.mnuSaveAll.Name = "mnuSaveAll";
             this.mnuSaveAll.Size = new System.Drawing.Size(180, 22);
             this.mnuSaveAll.Text = "Save All";
@@ -173,7 +173,7 @@
             // 
             // mnuAbout
             // 
-            this.mnuAbout.Image = global::DooggyCLI.Properties.Resources.rocket;
+            this.mnuAbout.Image = global::Rocket.Properties.Resources.rocket;
             this.mnuAbout.Name = "mnuAbout";
             this.mnuAbout.Size = new System.Drawing.Size(107, 22);
             this.mnuAbout.Text = "About";
@@ -181,7 +181,7 @@
             // 
             // mnuLockedAll
             // 
-            this.mnuLockedAll.Image = global::DooggyCLI.Properties.Resources.locked;
+            this.mnuLockedAll.Image = global::Rocket.Properties.Resources.locked;
             this.mnuLockedAll.Name = "mnuLockedAll";
             this.mnuLockedAll.Size = new System.Drawing.Size(180, 22);
             this.mnuLockedAll.Text = "Locked All";
@@ -189,7 +189,7 @@
             // 
             // mnuUnlockedAll
             // 
-            this.mnuUnlockedAll.Image = global::DooggyCLI.Properties.Resources.edit;
+            this.mnuUnlockedAll.Image = global::Rocket.Properties.Resources.edit;
             this.mnuUnlockedAll.Name = "mnuUnlockedAll";
             this.mnuUnlockedAll.Size = new System.Drawing.Size(180, 22);
             this.mnuUnlockedAll.Text = "Unlocked All";

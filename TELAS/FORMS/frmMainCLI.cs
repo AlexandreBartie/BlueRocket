@@ -12,7 +12,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace DooggyCLI.Telas
+namespace Rocket.Telas
 {
     public partial class frmMainCLI : Form
     {

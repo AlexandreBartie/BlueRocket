@@ -1,4 +1,4 @@
-﻿namespace DooggyCLI.Telas
+﻿namespace Rocket.Telas
 {
     partial class usrMoldura
     {
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.usrTitulo = new DooggyCLI.Telas.usrTitulo();
+            this.usrTitulo = new Rocket.Telas.usrTitulo();
             this.SuspendLayout();
             // 
             // usrTitulo
@@ -42,7 +42,7 @@
             this.usrTitulo.Name = "usrTitulo";
             this.usrTitulo.Size = new System.Drawing.Size(556, 40);
             this.usrTitulo.TabIndex = 4;
-            this.usrTitulo.TituloClick += new DooggyCLI.Telas.Notify_TituloClick(this.usrTitulo_TituloClick);
+            this.usrTitulo.TituloClick += new Rocket.Telas.Notify_TituloClick(this.usrTitulo_TituloClick);
             // 
             // usrMoldura
             // 

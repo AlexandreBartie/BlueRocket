@@ -5,7 +5,7 @@ using Dooggy.Factory.Data;
 using Dooggy.Lib.Files;
 using Dooggy.Lib.Generic;
 using Dooggy.Tools.Util;
-using DooggyCLI.Telas;
+using Rocket.Telas;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -13,7 +13,7 @@ using System.Text;
 using System.Timers;
 using System.Windows.Forms;
 
-namespace DooggyCLI
+namespace Rocket
 {
 
 
@@ -245,8 +245,8 @@ namespace DooggyCLI
             ScriptLogClipBoard?.Invoke(prmLog);
         }
 
-        public void Start() => Page.MainShow();
-        public void Start(string prmArquivoCFG) { Open(prmArquivoCFG); Start(); }
+        public bool Start() { Page.MainShow(); return true; }
+        public bool Start(string prmArquivoCFG) => Console.Setup(prmArquivoCFG,prmPlay:true);
 
         public void Open(string prmArquivoCFG) 
         {

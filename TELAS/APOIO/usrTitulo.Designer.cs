@@ -1,4 +1,4 @@
-﻿namespace DooggyCLI.Telas
+﻿namespace Rocket.Telas
 {
     partial class usrTitulo
     {

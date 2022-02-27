@@ -1,4 +1,4 @@
-﻿namespace DooggyCLI
+﻿namespace Rocket
 {
     partial class frmAboutBox
     {
@@ -31,9 +31,9 @@
             this.logoPictureBox = new System.Windows.Forms.PictureBox();
             this.cmdClose = new System.Windows.Forms.Button();
             this.grpInformations = new System.Windows.Forms.GroupBox();
-            this.usrTagCompany = new DooggyCLI.Telas.usrLabelTextBox();
-            this.usrTagVersion = new DooggyCLI.Telas.usrLabelTextBox();
-            this.usrTagName = new DooggyCLI.Telas.usrLabelTextBox();
+            this.usrTagCompany = new Rocket.Telas.usrLabelTextBox();
+            this.usrTagVersion = new Rocket.Telas.usrLabelTextBox();
+            this.usrTagName = new Rocket.Telas.usrLabelTextBox();
             this.lblFramework = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).BeginInit();
             this.grpInformations.SuspendLayout();
@@ -43,7 +43,7 @@
             // 
             this.logoPictureBox.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.logoPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.logoPictureBox.Image = global::DooggyCLI.Properties.Resources.rocket;
+            this.logoPictureBox.Image = global::Rocket.Properties.Resources.rocket;
             this.logoPictureBox.Location = new System.Drawing.Point(12, 13);
             this.logoPictureBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.logoPictureBox.Name = "logoPictureBox";

@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace DooggyCLI.Telas
+namespace Rocket.Telas
 {
     public partial class usrActionConfig : UserControl
     {

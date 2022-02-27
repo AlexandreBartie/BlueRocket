@@ -1,4 +1,4 @@
-﻿namespace DooggyCLI.Telas
+﻿namespace Rocket.Telas
 {
     partial class usrActionCode
     {
@@ -73,7 +73,7 @@
             this.rodCodeUndo.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.rodCodeUndo.BackColor = System.Drawing.Color.Sienna;
             this.rodCodeUndo.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.rodCodeUndo.Image = global::DooggyCLI.Properties.Resources.cancel;
+            this.rodCodeUndo.Image = global::Rocket.Properties.Resources.cancel;
             this.rodCodeUndo.ImageTransparentColor = System.Drawing.Color.Orchid;
             this.rodCodeUndo.Name = "rodCodeUndo";
             this.rodCodeUndo.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -93,7 +93,7 @@
             this.rodCodeSave.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.rodCodeSave.BackColor = System.Drawing.Color.SeaGreen;
             this.rodCodeSave.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.rodCodeSave.Image = global::DooggyCLI.Properties.Resources.confirm;
+            this.rodCodeSave.Image = global::Rocket.Properties.Resources.confirm;
             this.rodCodeSave.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.rodCodeSave.Name = "rodCodeSave";
             this.rodCodeSave.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -114,7 +114,7 @@
             this.rodPlaySave.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.rodPlaySave.BackColor = System.Drawing.Color.MediumSeaGreen;
             this.rodPlaySave.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.rodPlaySave.Image = global::DooggyCLI.Properties.Resources.save;
+            this.rodPlaySave.Image = global::Rocket.Properties.Resources.save;
             this.rodPlaySave.ImageTransparentColor = System.Drawing.Color.SteelBlue;
             this.rodPlaySave.Name = "rodPlaySave";
             this.rodPlaySave.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -126,7 +126,7 @@
             // 
             this.rodCodeEditionOFF.BackColor = System.Drawing.Color.Gold;
             this.rodCodeEditionOFF.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.rodCodeEditionOFF.Image = global::DooggyCLI.Properties.Resources.locked;
+            this.rodCodeEditionOFF.Image = global::Rocket.Properties.Resources.locked;
             this.rodCodeEditionOFF.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.rodCodeEditionOFF.Name = "rodCodeEditionOFF";
             this.rodCodeEditionOFF.Size = new System.Drawing.Size(23, 22);
@@ -137,7 +137,7 @@
             // 
             this.rodCodeEditionON.BackColor = System.Drawing.Color.Gainsboro;
             this.rodCodeEditionON.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.rodCodeEditionON.Image = global::DooggyCLI.Properties.Resources.edit;
+            this.rodCodeEditionON.Image = global::Rocket.Properties.Resources.edit;
             this.rodCodeEditionON.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.rodCodeEditionON.Name = "rodCodeEditionON";
             this.rodCodeEditionON.Size = new System.Drawing.Size(23, 22);
@@ -153,7 +153,7 @@
             // rodLogOK
             // 
             this.rodLogOK.BackColor = System.Drawing.Color.MediumSeaGreen;
-            this.rodLogOK.Image = global::DooggyCLI.Properties.Resources.confirm;
+            this.rodLogOK.Image = global::Rocket.Properties.Resources.confirm;
             this.rodLogOK.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.rodLogOK.Name = "rodLogOK";
             this.rodLogOK.Size = new System.Drawing.Size(66, 22);
@@ -164,7 +164,7 @@
             // 
             this.rodLogError.BackColor = System.Drawing.Color.Crimson;
             this.rodLogError.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.rodLogError.Image = global::DooggyCLI.Properties.Resources.cancel;
+            this.rodLogError.Image = global::Rocket.Properties.Resources.cancel;
             this.rodLogError.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.rodLogError.Name = "rodLogError";
             this.rodLogError.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -176,7 +176,7 @@
             // 
             this.rodCodePlay.BackColor = System.Drawing.Color.SteelBlue;
             this.rodCodePlay.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.rodCodePlay.Image = global::DooggyCLI.Properties.Resources.play;
+            this.rodCodePlay.Image = global::Rocket.Properties.Resources.play;
             this.rodCodePlay.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.rodCodePlay.Name = "rodCodePlay";
             this.rodCodePlay.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -191,7 +191,7 @@
             this.rodCodePlaying.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.rodCodePlaying.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.rodCodePlaying.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.rodCodePlaying.Image = global::DooggyCLI.Properties.Resources.waiting;
+            this.rodCodePlaying.Image = global::Rocket.Properties.Resources.waiting;
             this.rodCodePlaying.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.rodCodePlaying.Name = "rodCodePlaying";
             this.rodCodePlaying.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -202,7 +202,7 @@
             // 
             this.rodCodeStop.BackColor = System.Drawing.Color.Crimson;
             this.rodCodeStop.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.rodCodeStop.Image = global::DooggyCLI.Properties.Resources.cancel;
+            this.rodCodeStop.Image = global::Rocket.Properties.Resources.cancel;
             this.rodCodeStop.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.rodCodeStop.Name = "rodCodeStop";
             this.rodCodeStop.Size = new System.Drawing.Size(51, 22);

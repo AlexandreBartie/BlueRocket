@@ -1,4 +1,4 @@
-﻿namespace DooggyCLI.Telas
+﻿namespace Rocket.Telas
 {
     partial class frmMainCLI
     {
@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMainCLI));
-            this.usrProjetoTeste = new DooggyCLI.Telas.usrTestProject();
+            this.usrProjetoTeste = new Rocket.Telas.usrTestProject();
             this.splSeparadorH = new System.Windows.Forms.Splitter();
-            this.usrResultadoTeste = new DooggyCLI.Telas.usrTestResult();
+            this.usrResultadoTeste = new Rocket.Telas.usrTestResult();
             this.splSeparadorV = new System.Windows.Forms.Splitter();
-            this.usrScriptTeste = new DooggyCLI.Telas.usrTestCode();
-            this.usrWaiting = new DooggyCLI.Telas.usrWaiting();
-            this.usrMenu = new DooggyCLI.TELAS.ACTION.usrActionMain();
+            this.usrScriptTeste = new Rocket.Telas.usrTestCode();
+            this.usrWaiting = new Rocket.Telas.usrWaiting();
+            this.usrMenu = new Rocket.TELAS.ACTION.usrActionMain();
             this.SuspendLayout();
             // 
             // usrProjetoTeste
