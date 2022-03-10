@@ -310,7 +310,7 @@ namespace Rocket
         public TestConsole Console => Factory.Console;
 
         public TestResult Result => Console.Result;
-        public TestDataLocal Dados => Console.Dados;
+        public TestDataSource Dados => Console.Dados;
         public TestConsoleConfig Config => Console.Config;
 
         public bool IsDbOK => Console.IsDbOK;

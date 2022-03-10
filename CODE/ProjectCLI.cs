@@ -24,7 +24,7 @@ namespace Rocket
         public TestConfigImport Import => Editor.Config.Import;
 
         public bool IsLoad => Import.IsOK;
-        public string nome => Import.nome;
+        public string nome => Import.path_CFG;
 
         public ProjectCLI(EditorCLI prmEditor)
         {

@@ -1,4 +1,5 @@
 ﻿using Dooggy.Factory;
+using Dooggy.Factory.Console;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,8 +14,9 @@ namespace Rocket.Telas
 
     public enum ePageResult : int
     {
-        ePageMassaDados = 0,
-        ePageLogExecucao = 1,
+        ePageMassaDados = 1,
+        ePageLogExecucao = 2,
+        ePageSqlCommands = 3,
     }
 
     public enum eLogColumn : int
@@ -37,23 +39,22 @@ namespace Rocket.Telas
             InitializeComponent();
 
             SetTitulo(prmTexto: "Resultado Gerado");
-
         }
 
         public void Setup(EditorCLI prmEditor)
         {
-
             Editor = prmEditor;
 
             Editor.Format.SetMemo(txtMassaDados);
-            Editor.Format.SetPadrao(lstLogExecucao);
 
+            Editor.Format.SetPadrao(lstLogExecucao);
+            Editor.Format.SetPadrao(lstSqlCommands);
         }
 
         public void View()
         {
-
             lstLogExecucao.Items.Clear();
+            lstSqlCommands.Items.Clear();
 
             if (Editor.IsMassaDados)
             {
@@ -65,7 +66,10 @@ namespace Rocket.Telas
                 lstLogExecucao.ForeColor = Editor.Script.Cor.GetLogForeColor();
                 lstLogExecucao.BackColor = Editor.Script.Cor.GetLogBackColor();
 
-                ViewLogExecucao();
+                lstSqlCommands.ForeColor = Editor.Script.Cor.GetLogForeColor();
+                lstSqlCommands.BackColor = Editor.Script.Cor.GetLogBackColor();
+
+                ViewListas();
             }
             else
             {
@@ -73,17 +77,31 @@ namespace Rocket.Telas
             }
         }
 
-        private void ViewLogExecucao()
+        private void ViewListas()
+        {
+            ViewListaDados(prmResult: Editor.Result.Log.Main, prmLista: lstLogExecucao, prmSQL: false);
+            ViewListaDados(prmResult: Editor.Result.Log.SQL, prmLista: lstSqlCommands, prmSQL: true);
+        }
+
+        private void ViewListaDados(TestResultBase prmResult, ListView prmLista, bool prmSQL)
         {
 
             ListViewItem linha;
 
-            foreach (TestItemLog Item in Editor.Result.Log)
+            foreach (TestItemLog Item in prmResult)
             {
-                linha = lstLogExecucao.Items.Add("x");
+                linha = prmLista.Items.Add("x");
 
-                linha.SubItems.Add(Item.tipo);
-                linha.SubItems.Add(Item.texto);
+                if (prmSQL)
+                {
+                    linha.SubItems.Add(Item.elapsed_seconds);
+                    linha.SubItems.Add(Item.sql);
+                }
+                else
+                {
+                    linha.SubItems.Add(Item.tipo);
+                    linha.SubItems.Add(Item.texto);
+                }
 
                 linha.Text = "...";
 
@@ -92,9 +110,8 @@ namespace Rocket.Telas
             }
 
         }
-
         private string GetLogSelected(eLogColumn prmColumn) => lstLogExecucao.SelectedItems[0].SubItems[Convert.ToInt16(prmColumn)].Text;
-        public void ViewPage(ePageResult prmPage) => this.tabControl.SelectedIndex = Convert.ToInt16(prmPage);
+        public void ViewPage(ePageResult prmPage) => this.tabControl.SelectedIndex = Convert.ToInt16(prmPage)-1;
 
     }
  

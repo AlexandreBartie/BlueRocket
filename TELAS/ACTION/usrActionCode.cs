@@ -50,7 +50,6 @@ namespace Rocket.Telas
 
             if (Editor.TemScript)
             {
-
                 Editor.Format.SetTurnOnOff(prmON: Editor.Script.ICanEdit, rodCodeEditionON, rodCodeEditionOFF);
 
                 rodLogOK.Visible = Editor.Script.IsLogOK && !Editor.Script.IsPlaying;
