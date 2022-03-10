@@ -7,7 +7,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <AssemblyVersion></AssemblyVersion>
     <FileVersion></FileVersion>
-    <Version>1.4.2</Version>
+    <Version>1.1.6</Version>
     <ApplicationIcon>Rocket.ico</ApplicationIcon>
     <UseWindowsForms>True</UseWindowsForms>
     <StartupObject>Rocket.Program</StartupObject>

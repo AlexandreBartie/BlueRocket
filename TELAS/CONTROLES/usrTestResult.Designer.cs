@@ -115,7 +115,6 @@
             this.lstLogExecucao.TabIndex = 0;
             this.lstLogExecucao.UseCompatibleStateImageBehavior = false;
             this.lstLogExecucao.View = System.Windows.Forms.View.Details;
-            this.lstLogExecucao.DoubleClick += new System.EventHandler(this.lstLogExecucao_DoubleClick);
             // 
             // colOrdem
             // 
@@ -159,6 +158,7 @@
             this.lstSqlCommands.TabIndex = 1;
             this.lstSqlCommands.UseCompatibleStateImageBehavior = false;
             this.lstSqlCommands.View = System.Windows.Forms.View.Details;
+            this.lstSqlCommands.DoubleClick += new System.EventHandler(this.lstSqlCommands_DoubleClick);
             // 
             // columnHeader1
             // 

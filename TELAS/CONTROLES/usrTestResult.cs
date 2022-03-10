@@ -32,7 +32,7 @@ namespace Rocket.Telas
 
         private void tabControl_Click(object sender, EventArgs e) => Editor.OnScriptCodeChanged();
 
-        private void lstLogExecucao_DoubleClick(object sender, EventArgs e) => Editor.OnScriptLogClipBoard(prmLog: GetLogSelected(prmColumn: eLogColumn.eLogDescription));
+        private void lstSqlCommands_DoubleClick(object sender, EventArgs e) => Editor.OnScriptLogClipBoard(prmLog: GetSqlSelected(prmColumn: eLogColumn.eLogDescription));
         
         public usrTestResult()
         {
@@ -110,8 +110,10 @@ namespace Rocket.Telas
             }
 
         }
-        private string GetLogSelected(eLogColumn prmColumn) => lstLogExecucao.SelectedItems[0].SubItems[Convert.ToInt16(prmColumn)].Text;
-        public void ViewPage(ePageResult prmPage) => this.tabControl.SelectedIndex = Convert.ToInt16(prmPage)-1;
+
+        public void ViewPage(ePageResult prmPage) => this.tabControl.SelectedIndex = Convert.ToInt16(prmPage) - 1;
+
+        private string GetSqlSelected(eLogColumn prmColumn) => lstSqlCommands.SelectedItems[0].SubItems[Convert.ToInt16(prmColumn)].Text;
 
     }
  
