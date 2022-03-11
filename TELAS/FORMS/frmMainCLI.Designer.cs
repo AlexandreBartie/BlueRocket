@@ -117,7 +117,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmMainCLI";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Console SCRIPT INI";
+            this.Text = "Blue-Rocket Console";
             this.Load += new System.EventHandler(this.frmTestDataFactoryConsole_Load);
             this.ResumeLayout(false);
 

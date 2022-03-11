@@ -7,11 +7,13 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <AssemblyVersion></AssemblyVersion>
     <FileVersion></FileVersion>
-    <Version>1.1.6</Version>
+    <Version>1.4.2</Version>
     <ApplicationIcon>Rocket.ico</ApplicationIcon>
     <UseWindowsForms>True</UseWindowsForms>
     <StartupObject>Rocket.Program</StartupObject>
     <PackageIcon>Rocket.png</PackageIcon>
+    <SignAssembly>False</SignAssembly>
+    <AssemblyName>Blue-Rocket.Console</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
@@ -28,6 +30,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -41,6 +48,10 @@
     <None Update="DooggyCLI.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
+    </None>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Update="Rocket.png">
       <Pack>True</Pack>
