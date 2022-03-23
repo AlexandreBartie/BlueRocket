@@ -1,4 +1,4 @@
-﻿namespace Rocket.Telas
+﻿namespace BlueRocket
 {
     partial class usrWaiting
     {
@@ -38,7 +38,7 @@
             // 
             this.picWaiting.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.picWaiting.Cursor = System.Windows.Forms.Cursors.Default;
-            this.picWaiting.Image = global::Rocket.Properties.Resources.waiting;
+            this.picWaiting.Image = global::BlueRocket.Properties.Resources.waiting;
             this.picWaiting.Location = new System.Drawing.Point(37, 48);
             this.picWaiting.Name = "picWaiting";
             this.picWaiting.Size = new System.Drawing.Size(192, 154);

@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Rocket.Telas
+namespace BlueRocket
 {
     public partial class usrWaiting : UserControl
     {

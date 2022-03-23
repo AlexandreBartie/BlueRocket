@@ -1,9 +1,9 @@
-using Rocket;
 using System;
 using System.Data.SqlClient;
 using System.Windows.Forms;
+using System.Diagnostics;
 
-namespace Rocket
+namespace BlueRocket
 {
     static class Program
     {
@@ -42,30 +42,22 @@ namespace Rocket
 
         static void ModoPainel()
         {
-
             try
             {
-
                 Editor.Start();
-
             }
             catch (Exception e)
             { Console.WriteLine(e.Message); };
-
         }
 
         static void ModoGerador(string prmArquivoCFG)
         {
-
             try
             {
-
                 Editor.Start(prmArquivoCFG);
-
             }
             catch (Exception e)
             { Console.WriteLine(e.Message); };
-
         }
 
     }

@@ -1,6 +1,4 @@
-﻿using Dooggy;
-using Dooggy.Factory.Console;
-using Dooggy.Tools.Util;
+﻿using Dooggy.LIBRARY;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,7 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Rocket.Telas
+namespace BlueRocket
 {
     public partial class frmMainCLI : Form
     {
@@ -20,7 +18,6 @@ namespace Rocket.Telas
         private EditorCLI Editor;
 
         private Thread thread;
-        private Task task;
 
         public frmMainCLI()
         {
@@ -131,7 +128,7 @@ namespace Rocket.Telas
         }
 
         private void ScriptLogOK() => usrResultadoTeste.ViewPage(prmPage: ePageResult.ePageMassaDados);
-        private void ScriptLogError() => usrResultadoTeste.ViewPage(prmPage: ePageResult.ePageLogExecucao);
+        private void ScriptLogError() => usrResultadoTeste.ViewPage(prmPage: ePageResult.ePageLogErrors);
 
         private void ScriptLogClipBoard(string prmLog) => Clipboard.SetText(prmLog);
 

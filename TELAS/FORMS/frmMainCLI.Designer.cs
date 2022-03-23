@@ -1,4 +1,4 @@
-﻿namespace Rocket.Telas
+﻿namespace BlueRocket
 {
     partial class frmMainCLI
     {
@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMainCLI));
-            this.usrProjetoTeste = new Rocket.Telas.usrTestProject();
+            this.usrProjetoTeste = new BlueRocket.usrTestProject();
             this.splSeparadorH = new System.Windows.Forms.Splitter();
-            this.usrResultadoTeste = new Rocket.Telas.usrTestResult();
+            this.usrResultadoTeste = new BlueRocket.usrTestResult();
             this.splSeparadorV = new System.Windows.Forms.Splitter();
-            this.usrScriptTeste = new Rocket.Telas.usrTestCode();
-            this.usrWaiting = new Rocket.Telas.usrWaiting();
-            this.usrMenu = new Rocket.TELAS.ACTION.usrActionMain();
+            this.usrScriptTeste = new BlueRocket.usrTestCode();
+            this.usrWaiting = new BlueRocket.usrWaiting();
+            this.usrMenu = new BlueRocket.usrActionMain();
             this.SuspendLayout();
             // 
             // usrProjetoTeste
@@ -131,6 +131,6 @@
         private System.Windows.Forms.Splitter splSeparadorV;
         private usrTestCode usrScriptTeste;
         private usrWaiting usrWaiting;
-        private TELAS.ACTION.usrActionMain usrMenu;
+        private usrActionMain usrMenu;
     }
 }

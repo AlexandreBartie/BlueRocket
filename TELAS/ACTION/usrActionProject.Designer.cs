@@ -1,4 +1,4 @@
-﻿namespace Rocket.Telas
+﻿namespace BlueRocket
 {
     partial class usrActionProject
     {
@@ -62,7 +62,7 @@
             // 
             this.rodDBStatusOffLine.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.rodDBStatusOffLine.BackColor = System.Drawing.Color.Pink;
-            this.rodDBStatusOffLine.Image = global::Rocket.Properties.Resources.off_line;
+            this.rodDBStatusOffLine.Image = global::BlueRocket.Properties.Resources.off_line;
             this.rodDBStatusOffLine.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.rodDBStatusOffLine.Name = "rodDBStatusOffLine";
             this.rodDBStatusOffLine.Size = new System.Drawing.Size(77, 22);
@@ -73,7 +73,7 @@
             // 
             this.rodDBStatusOnLine.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.rodDBStatusOnLine.BackColor = System.Drawing.Color.Wheat;
-            this.rodDBStatusOnLine.Image = global::Rocket.Properties.Resources.on_line;
+            this.rodDBStatusOnLine.Image = global::BlueRocket.Properties.Resources.on_line;
             this.rodDBStatusOnLine.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.rodDBStatusOnLine.Name = "rodDBStatusOnLine";
             this.rodDBStatusOnLine.Size = new System.Drawing.Size(74, 22);
@@ -90,7 +90,7 @@
             // 
             this.rodMultiSelect.CheckOnClick = true;
             this.rodMultiSelect.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.rodMultiSelect.Image = global::Rocket.Properties.Resources.itens;
+            this.rodMultiSelect.Image = global::BlueRocket.Properties.Resources.itens;
             this.rodMultiSelect.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.rodMultiSelect.Name = "rodMultiSelect";
             this.rodMultiSelect.Size = new System.Drawing.Size(23, 22);
@@ -110,7 +110,7 @@
             // rodActionStatus
             // 
             this.rodActionStatus.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.rodActionStatus.Image = global::Rocket.Properties.Resources.rocket;
+            this.rodActionStatus.Image = global::BlueRocket.Properties.Resources.rocket;
             this.rodActionStatus.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.rodActionStatus.Name = "rodActionStatus";
             this.rodActionStatus.Size = new System.Drawing.Size(23, 22);

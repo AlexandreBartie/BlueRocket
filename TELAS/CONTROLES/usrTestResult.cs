@@ -1,5 +1,5 @@
-﻿using Dooggy.Factory;
-using Dooggy.Factory.Console;
+﻿using Dooggy.CORE;
+using Dooggy.LIBRARY;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,14 +9,15 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace Rocket.Telas
+namespace BlueRocket
 {
 
     public enum ePageResult : int
     {
         ePageMassaDados = 1,
         ePageLogExecucao = 2,
-        ePageSqlCommands = 3,
+        ePageLogErrors = 3,
+        ePageSqlCommands = 4,
     }
 
     public enum eLogColumn : int
@@ -48,12 +49,14 @@ namespace Rocket.Telas
             Editor.Format.SetMemo(txtMassaDados);
 
             Editor.Format.SetPadrao(lstLogExecucao);
+            Editor.Format.SetPadrao(lstLogErrors);
             Editor.Format.SetPadrao(lstSqlCommands);
         }
 
         public void View()
         {
             lstLogExecucao.Items.Clear();
+            lstLogErrors.Items.Clear();
             lstSqlCommands.Items.Clear();
 
             if (Editor.IsMassaDados)
@@ -65,6 +68,9 @@ namespace Rocket.Telas
 
                 lstLogExecucao.ForeColor = Editor.Script.Cor.GetLogForeColor();
                 lstLogExecucao.BackColor = Editor.Script.Cor.GetLogBackColor();
+
+                lstLogErrors.ForeColor = Editor.Script.Cor.GetLogForeColor();
+                lstLogErrors.BackColor = Editor.Script.Cor.GetLogBackColor();
 
                 lstSqlCommands.ForeColor = Editor.Script.Cor.GetLogForeColor();
                 lstSqlCommands.BackColor = Editor.Script.Cor.GetLogBackColor();
@@ -80,6 +86,7 @@ namespace Rocket.Telas
         private void ViewListas()
         {
             ViewListaDados(prmResult: Editor.Result.Log.Main, prmLista: lstLogExecucao, prmSQL: false);
+            ViewListaDados(prmResult: Editor.Result.Log.Err, prmLista: lstLogErrors, prmSQL: false);
             ViewListaDados(prmResult: Editor.Result.Log.SQL, prmLista: lstSqlCommands, prmSQL: true);
         }
 
@@ -88,7 +95,7 @@ namespace Rocket.Telas
 
             ListViewItem linha;
 
-            foreach (TestItemLog Item in prmResult)
+            foreach (TraceMSG Item in prmResult)
             {
                 linha = prmLista.Items.Add("x");
 
@@ -100,7 +107,7 @@ namespace Rocket.Telas
                 else
                 {
                     linha.SubItems.Add(Item.tipo);
-                    linha.SubItems.Add(Item.texto);
+                    linha.SubItems.Add(Item.txt);
                 }
 
                 linha.Text = "...";

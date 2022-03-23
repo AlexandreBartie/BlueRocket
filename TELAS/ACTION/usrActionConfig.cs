@@ -1,5 +1,4 @@
-﻿using Dooggy;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,7 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace Rocket.Telas
+namespace BlueRocket
 {
     public partial class usrActionConfig : UserControl
     {

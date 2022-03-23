@@ -1,5 +1,4 @@
-﻿using Rocket;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,7 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Rocket.TELAS.ACTION
+namespace BlueRocket
 {
     public partial class usrActionMain : UserControl
     {

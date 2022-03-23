@@ -1,4 +1,4 @@
-﻿namespace Rocket.Telas
+﻿namespace BlueRocket
 {
     partial class usrTestCode
     {
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.usrAction = new Rocket.Telas.usrActionCode();
+            this.usrAction = new usrActionCode();
             this.txtCode = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 

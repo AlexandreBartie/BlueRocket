@@ -1,11 +1,5 @@
-﻿using Dooggy;
-using Dooggy.Factory;
-using Dooggy.Factory.Console;
-using Dooggy.Factory.Data;
-using Dooggy.Lib.Files;
-using Dooggy.Lib.Generic;
-using Dooggy.Tools.Util;
-using Rocket.Telas;
+﻿using Dooggy.CORE;
+using Dooggy.LIBRARY;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -13,9 +7,8 @@ using System.Text;
 using System.Timers;
 using System.Windows.Forms;
 
-namespace Rocket
+namespace BlueRocket
 {
-
 
     public delegate void Notify_ProjectDBConnect();
 
@@ -635,7 +628,7 @@ namespace Rocket
 
         private static void OnTimedEvent(Object source, ElapsedEventArgs e)
         {
-            Console.WriteLine("The Elapsed event was raised at {0:HH:mm:ss.fff}", e.SignalTime);
+            //Console.WriteLine("The Elapsed event was raised at {0:HH:mm:ss.fff}", e.SignalTime);
         }
 
     }

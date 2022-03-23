@@ -1,4 +1,4 @@
-﻿namespace Rocket.TELAS.ACTION
+﻿namespace BlueRocket
 {
     partial class usrActionMain
     {
@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(usrActionMain));
             this.mnuMain = new System.Windows.Forms.MenuStrip();
             this.mnuProject = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuProjectOpen = new System.Windows.Forms.ToolStripMenuItem();
@@ -39,13 +40,13 @@
             this.SeparatorExit = new System.Windows.Forms.ToolStripSeparator();
             this.mnuProjectExit = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuScripts = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuLockedAll = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuUnlockedAll = new System.Windows.Forms.ToolStripMenuItem();
             this.Separator = new System.Windows.Forms.ToolStripSeparator();
             this.mnuPlayAll = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuSaveAll = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuAbout = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuLockedAll = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuUnlockedAll = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -81,50 +82,50 @@
             // mnuProjectOpen
             // 
             this.mnuProjectOpen.Name = "mnuProjectOpen";
-            this.mnuProjectOpen.Size = new System.Drawing.Size(180, 22);
+            this.mnuProjectOpen.Size = new System.Drawing.Size(145, 22);
             this.mnuProjectOpen.Text = "Open";
             this.mnuProjectOpen.Click += new System.EventHandler(this.mnuProjectOpen_Click);
             // 
             // mnuProjectClose
             // 
             this.mnuProjectClose.Name = "mnuProjectClose";
-            this.mnuProjectClose.Size = new System.Drawing.Size(180, 22);
+            this.mnuProjectClose.Size = new System.Drawing.Size(145, 22);
             this.mnuProjectClose.Text = "Close";
             this.mnuProjectClose.Click += new System.EventHandler(this.mnuProjectClose_Click);
             // 
             // SeparatorAction
             // 
             this.SeparatorAction.Name = "SeparatorAction";
-            this.SeparatorAction.Size = new System.Drawing.Size(177, 6);
+            this.SeparatorAction.Size = new System.Drawing.Size(142, 6);
             // 
             // mnuProjectRefresh
             // 
-            this.mnuProjectRefresh.Image = global::Rocket.Properties.Resources.refresh;
+            this.mnuProjectRefresh.Image = global::BlueRocket.Properties.Resources.refresh;
             this.mnuProjectRefresh.Name = "mnuProjectRefresh";
-            this.mnuProjectRefresh.Size = new System.Drawing.Size(180, 22);
+            this.mnuProjectRefresh.Size = new System.Drawing.Size(145, 22);
             this.mnuProjectRefresh.Text = "Refresh";
             this.mnuProjectRefresh.Click += new System.EventHandler(this.mnuProjectRefresh_Click);
             // 
             // SeparatorNew
             // 
             this.SeparatorNew.Name = "SeparatorNew";
-            this.SeparatorNew.Size = new System.Drawing.Size(177, 6);
+            this.SeparatorNew.Size = new System.Drawing.Size(142, 6);
             // 
             // mnuNewWindow
             // 
             this.mnuNewWindow.Name = "mnuNewWindow";
-            this.mnuNewWindow.Size = new System.Drawing.Size(180, 22);
+            this.mnuNewWindow.Size = new System.Drawing.Size(145, 22);
             this.mnuNewWindow.Text = "New Window";
             // 
             // SeparatorExit
             // 
             this.SeparatorExit.Name = "SeparatorExit";
-            this.SeparatorExit.Size = new System.Drawing.Size(177, 6);
+            this.SeparatorExit.Size = new System.Drawing.Size(142, 6);
             // 
             // mnuProjectExit
             // 
             this.mnuProjectExit.Name = "mnuProjectExit";
-            this.mnuProjectExit.Size = new System.Drawing.Size(180, 22);
+            this.mnuProjectExit.Size = new System.Drawing.Size(145, 22);
             this.mnuProjectExit.Text = "Exit";
             this.mnuProjectExit.Click += new System.EventHandler(this.mnuProjectExit_Click);
             // 
@@ -140,24 +141,40 @@
             this.mnuScripts.Size = new System.Drawing.Size(54, 20);
             this.mnuScripts.Text = "Scripts";
             // 
+            // mnuLockedAll
+            // 
+            this.mnuLockedAll.Image = global::BlueRocket.Properties.Resources.locked;
+            this.mnuLockedAll.Name = "mnuLockedAll";
+            this.mnuLockedAll.Size = new System.Drawing.Size(141, 22);
+            this.mnuLockedAll.Text = "Locked All";
+            this.mnuLockedAll.Click += new System.EventHandler(this.mnuLockedAll_Click);
+            // 
+            // mnuUnlockedAll
+            // 
+            this.mnuUnlockedAll.Image = global::BlueRocket.Properties.Resources.edit;
+            this.mnuUnlockedAll.Name = "mnuUnlockedAll";
+            this.mnuUnlockedAll.Size = new System.Drawing.Size(141, 22);
+            this.mnuUnlockedAll.Text = "Unlocked All";
+            this.mnuUnlockedAll.Click += new System.EventHandler(this.mnuUnlockedAll_Click);
+            // 
             // Separator
             // 
             this.Separator.Name = "Separator";
-            this.Separator.Size = new System.Drawing.Size(177, 6);
+            this.Separator.Size = new System.Drawing.Size(138, 6);
             // 
             // mnuPlayAll
             // 
-            this.mnuPlayAll.Image = global::Rocket.Properties.Resources.play;
+            this.mnuPlayAll.Image = global::BlueRocket.Properties.Resources.play;
             this.mnuPlayAll.Name = "mnuPlayAll";
-            this.mnuPlayAll.Size = new System.Drawing.Size(180, 22);
+            this.mnuPlayAll.Size = new System.Drawing.Size(141, 22);
             this.mnuPlayAll.Text = "Play All";
             this.mnuPlayAll.Click += new System.EventHandler(this.mnuPlayAll_Click);
             // 
             // mnuSaveAll
             // 
-            this.mnuSaveAll.Image = global::Rocket.Properties.Resources.confirm;
+            this.mnuSaveAll.Image = global::BlueRocket.Properties.Resources.confirm;
             this.mnuSaveAll.Name = "mnuSaveAll";
-            this.mnuSaveAll.Size = new System.Drawing.Size(180, 22);
+            this.mnuSaveAll.Size = new System.Drawing.Size(141, 22);
             this.mnuSaveAll.Text = "Save All";
             this.mnuSaveAll.Click += new System.EventHandler(this.mnuSaveAll_Click);
             // 
@@ -173,27 +190,11 @@
             // 
             // mnuAbout
             // 
-            this.mnuAbout.Image = global::Rocket.Properties.Resources.rocket;
+            this.mnuAbout.Image = ((System.Drawing.Image)(resources.GetObject("mnuAbout.Image")));
             this.mnuAbout.Name = "mnuAbout";
-            this.mnuAbout.Size = new System.Drawing.Size(107, 22);
+            this.mnuAbout.Size = new System.Drawing.Size(180, 22);
             this.mnuAbout.Text = "About";
             this.mnuAbout.Click += new System.EventHandler(this.mnuAbout_Click);
-            // 
-            // mnuLockedAll
-            // 
-            this.mnuLockedAll.Image = global::Rocket.Properties.Resources.locked;
-            this.mnuLockedAll.Name = "mnuLockedAll";
-            this.mnuLockedAll.Size = new System.Drawing.Size(180, 22);
-            this.mnuLockedAll.Text = "Locked All";
-            this.mnuLockedAll.Click += new System.EventHandler(this.mnuLockedAll_Click);
-            // 
-            // mnuUnlockedAll
-            // 
-            this.mnuUnlockedAll.Image = global::Rocket.Properties.Resources.edit;
-            this.mnuUnlockedAll.Name = "mnuUnlockedAll";
-            this.mnuUnlockedAll.Size = new System.Drawing.Size(180, 22);
-            this.mnuUnlockedAll.Text = "Unlocked All";
-            this.mnuUnlockedAll.Click += new System.EventHandler(this.mnuUnlockedAll_Click);
             // 
             // usrActionMain
             // 

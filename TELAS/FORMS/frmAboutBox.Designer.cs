@@ -1,4 +1,4 @@
-﻿namespace Rocket
+﻿namespace BlueRocket
 {
     partial class frmAboutBox
     {
@@ -31,9 +31,9 @@
             this.logoPictureBox = new System.Windows.Forms.PictureBox();
             this.cmdClose = new System.Windows.Forms.Button();
             this.grpInformations = new System.Windows.Forms.GroupBox();
-            this.usrTagCompany = new Rocket.Telas.usrLabelTextBox();
-            this.usrTagVersion = new Rocket.Telas.usrLabelTextBox();
-            this.usrTagName = new Rocket.Telas.usrLabelTextBox();
+            this.usrTagCompany = new BlueRocket.usrLabelTextBox();
+            this.usrTagVersion = new BlueRocket.usrLabelTextBox();
+            this.usrTagName = new BlueRocket.usrLabelTextBox();
             this.lblFramework = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).BeginInit();
             this.grpInformations.SuspendLayout();
@@ -43,7 +43,7 @@
             // 
             this.logoPictureBox.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.logoPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.logoPictureBox.Image = global::Rocket.Properties.Resources.rocket;
+            this.logoPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("logoPictureBox.Image")));
             this.logoPictureBox.Location = new System.Drawing.Point(12, 13);
             this.logoPictureBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.logoPictureBox.Name = "logoPictureBox";
@@ -115,11 +115,11 @@
             this.lblFramework.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lblFramework.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblFramework.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.lblFramework.Location = new System.Drawing.Point(50, 229);
+            this.lblFramework.Location = new System.Drawing.Point(45, 232);
             this.lblFramework.Name = "lblFramework";
-            this.lblFramework.Size = new System.Drawing.Size(152, 23);
+            this.lblFramework.Size = new System.Drawing.Size(161, 23);
             this.lblFramework.TabIndex = 22;
-            this.lblFramework.Text = "ROCKET Framework";
+            this.lblFramework.Text = "DOOGGY Framework";
             // 
             // frmAboutBox
             // 
@@ -154,9 +154,9 @@
         private System.Windows.Forms.PictureBox logoPictureBox;
         private System.Windows.Forms.Button cmdClose;
         private System.Windows.Forms.GroupBox grpInformations;
-        private Telas.usrLabelTextBox usrTagName;
-        private Telas.usrLabelTextBox usrTagCompany;
-        private Telas.usrLabelTextBox usrTagVersion;
+        private usrLabelTextBox usrTagName;
+        private usrLabelTextBox usrTagCompany;
+        private usrLabelTextBox usrTagVersion;
         private System.Windows.Forms.Label lblFramework;
     }
 }

@@ -1,4 +1,4 @@
-﻿using Dooggy.Factory.Console;
+﻿using Dooggy.LIBRARY;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -6,12 +6,8 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using Dooggy;
-using Dooggy.Tools.Util;
-using Dooggy.Lib.Vars;
-using Rocket;
 
-namespace Rocket.Telas
+namespace BlueRocket
 {
     public partial class usrTestProject : usrMoldura
     {
@@ -67,6 +63,7 @@ namespace Rocket.Telas
             Editor = prmEditor;
 
             Editor.Format.SetPadrao(trvProjeto);
+            Editor.Format.SetPadrao(trvFiltro);
 
             usrAction.Setup(prmEditor);
 
@@ -84,16 +81,44 @@ namespace Rocket.Telas
         
         private void Popular()
         {
+            PopularINI();
+
+            //PopularFiltro();
+        }
+
+        private void PopularINI()
+        {
             trvProjeto.Nodes.Clear();
 
-            Root = AddNode(prmItem: "ini"); 
+            Root = AddProjectNode(prmItem: "ini");
 
             foreach (ScriptCLI Script in Editor.Project.Scripts)
-            {
                 AddNode(prmItem: Script.Result.name_INI, Root, prmCor: Script.Cor.GetCodeColor());
-            }
 
             Root.Expand();
+        }
+
+        private void PopularFiltro()
+        {
+            trvFiltro.Nodes.Clear();
+
+            Root = AddFilterNode(prmItem: "Tags");
+
+            foreach (TagCLI Tag in Editor.Project.Tags)
+                PopularFiltroOpcoes(prmTag: Tag);
+
+            Root.Expand();
+        }
+
+        private void PopularFiltroOpcoes(TagCLI prmTag)
+        {
+
+            TreeNode Folha = AddNode(prmItem: prmTag.name, Root, prmCor: prmTag.Cor.GetCodeColor());
+
+            foreach (string opcao in prmTag.Opcoes)
+                AddNode(prmItem: opcao, Root, prmCor: prmTag.Cor.GetCodeColor());
+
+            Folha.Expand();
         }
 
         public void View()
@@ -149,7 +174,8 @@ namespace Rocket.Telas
             foreach (TreeNode item in prmNode.Nodes)
                 item.Checked = !(item.Checked);
         }
-        private TreeNode AddNode(string prmItem) => (trvProjeto.Nodes.Add(prmItem));
+        private TreeNode AddProjectNode(string prmItem) => (trvProjeto.Nodes.Add(prmItem));
+        private TreeNode AddFilterNode(string prmItem) => (trvFiltro.Nodes.Add(prmItem));
         private TreeNode AddNode(string prmItem, TreeNode prmPai, myColor prmCor)
         {
             return SetNodeColor(prmNode: prmPai.Nodes.Add(prmItem), prmCor);

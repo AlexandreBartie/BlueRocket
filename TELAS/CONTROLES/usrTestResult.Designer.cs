@@ -1,4 +1,4 @@
-﻿namespace Rocket.Telas
+﻿namespace BlueRocket
 {
     partial class usrTestResult
     {
@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("");
             System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("");
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabMassaDados = new System.Windows.Forms.TabPage();
@@ -43,10 +44,16 @@
             this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
+            this.tabLogErrors = new System.Windows.Forms.TabPage();
+            this.lstLogErrors = new System.Windows.Forms.ListView();
+            this.columnHeader4 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader5 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader6 = new System.Windows.Forms.ColumnHeader();
             this.tabControl.SuspendLayout();
             this.tabMassaDados.SuspendLayout();
             this.tabLogExecucao.SuspendLayout();
             this.tabSqlCommands.SuspendLayout();
+            this.tabLogErrors.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl
@@ -54,6 +61,7 @@
             this.tabControl.Alignment = System.Windows.Forms.TabAlignment.Bottom;
             this.tabControl.Controls.Add(this.tabMassaDados);
             this.tabControl.Controls.Add(this.tabLogExecucao);
+            this.tabControl.Controls.Add(this.tabLogErrors);
             this.tabControl.Controls.Add(this.tabSqlCommands);
             this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
@@ -151,7 +159,7 @@
             this.lstSqlCommands.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lstSqlCommands.HideSelection = false;
             this.lstSqlCommands.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem2});
+            listViewItem3});
             this.lstSqlCommands.Location = new System.Drawing.Point(3, 3);
             this.lstSqlCommands.Name = "lstSqlCommands";
             this.lstSqlCommands.Size = new System.Drawing.Size(551, 447);
@@ -175,6 +183,49 @@
             this.columnHeader3.Text = "Descrição";
             this.columnHeader3.Width = 482;
             // 
+            // tabLogErrors
+            // 
+            this.tabLogErrors.Controls.Add(this.lstLogErrors);
+            this.tabLogErrors.Location = new System.Drawing.Point(4, 4);
+            this.tabLogErrors.Name = "tabLogErrors";
+            this.tabLogErrors.Padding = new System.Windows.Forms.Padding(3);
+            this.tabLogErrors.Size = new System.Drawing.Size(557, 453);
+            this.tabLogErrors.TabIndex = 3;
+            this.tabLogErrors.Text = "Log Erros";
+            this.tabLogErrors.UseVisualStyleBackColor = true;
+            // 
+            // lstLogErrors
+            // 
+            this.lstLogErrors.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader4,
+            this.columnHeader5,
+            this.columnHeader6});
+            this.lstLogErrors.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lstLogErrors.HideSelection = false;
+            this.lstLogErrors.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
+            listViewItem2});
+            this.lstLogErrors.Location = new System.Drawing.Point(3, 3);
+            this.lstLogErrors.Name = "lstLogErrors";
+            this.lstLogErrors.Size = new System.Drawing.Size(551, 447);
+            this.lstLogErrors.TabIndex = 1;
+            this.lstLogErrors.UseCompatibleStateImageBehavior = false;
+            this.lstLogErrors.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "#";
+            this.columnHeader4.Width = 0;
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "Tipo";
+            this.columnHeader5.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // columnHeader6
+            // 
+            this.columnHeader6.Text = "Descrição";
+            this.columnHeader6.Width = 482;
+            // 
             // usrTestResult
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -189,6 +240,7 @@
             this.tabMassaDados.PerformLayout();
             this.tabLogExecucao.ResumeLayout(false);
             this.tabSqlCommands.ResumeLayout(false);
+            this.tabLogErrors.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -208,5 +260,10 @@
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.TabPage tabLogErrors;
+        private System.Windows.Forms.ListView lstLogErrors;
+        private System.Windows.Forms.ColumnHeader columnHeader4;
+        private System.Windows.Forms.ColumnHeader columnHeader5;
+        private System.Windows.Forms.ColumnHeader columnHeader6;
     }
 }

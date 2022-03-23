@@ -1,13 +1,11 @@
-﻿using Dooggy;
-using Dooggy.Factory.Console;
-using Dooggy.Lib.Vars;
-using Dooggy.Tools.Util;
+﻿using Dooggy.CORE;
+using Dooggy.LIBRARY;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
 
-namespace Rocket
+namespace BlueRocket
 {
     public class ProjectCLI
     {
@@ -15,6 +13,7 @@ namespace Rocket
         private EditorCLI Editor;
 
         public ScriptsCLI Scripts;
+        public TagsCLI Tags;
 
         public ScriptCLI Script => Scripts.Corrente;
 
@@ -24,14 +23,19 @@ namespace Rocket
         public TestConfigImport Import => Editor.Config.Import;
 
         public bool IsLoad => Import.IsOK;
-        public string nome => Import.path_CFG;
+        public string nome => Import.FileCFG.nome;
 
         public ProjectCLI(EditorCLI prmEditor)
         {
             Editor = prmEditor;
         }
 
-        public void Reset() => Scripts = new ScriptsCLI(Editor);
+        public void Reset()
+        {
+            Scripts = new ScriptsCLI(Editor);
+
+            Tags = new TagsCLI(Editor);
+        }
 
         public bool SetScript(ScriptCLI prmScript) => Scripts.SetScript(prmScript);
         public bool SetScript(string prmName) => Scripts.SetScript(GetScript(prmName));
@@ -178,21 +182,15 @@ namespace Rocket
 
         public ScriptsCLI(EditorCLI prmEditor)
         {
-
             Editor = prmEditor;
 
             Popular();
-
         }
 
         private void Popular()
         {
-
-            Editor.Console.Load();
-
             foreach (TestScript Script in Editor.Console.Scripts)
                 Add(Script);
-
         }
 
         private void Add(TestScript prmScript) => base.Add(new ScriptCLI(prmScript, Editor));
@@ -221,5 +219,84 @@ namespace Rocket
 
         private bool Sincronizar() => Editor.Console.SetScript(prmKey: Corrente.name);
 
+    }
+
+    public class TagCLI
+    {
+        private TestDataTag Tag;
+
+        public EditorCLI Editor;
+
+        public string name => Tag.name;
+
+        public xLista Opcoes => Tag.Opcoes;
+
+        public bool selected = true;
+
+        public TagCLIColor Cor;
+
+        public TagCLI(TestDataTag prmTAG, EditorCLI prmEditor)
+        {
+            Tag = prmTAG;
+
+            Editor = prmEditor;
+
+            Cor = new TagCLIColor(this);
+
+            selected = true;
+        }
+    }
+
+    public class TagsCLI : List<TagCLI>
+    {
+        
+        private EditorCLI Editor;
+
+        public TagCLI Corrente;
+
+        public TagsCLI(EditorCLI prmEditor)
+        {
+
+            Editor = prmEditor;
+
+            Popular();
+
+        }
+        private void Popular()
+        {
+            foreach (TestDataTag Tag in Editor.Config.Global.Tags)
+                AddItem(Tag);
+        }
+
+        private void AddItem(TestDataTag prmTag) => base.Add(new TagCLI(prmTag, Editor));
+
+    }
+
+    public class TagCLIColor
+    {
+        private TagCLI TagCLI;
+
+        private EditorFormat Format => TagCLI.Editor.Format;
+
+        public TagCLIColor(TagCLI prmTagCLI)
+        {
+            TagCLI = prmTagCLI;
+        }
+
+        public myColor GetCodeColor()
+        {
+            return new myColor(GetFilterForeColor(), GetFilterBackColor());
+        }
+        public Color GetFilterForeColor()
+        {
+            if (!TagCLI.selected)
+                return Format.ColorCLI.cor_frente_modificado;
+
+            return Format.ColorCLI.cor_frente_consulta;
+        }
+        public Color GetFilterBackColor()
+        {
+            return Format.ColorCLI.cor_fundo_padrao;
+        }
     }
 }

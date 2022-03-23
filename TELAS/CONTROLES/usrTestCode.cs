@@ -5,9 +5,8 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using Rocket;
 
-namespace Rocket.Telas
+namespace BlueRocket
 {
     public partial class usrTestCode : usrMoldura
     {

@@ -3,17 +3,17 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <RootNamespace>Rocket</RootNamespace>
+    <RootNamespace>BlueRocket</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <AssemblyVersion></AssemblyVersion>
     <FileVersion></FileVersion>
-    <Version>1.4.2</Version>
+    <Version>1.4.3</Version>
     <ApplicationIcon>Rocket.ico</ApplicationIcon>
     <UseWindowsForms>True</UseWindowsForms>
-    <StartupObject>Rocket.Program</StartupObject>
+    <StartupObject>BlueRocket.Program</StartupObject>
     <PackageIcon>Rocket.png</PackageIcon>
     <SignAssembly>False</SignAssembly>
-    <AssemblyName>Blue-Rocket.Console</AssemblyName>
+    <AssemblyName>BlueRocket</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Dooggy" Version="1.1.6" />
+    <PackageReference Include="Dooggy.CORE" Version="1.0.7.2" />
   </ItemGroup>
 
   <ItemGroup>

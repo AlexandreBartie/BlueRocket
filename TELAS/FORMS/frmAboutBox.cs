@@ -1,12 +1,11 @@
-﻿using Rocket;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Reflection;
 using System.Windows.Forms;
 
-namespace Rocket
+namespace BlueRocket
 {
     partial class frmAboutBox : Form
     {
