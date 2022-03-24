@@ -20,6 +20,9 @@ namespace BlueRocket
    
     public delegate void Notify_ProjectExit();
 
+    public delegate void Notify_FilterTagChanged();
+    public delegate void Notify_FilterTagChecked(string prmTag, string prmOption, bool prmChecked);
+
     public delegate void Notify_MultiSelect(bool prmAtivar);
 
     public delegate void Notify_BatchSet(ScriptCLI prmScript);
@@ -50,8 +53,9 @@ namespace BlueRocket
     {
         public EditorCLI()
         {
-
             Project = new ProjectCLI(this);
+
+            Filter = new EditorFilter(this);
 
             Select = new EditorSelect(this);
 
@@ -59,12 +63,11 @@ namespace BlueRocket
 
             Format = new EditorFormat(this);
 
-            Page = new EditorPageCLI(this);
+            Page = new EditorPage(this);
 
             Cor = new EditorColor();
 
             Setup();
-
         }
 
     }
@@ -81,6 +84,8 @@ namespace BlueRocket
 
         public event Notify_ProjectDBConnect ProjectDBConnect;
 
+        public event Notify_FilterTagChanged FilterTagChanged;
+        public event Notify_FilterTagChecked FilterTagChecked;
 
         public event Notify_SelectedPlayAll SelectedLockedAll;
         public event Notify_SelectedSaveAll SelectedUnlockedAll;
@@ -165,7 +170,6 @@ namespace BlueRocket
         {
             SelectedSaveAll?.Invoke();
         }
-
         public void OnBatchSet(ScriptCLI prmScript)
         {
             BatchSet?.Invoke(prmScript);
@@ -179,6 +183,14 @@ namespace BlueRocket
             ScriptCodeChecked?.Invoke(prmScript, prmChecked);
 
          }
+        public void OnFilterTagChecked(string prmTag, string prmOption, bool prmChecked)
+        {
+            FilterTagChecked?.Invoke(prmTag, prmOption, prmChecked); OnFilterTagChanged();
+        }
+        public void OnFilterTagChanged()
+        {
+            FilterTagChanged?.Invoke();
+        }
         public void OnScriptCodeSelect()
         {
             ScriptCodeSelect?.Invoke();
@@ -244,7 +256,6 @@ namespace BlueRocket
         public void Open(string prmArquivoCFG) 
         {
             Console.Setup(prmArquivoCFG); Reset();
-
         }
         public void Close() 
         { 
@@ -272,6 +283,9 @@ namespace BlueRocket
         }
         public void Reset() => Project.Reset();
 
+        public void PagePaintStart() => Page.Start();
+        public void PagePaintEnd() => Page.End();
+
         public void CodeBatchStart() => Batch.Start();
         public void CodeBatchSet(ScriptCLI prmScript) { Batch.Set(prmScript); OnBatchSet(prmScript); }
         public void CodeBatchEnd() { Batch.End(); Select.Reset(); OnBatchEnd(); }
@@ -283,6 +297,9 @@ namespace BlueRocket
 
         public void CodeLocked(bool prmLocked) { Script.SetLocked(prmLocked); OnScriptCodeChanged(); }
         public void CodeLocked() { Script.SetLocked(); OnScriptCodeChanged(); }
+
+        public void CodeTagged(string prmName, string prmValue) { Script.SetLocked(); OnScriptCodeChanged(); }
+
         public void CodeSave() { Script.SaveCode(); OnScriptCodeChanged(); }
         public void CodeUndo() { Script.UndoCode(); OnScriptCodeChanged(); }
 
@@ -291,7 +308,6 @@ namespace BlueRocket
         public void CodePlayEnd() { Script.PlayEnd(); }
 
         public void SetAction(string prmTexto) => Page.SetAction(prmTexto);
-
         public ScriptCLI GetScript(string prmName) => Project.GetScript(prmName);
 
     }
@@ -317,9 +333,9 @@ namespace BlueRocket
 
         public bool IsMassaDados => TemScript && ICanPlay;
 
-        public bool IsFree => !IsRunning;
+        public bool IsFree => !(IsRunning || IsPainting);
+        public bool IsPainting => Page.IsPainting;
         public bool IsRunning => Batch.IsRunning;
-
         public bool IsPlaying { get { if (TemScript) return Script.IsPlaying; return false; } }
 
         public bool ICanExit => !IsPlaying;
@@ -344,7 +360,9 @@ namespace BlueRocket
 
         public ProjectCLI Project;
 
-        public EditorPageCLI Page;
+        public EditorPage Page;
+
+        public EditorFilter Filter;
 
         public EditorSelect Select;
 
@@ -359,6 +377,24 @@ namespace BlueRocket
         public void Setup() => Factory = new TestDataProject();
 
     }
+
+    public class EditorFilter : List<ScriptCLI>
+    {
+        private EditorCLI Editor;
+
+        private TagsCLI Tags => Editor.Project.Tags;
+
+        public OptionsTagCLI Ativos => Tags.Ativos;
+
+        public EditorFilter(EditorCLI prmEditor)
+        {
+            Editor = prmEditor;
+        }
+
+        public void SetTag(string prmTag, string prmOption, bool prmChecked) => Tags.SetAtivo(prmTag, prmOption, prmChecked);
+
+    }
+
     public class EditorSelect : List<ScriptCLI>
     {
         public EditorCLI Editor;
@@ -544,9 +580,13 @@ namespace BlueRocket
 
             prmListView.Scrollable = true;
         }
-        public void SetPadrao(TreeView prmTreeView)
+
+        public void SetPadrao(TreeView prmTreeView) => SetPadrao(prmTreeView, prmCheckBoxes: false);
+        public void SetPadrao(TreeView prmTreeView, bool prmCheckBoxes)
         {
             SetControl(prmTreeView, FontTreeView);
+
+            prmTreeView.CheckBoxes = prmCheckBoxes;
 
             prmTreeView.LabelEdit = false;
 

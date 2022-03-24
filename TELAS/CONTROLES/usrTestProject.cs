@@ -1,10 +1,5 @@
 ﻿using Dooggy.LIBRARY;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 
 namespace BlueRocket
@@ -41,29 +36,40 @@ namespace BlueRocket
                     DoubleClickScript();
             }
         }
-
+        private void trvProjeto_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            if (IsScriptSelected(prmKey: trvProjeto.SelectedNode.Text))
+                Editor.OnScriptCodeSelect();
+        }
         private void trvProjeto_AfterCheck(object sender, TreeViewEventArgs e)
         {
             if (Editor.IsFree)
             {
-                if (e.Node.Parent == null)
+                if (e.Node.Nodes.Count != 0)
                     InverterTodos(e.Node);
                 else
                     Editor.OnScriptCodeChecked(prmScript: e.Node.Text, prmChecked: e.Node.Checked);
             }
         }
 
-        private void trvProjeto_AfterSelect(object sender, TreeViewEventArgs e)
+        private void trvFiltro_AfterCheck(object sender, TreeViewEventArgs e)
         {
-            if (IsScriptSelected(prmKey: trvProjeto.SelectedNode.Text))
-                Editor.OnScriptCodeSelect();
+            if (Editor.IsFree)
+            {
+                if (e.Node.Nodes.Count != 0)
+                    InverterTodos(e.Node);
+                else
+                    Editor.OnFilterTagChecked(prmTag: e.Node.Parent.Text,  prmOption: e.Node.Text, prmChecked: e.Node.Checked);
+            }
         }
         public void Setup(EditorCLI prmEditor)
         {
             Editor = prmEditor;
 
+            Editor.Format.SetPadrao(txtStatus, prmEditavel: false);
+
             Editor.Format.SetPadrao(trvProjeto);
-            Editor.Format.SetPadrao(trvFiltro);
+            Editor.Format.SetPadrao(trvFiltro, prmCheckBoxes: true);
 
             usrAction.Setup(prmEditor);
 
@@ -83,7 +89,7 @@ namespace BlueRocket
         {
             PopularINI();
 
-            //PopularFiltro();
+            PopularFiltro();
         }
 
         private void PopularINI()
@@ -93,7 +99,7 @@ namespace BlueRocket
             Root = AddProjectNode(prmItem: "ini");
 
             foreach (ScriptCLI Script in Editor.Project.Scripts)
-                AddNode(prmItem: Script.Result.name_INI, Root, prmCor: Script.Cor.GetCodeColor());
+                AddNode(prmItem: Script.Result.name_INI, Root, prmCor: Script.Cor.GetCodeColor(), prmChecked: false);
 
             Root.Expand();
         }
@@ -113,14 +119,17 @@ namespace BlueRocket
         private void PopularFiltroOpcoes(TagCLI prmTag)
         {
 
-            TreeNode Folha = AddNode(prmItem: prmTag.name, Root, prmCor: prmTag.Cor.GetCodeColor());
+            TreeNode Folha = AddNode(prmItem: prmTag.name, Root, prmCor: prmTag.Cor.GetCodeColor(), prmChecked: false);
 
-            foreach (string opcao in prmTag.Opcoes)
-                AddNode(prmItem: opcao, Root, prmCor: prmTag.Cor.GetCodeColor());
+            foreach (OptionTagCLI opcao in prmTag.Options)
+                AddNode(opcao.value, Folha, prmCor: opcao.Cor.GetCodeColor(), prmChecked: true);
 
             Folha.Expand();
         }
-
+        public void StatusFilter()
+        {
+            txtStatus.Text = Editor.Filter.Ativos.log;
+        }
         public void View()
         {
             if (Editor.TemScript)
@@ -174,13 +183,19 @@ namespace BlueRocket
             foreach (TreeNode item in prmNode.Nodes)
                 item.Checked = !(item.Checked);
         }
-        private TreeNode AddProjectNode(string prmItem) => (trvProjeto.Nodes.Add(prmItem));
-        private TreeNode AddFilterNode(string prmItem) => (trvFiltro.Nodes.Add(prmItem));
-        private TreeNode AddNode(string prmItem, TreeNode prmPai, myColor prmCor)
-        {
-            return SetNodeColor(prmNode: prmPai.Nodes.Add(prmItem), prmCor);
-        }
+        private TreeNode AddProjectNode(string prmItem) => trvProjeto.Nodes.Add(prmItem);
+        private TreeNode AddFilterNode(string prmItem) => trvFiltro.Nodes.Add(prmItem);
 
+        private TreeNode AddNode(string prmItem, TreeNode prmPai, myColor prmCor, bool prmChecked)
+        {
+
+            TreeNode node = prmPai.Nodes.Add(prmItem);
+
+            if (node.TreeView.CheckBoxes)
+                node.Checked = false; // prmChecked;
+
+            return SetNodeColor(node, prmCor);
+        }
         private TreeNode SetNodeColor(TreeNode prmNode, myColor prmCor)
         {
             prmNode.ForeColor = prmCor.frente;
@@ -197,5 +212,6 @@ namespace BlueRocket
             return "Selecionar Projeto (*.cfg)";
         }
         public void SetAction(string prmTexto) => usrAction.SetAction(prmTexto);
+
     }
 }

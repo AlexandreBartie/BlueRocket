@@ -13,6 +13,7 @@ namespace BlueRocket
         private EditorCLI Editor;
 
         public ScriptsCLI Scripts;
+
         public TagsCLI Tags;
 
         public ScriptCLI Script => Scripts.Corrente;
@@ -20,8 +21,11 @@ namespace BlueRocket
         public bool TemScript => (Script != null);
         public bool TemScripts => (Scripts.Count > 0);
 
-        public TestConfigImport Import => Editor.Config.Import;
+        public TestConsole Console => Editor.Console;
+        public TestConsoleConfig Config => Editor.Config;
+        public TestConfigImport Import => Config.Import;
 
+        public bool ICanPlay => Editor.ICanPlay;
         public bool IsLoad => Import.IsOK;
         public string nome => Import.FileCFG.nome;
 
@@ -35,6 +39,7 @@ namespace BlueRocket
             Scripts = new ScriptsCLI(Editor);
 
             Tags = new TagsCLI(Editor);
+
         }
 
         public bool SetScript(ScriptCLI prmScript) => Scripts.SetScript(prmScript);
@@ -50,7 +55,7 @@ namespace BlueRocket
 
         public EditorCLI Editor;
 
-        public ScriptCLIColor Cor;
+        public ColorScriptCLI Cor;
 
         private TestConsole Console => Script.Console;
         public TestResult Result => Script.Result;
@@ -85,7 +90,7 @@ namespace BlueRocket
 
             Editor = prmEditor;
 
-            Cor = new ScriptCLIColor(this);
+            Cor = new ColorScriptCLI(this);
         }
 
         public void SetLocked(bool prmLocked) { IsLocked = prmLocked; }
@@ -114,69 +119,12 @@ namespace BlueRocket
         }
 
     }
-    public class ScriptCLIColor
-    {
-        private ScriptCLI ScriptCLI;
-
-        private EditorFormat Format => ScriptCLI.Editor.Format;
-
-        public ScriptCLIColor(ScriptCLI prmScriptCLI)
-        {
-            ScriptCLI = prmScriptCLI;
-        }
-
-        public myColor GetCodeColor()
-        {
-            return new myColor(GetCodeForeColor(), GetCodeBackColor());
-        }
-        public Color GetCodeForeColor()
-        {
-            if (!ScriptCLI.IsLocked)
-
-                if (ScriptCLI.IsChanged)
-                    return Format.ColorCLI.cor_frente_modificado;
-                else
-                    return Format.ColorCLI.cor_frente_edicao;
-
-            return Format.ColorCLI.cor_frente_consulta;
-        }
-        public Color GetCodeBackColor()
-        {
-            if (ScriptCLI.IsLogError)
-                return Format.ColorCLI.cor_fundo_erro;
-
-            return Format.ColorCLI.cor_fundo_padrao;
-        }
-        public Color GetLogForeColor()
-        {
-            if (ScriptCLI.IsLogError)
-                return Format.ColorCLI.cor_frente_erro;
-
-            return GetCodeForeColor();
-        }
-        public Color GetLogBackColor()
-        {
-
-            if (!ScriptCLI.IsResult)
-                return Format.ColorCLI.cor_fundo_empty;
-
-            return Format.ColorCLI.cor_fundo_padrao;
-        }
-        public Color GetItemLogForeColor(string prmTipo)
-        {
-
-            if (myString.IsEqual(prmTipo, "erro"))
-                return Format.ColorCLI.cor_frente_erro;
-
-            return GetCodeForeColor();
-        }
-
-    }
-
     public class ScriptsCLI : List<ScriptCLI>
     {
 
         private EditorCLI Editor;
+
+        private TestConsole Console => Editor.Console;
 
         public ScriptCLI Corrente;
 
@@ -189,7 +137,7 @@ namespace BlueRocket
 
         private void Popular()
         {
-            foreach (TestScript Script in Editor.Console.Scripts)
+            foreach (TestScript Script in Console.Scripts)
                 Add(Script);
         }
 
@@ -217,86 +165,170 @@ namespace BlueRocket
             return null;
         }
 
-        private bool Sincronizar() => Editor.Console.SetScript(prmKey: Corrente.name);
+        private bool Sincronizar() => Console.SetScript(prmKey: Corrente.name);
 
     }
-
     public class TagCLI
     {
-        private TestDataTag Tag;
+        private myDominio Tag;
 
         public EditorCLI Editor;
 
-        public string name => Tag.name;
+        public string name => Tag.key;
 
-        public xLista Opcoes => Tag.Opcoes;
+        public OptionsTagCLI Options;
 
-        public bool selected = true;
+        public ColorTagCLI Cor;
 
-        public TagCLIColor Cor;
+        public bool IsAtivo => GetAtivo();
+        public bool IsEqual(string prmName) => Tag.IsEqual(prmName);
 
-        public TagCLI(TestDataTag prmTAG, EditorCLI prmEditor)
+        public TagCLI(myDominio prmTAG, EditorCLI prmEditor)
         {
             Tag = prmTAG;
 
             Editor = prmEditor;
 
-            Cor = new TagCLIColor(this);
+            Options = new OptionsTagCLI(this, prmTAG.Opcoes);
 
-            selected = true;
+            Cor = new ColorTagCLI(this);
         }
+
+        public void SetAtivo(string prmOption, bool prmAtivo) => Options.SetAtivo(prmOption, prmAtivo);
+
+        private bool GetAtivo()
+        {
+            foreach (OptionTagCLI Option in Options)
+                if (Option.ativo)
+                    return true;
+
+            return false;
+        }
+
     }
 
     public class TagsCLI : List<TagCLI>
     {
-        
+
         private EditorCLI Editor;
 
-        public TagCLI Corrente;
+        public OptionsTagCLI Todos => GetTodos();
+        public OptionsTagCLI Ativos => GetTodos(prmFiltrar: true);
 
         public TagsCLI(EditorCLI prmEditor)
         {
-
             Editor = prmEditor;
 
             Popular();
-
         }
         private void Popular()
         {
-            foreach (TestDataTag Tag in Editor.Config.Global.Tags)
+            foreach (myDominio Tag in Editor.Config.Global.Tags)
                 AddItem(Tag);
         }
 
-        private void AddItem(TestDataTag prmTag) => base.Add(new TagCLI(prmTag, Editor));
+        private void AddItem(myDominio prmTag) => base.Add(new TagCLI(prmTag, Editor));
 
+        public void SetAtivo(string prmName, string prmOption, bool prmAtivo)
+        {
+            foreach (TagCLI Tag in this)
+
+                if (Tag.IsEqual(prmName))
+                    { Tag.SetAtivo(prmOption, prmAtivo); break; }
+        }
+
+        private OptionsTagCLI GetTodos() => GetTodos(prmFiltrar: false);
+        private OptionsTagCLI GetTodos(bool prmFiltrar)
+        {
+            OptionsTagCLI itens = new OptionsTagCLI();
+
+            foreach (TagCLI Tag in this)
+            {
+                foreach (OptionTagCLI item in Tag.Options)
+                    if (item.ativo || !prmFiltrar)
+                        itens.Add(item);
+            }
+            return itens;
+        }
     }
 
-    public class TagCLIColor
+    public class OptionTagCLI
     {
-        private TagCLI TagCLI;
 
-        private EditorFormat Format => TagCLI.Editor.Format;
+        private TagCLI Tag;
 
-        public TagCLIColor(TagCLI prmTagCLI)
+        public EditorCLI Editor => Tag.Editor;
+
+        public string value;
+
+        public bool ativo;
+        public string log => String.Format("{0}: {1}", Tag.name, value);
+
+        public bool IsEqual(string prmValue) => myString.IsEqual(value, prmValue);
+
+        public ColorOptionTagCLI Cor;
+
+        public OptionTagCLI(TagCLI prmTag, string prmValue)
         {
-            TagCLI = prmTagCLI;
+            Parse(prmTag, prmValue);
+
+            Cor = new ColorOptionTagCLI(this);
         }
 
-        public myColor GetCodeColor()
+        public void Parse(TagCLI prmTag, string prmValue)
         {
-            return new myColor(GetFilterForeColor(), GetFilterBackColor());
-        }
-        public Color GetFilterForeColor()
-        {
-            if (!TagCLI.selected)
-                return Format.ColorCLI.cor_frente_modificado;
+            Tag = prmTag;
 
-            return Format.ColorCLI.cor_frente_consulta;
+            value = prmValue;
         }
-        public Color GetFilterBackColor()
-        {
-            return Format.ColorCLI.cor_fundo_padrao;
-        }
+        public void SetAtivo(bool prmAtivo) => ativo = prmAtivo;
+
     }
+
+    public class OptionsTagCLI : List<OptionTagCLI>
+    {
+        
+        private TagCLI Tag;
+
+        public string log => GetLOG();
+
+        public OptionsTagCLI() { }
+
+        public OptionsTagCLI(TagCLI prmTag, xLista prmOptions)
+        {
+            Parse(prmTag, prmOptions);
+        }
+
+        private void Parse(TagCLI prmTag, xLista prmOptions)
+        {
+            Tag = prmTag;
+
+            Popular(prmOptions);
+        }
+        private void Popular(xLista prmOptions)
+        {
+            foreach (string item in prmOptions)
+                Add(new OptionTagCLI(Tag, prmValue: item));
+
+        }
+        public void SetAtivo(string prmOption, bool prmAtivo)
+        {
+            foreach (OptionTagCLI Option in this)
+                if (Option.IsEqual(prmOption))
+                    { Option.SetAtivo(prmAtivo); break; }
+        }
+
+        private string GetLOG()
+        {
+            xLinhas txt = new xLinhas();
+
+            foreach (OptionTagCLI Option in this)
+                txt.Add(Option.log);
+
+            return txt.memo;
+
+        }
+
+    }
+
 }

@@ -4,21 +4,21 @@ using System.Text;
 
 namespace BlueRocket
 {
-    public class EditorPageCLI : EditorPageBase
+    public class EditorPage : EditorPageView
     {
 
-        private EditorPageCLI_Main Main;
+        private EditorPage_Main Main;
 
-        private EditorPageCLI_About About;
+        private EditorPage_About About;
 
-        public EditorPageCLI(EditorCLI prmEditor)
+        public EditorPage(EditorCLI prmEditor)
         {
 
             Editor = prmEditor;
 
-            Main = new EditorPageCLI_Main();
+            Main = new EditorPage_Main();
 
-            About = new EditorPageCLI_About();
+            About = new EditorPage_About();
 
         }
 
@@ -29,7 +29,16 @@ namespace BlueRocket
 
     }
 
-    public class EditorPageCLI_Main : EditorPageBase
+    public class EditorPageView : EditorPageBase
+    {
+
+        public bool IsPainting;
+
+        public void Start() => IsPainting = true;
+        public void End() => IsPainting = false;
+    }
+
+    public class EditorPage_Main : EditorPageBase
     {
 
         private frmMainCLI FormLocal;
@@ -40,7 +49,7 @@ namespace BlueRocket
 
     }
 
-    public class EditorPageCLI_About : EditorPageBase
+    public class EditorPage_About : EditorPageBase
     {
 
         private frmAboutBox FormLocal;
@@ -52,6 +61,7 @@ namespace BlueRocket
     public class EditorPageBase
     {
         public static EditorCLI Editor;
+
     }
 
 }
