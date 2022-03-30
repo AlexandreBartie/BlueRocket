@@ -1,6 +1,6 @@
 ﻿namespace BlueRocket
 {
-    partial class usrActionProject
+    partial class usrActionStatus
     {
         /// <summary> 
         /// Variável de designer necessária.

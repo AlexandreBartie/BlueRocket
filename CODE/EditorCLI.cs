@@ -311,7 +311,6 @@ namespace BlueRocket
         public ScriptCLI GetScript(string prmName) => Project.GetScript(prmName);
 
     }
-
     public class EditorMode : EditorBase
     {
         public ScriptCLI Script => Project.Script;
@@ -329,7 +328,11 @@ namespace BlueRocket
         public bool TemProject => Project.IsLoad;
         public bool TemScript => Project.TemScript;
 
+        public bool TemAtivos => Project.TemAtivos;
+
         public bool TemSelect => Select.IsFull;
+
+
 
         public bool IsMassaDados => TemScript && ICanPlay;
 
@@ -347,13 +350,12 @@ namespace BlueRocket
         public bool ICanRefresh => ICanClose;
 
         public bool ICanMultiSelect => ICanClose;
-        public bool ICanPlay => IsDbOK && Project.TemScripts;
+        public bool ICanPlay => IsDbOK && Project.TemAtivos;
 
         public bool ICanPlayAll => IsMultiSelection && ICanPlay && Select.IsFull;
         public bool ICanSaveAll => ICanPlayAll;
 
     }
-
     public class EditorBase
     {
         public TestDataProject Factory;
@@ -377,24 +379,6 @@ namespace BlueRocket
         public void Setup() => Factory = new TestDataProject();
 
     }
-
-    public class EditorFilter : List<ScriptCLI>
-    {
-        private EditorCLI Editor;
-
-        private TagsCLI Tags => Editor.Project.Tags;
-
-        public OptionsTagCLI Ativos => Tags.Ativos;
-
-        public EditorFilter(EditorCLI prmEditor)
-        {
-            Editor = prmEditor;
-        }
-
-        public void SetTag(string prmTag, string prmOption, bool prmChecked) => Tags.SetAtivo(prmTag, prmOption, prmChecked);
-
-    }
-
     public class EditorSelect : List<ScriptCLI>
     {
         public EditorCLI Editor;
@@ -432,7 +416,6 @@ namespace BlueRocket
         private new void Clear() { if (!IsMultiSelection) base.Clear(); }
 
     }
-
     public class EditorBatch
     {
         private EditorSelect Select;
@@ -574,6 +557,8 @@ namespace BlueRocket
 
             prmListView.LabelEdit = false;
 
+            prmListView.View = View.Details;
+
             prmListView.HideSelection = false;
 
             prmListView.FullRowSelect = true;
@@ -645,7 +630,6 @@ namespace BlueRocket
         public Color cor_fundo_erro => Color.LightYellow;
 
     }
-
     public class TestTimeOut
     {
 

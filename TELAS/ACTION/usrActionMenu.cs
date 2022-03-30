@@ -8,12 +8,12 @@ using System.Windows.Forms;
 
 namespace BlueRocket
 {
-    public partial class usrActionMain : UserControl
+    public partial class usrActionMenu : UserControl
     {
 
         private EditorCLI Editor;
 
-        public usrActionMain()
+        public usrActionMenu()
         {
             InitializeComponent();
         }
@@ -45,7 +45,7 @@ namespace BlueRocket
 
         public void View()
         {
-
+        
             mnuProjectOpen.Enabled = Editor.ICanOpen;
             mnuProjectClose.Enabled = Editor.ICanClose;
 

@@ -31,12 +31,8 @@
             this.logoPictureBox = new System.Windows.Forms.PictureBox();
             this.cmdClose = new System.Windows.Forms.Button();
             this.grpInformations = new System.Windows.Forms.GroupBox();
-            this.usrTagCompany = new BlueRocket.usrLabelTextBox();
-            this.usrTagVersion = new BlueRocket.usrLabelTextBox();
-            this.usrTagName = new BlueRocket.usrLabelTextBox();
             this.lblFramework = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).BeginInit();
-            this.grpInformations.SuspendLayout();
             this.SuspendLayout();
             // 
             // logoPictureBox
@@ -65,47 +61,11 @@
             // grpInformations
             // 
             this.grpInformations.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.grpInformations.Controls.Add(this.usrTagCompany);
-            this.grpInformations.Controls.Add(this.usrTagVersion);
-            this.grpInformations.Controls.Add(this.usrTagName);
             this.grpInformations.Location = new System.Drawing.Point(243, 13);
             this.grpInformations.Name = "grpInformations";
             this.grpInformations.Size = new System.Drawing.Size(297, 208);
             this.grpInformations.TabIndex = 21;
             this.grpInformations.TabStop = false;
-            // 
-            // usrTagCompany
-            // 
-            this.usrTagCompany.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.usrTagCompany.label = "xxx";
-            this.usrTagCompany.Location = new System.Drawing.Point(14, 149);
-            this.usrTagCompany.MinimumSize = new System.Drawing.Size(0, 50);
-            this.usrTagCompany.Name = "usrTagCompany";
-            this.usrTagCompany.Size = new System.Drawing.Size(277, 50);
-            this.usrTagCompany.TabIndex = 26;
-            this.usrTagCompany.text = "";
-            // 
-            // usrTagVersion
-            // 
-            this.usrTagVersion.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.usrTagVersion.label = "xxx";
-            this.usrTagVersion.Location = new System.Drawing.Point(14, 84);
-            this.usrTagVersion.MinimumSize = new System.Drawing.Size(0, 50);
-            this.usrTagVersion.Name = "usrTagVersion";
-            this.usrTagVersion.Size = new System.Drawing.Size(277, 50);
-            this.usrTagVersion.TabIndex = 25;
-            this.usrTagVersion.text = "";
-            // 
-            // usrTagName
-            // 
-            this.usrTagName.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.usrTagName.label = "xxx";
-            this.usrTagName.Location = new System.Drawing.Point(14, 19);
-            this.usrTagName.MinimumSize = new System.Drawing.Size(0, 50);
-            this.usrTagName.Name = "usrTagName";
-            this.usrTagName.Size = new System.Drawing.Size(277, 50);
-            this.usrTagName.TabIndex = 24;
-            this.usrTagName.text = "";
             // 
             // lblFramework
             // 
@@ -127,8 +87,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.ClientSize = new System.Drawing.Size(551, 260);
-            this.Controls.Add(this.lblFramework);
             this.Controls.Add(this.grpInformations);
+            this.Controls.Add(this.lblFramework);
             this.Controls.Add(this.cmdClose);
             this.Controls.Add(this.logoPictureBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -143,7 +103,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "About ...";
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).EndInit();
-            this.grpInformations.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -154,9 +113,6 @@
         private System.Windows.Forms.PictureBox logoPictureBox;
         private System.Windows.Forms.Button cmdClose;
         private System.Windows.Forms.GroupBox grpInformations;
-        private usrLabelTextBox usrTagName;
-        private usrLabelTextBox usrTagCompany;
-        private usrLabelTextBox usrTagVersion;
         private System.Windows.Forms.Label lblFramework;
     }
 }

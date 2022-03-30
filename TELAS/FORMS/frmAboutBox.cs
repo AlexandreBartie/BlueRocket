@@ -38,9 +38,9 @@ namespace BlueRocket
         public void View()
         {
 
-            usrTagName.SetText(prmLabel: "Product:", prmDescription: AssemblyProduct);
-            usrTagVersion.SetText(prmLabel: "Version:", prmDescription: String.Format("Versão {0}", AssemblyVersion));
-            usrTagCompany.SetText(prmLabel: "Company:", prmDescription:  AssemblyCompany);
+            //usrTagName.SetText(prmLabel: "Product:", prmDescription: AssemblyProduct);
+            //usrTagVersion.SetText(prmLabel: "Version:", prmDescription: String.Format("Versão {0}", AssemblyVersion));
+            //usrTagCompany.SetText(prmLabel: "Company:", prmDescription:  AssemblyCompany);
 
         }
 

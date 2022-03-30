@@ -68,13 +68,13 @@ namespace BlueRocket
 
     public class ColorTagCLI
     {
-        private TagCLI TagCLI;
+        private TagCLI Tag;
 
-        private EditorFormat Format => TagCLI.Editor.Format;
+        private EditorFormat Format => Tag.Editor.Format;
 
-        public ColorTagCLI(TagCLI prmTagCLI)
+        public ColorTagCLI(TagCLI prmTag)
         {
-            TagCLI = prmTagCLI;
+            Tag = prmTag;
         }
 
         public myColor GetCodeColor()
@@ -83,9 +83,6 @@ namespace BlueRocket
         }
         public Color GetFilterForeColor()
         {
-            // if (!TagCLI.ativo)
-            //     return Format.ColorCLI.cor_frente_modificado;
-
             return Format.ColorCLI.cor_frente_consulta;
         }
         public Color GetFilterBackColor()
@@ -98,7 +95,7 @@ namespace BlueRocket
     {
         private OptionTagCLI OptionTagCLI;
 
-        private EditorFormat Format => OptionTagCLI.Editor.Format;
+        private EditorFormat Format => OptionTagCLI.Format;
 
         public ColorOptionTagCLI(OptionTagCLI prmOptionTagCLI)
         {
@@ -111,9 +108,6 @@ namespace BlueRocket
         }
         public Color GetFilterForeColor()
         {
-            // if (!TagCLI.ativo)
-            //     return Format.ColorCLI.cor_frente_modificado;
-
             return Format.ColorCLI.cor_frente_consulta;
         }
         public Color GetFilterBackColor()

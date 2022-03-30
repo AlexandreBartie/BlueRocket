@@ -10,7 +10,7 @@ namespace BlueRocket
     public class ProjectCLI
     {
 
-        private EditorCLI Editor;
+        public EditorCLI Editor;
 
         public ScriptsCLI Scripts;
 
@@ -19,7 +19,8 @@ namespace BlueRocket
         public ScriptCLI Script => Scripts.Corrente;
 
         public bool TemScript => (Script != null);
-        public bool TemScripts => (Scripts.Count > 0);
+        public bool TemScripts => (Scripts.TemScripts);
+        public bool TemAtivos => (IsLoad && Scripts.TemAtivos);
 
         public TestConsole Console => Editor.Console;
         public TestConsoleConfig Config => Editor.Config;
@@ -61,11 +62,15 @@ namespace BlueRocket
         public TestResult Result => Script.Result;
 
         public string name => Result.name_INI;
+
+        public string elapsed_seconds => "xxx";
         public string code => Result.code;
 
         public string title => name + GetTitleExt();
 
         public bool IsMatch(string prmTexto) => myString.IsEqual(name, prmTexto);
+
+        public bool IsAtivo => GetAtivo();
 
         public bool IsPlaying = false;
 
@@ -118,6 +123,15 @@ namespace BlueRocket
 
         }
 
+        private bool GetAtivo()
+        {
+            foreach (TestScriptTag Tag in Script.Tags)
+                if (!Editor.Filter.Ativos.GetAtivo(Tag.name,Tag.valor))
+                        return false;
+
+            return true;
+        }
+
     }
     public class ScriptsCLI : List<ScriptCLI>
     {
@@ -127,6 +141,13 @@ namespace BlueRocket
         private TestConsole Console => Editor.Console;
 
         public ScriptCLI Corrente;
+
+        public bool TemScripts => (Count > 0);
+
+        public bool TemAtivos => Ativos.TemScripts;
+
+        public ScriptsCLI Todos => GetTodos();
+        public ScriptsCLI Ativos => GetTodos(prmFiltrar: true);
 
         public ScriptsCLI(EditorCLI prmEditor)
         {
@@ -159,7 +180,7 @@ namespace BlueRocket
         {
             foreach (ScriptCLI Script in this)
 
-                if (myString.IsEqual(Script.name, prmKey))
+                if (Script.IsMatch(prmKey))
                     return Script;
 
             return null;
@@ -167,166 +188,18 @@ namespace BlueRocket
 
         private bool Sincronizar() => Console.SetScript(prmKey: Corrente.name);
 
-    }
-    public class TagCLI
-    {
-        private myDominio Tag;
-
-        public EditorCLI Editor;
-
-        public string name => Tag.key;
-
-        public OptionsTagCLI Options;
-
-        public ColorTagCLI Cor;
-
-        public bool IsAtivo => GetAtivo();
-        public bool IsEqual(string prmName) => Tag.IsEqual(prmName);
-
-        public TagCLI(myDominio prmTAG, EditorCLI prmEditor)
+        private ScriptsCLI GetTodos() => GetTodos(prmFiltrar: false);
+        private ScriptsCLI GetTodos(bool prmFiltrar)
         {
-            Tag = prmTAG;
+            ScriptsCLI itens = new ScriptsCLI(Editor);
 
-            Editor = prmEditor;
-
-            Options = new OptionsTagCLI(this, prmTAG.Opcoes);
-
-            Cor = new ColorTagCLI(this);
-        }
-
-        public void SetAtivo(string prmOption, bool prmAtivo) => Options.SetAtivo(prmOption, prmAtivo);
-
-        private bool GetAtivo()
-        {
-            foreach (OptionTagCLI Option in Options)
-                if (Option.ativo)
-                    return true;
-
-            return false;
-        }
-
-    }
-
-    public class TagsCLI : List<TagCLI>
-    {
-
-        private EditorCLI Editor;
-
-        public OptionsTagCLI Todos => GetTodos();
-        public OptionsTagCLI Ativos => GetTodos(prmFiltrar: true);
-
-        public TagsCLI(EditorCLI prmEditor)
-        {
-            Editor = prmEditor;
-
-            Popular();
-        }
-        private void Popular()
-        {
-            foreach (myDominio Tag in Editor.Config.Global.Tags)
-                AddItem(Tag);
-        }
-
-        private void AddItem(myDominio prmTag) => base.Add(new TagCLI(prmTag, Editor));
-
-        public void SetAtivo(string prmName, string prmOption, bool prmAtivo)
-        {
-            foreach (TagCLI Tag in this)
-
-                if (Tag.IsEqual(prmName))
-                    { Tag.SetAtivo(prmOption, prmAtivo); break; }
-        }
-
-        private OptionsTagCLI GetTodos() => GetTodos(prmFiltrar: false);
-        private OptionsTagCLI GetTodos(bool prmFiltrar)
-        {
-            OptionsTagCLI itens = new OptionsTagCLI();
-
-            foreach (TagCLI Tag in this)
+            foreach (ScriptCLI Tag in this)
             {
-                foreach (OptionTagCLI item in Tag.Options)
-                    if (item.ativo || !prmFiltrar)
+                foreach (ScriptCLI item in this)
+                    if (item.IsAtivo || !prmFiltrar)
                         itens.Add(item);
             }
             return itens;
-        }
-    }
-
-    public class OptionTagCLI
-    {
-
-        private TagCLI Tag;
-
-        public EditorCLI Editor => Tag.Editor;
-
-        public string value;
-
-        public bool ativo;
-        public string log => String.Format("{0}: {1}", Tag.name, value);
-
-        public bool IsEqual(string prmValue) => myString.IsEqual(value, prmValue);
-
-        public ColorOptionTagCLI Cor;
-
-        public OptionTagCLI(TagCLI prmTag, string prmValue)
-        {
-            Parse(prmTag, prmValue);
-
-            Cor = new ColorOptionTagCLI(this);
-        }
-
-        public void Parse(TagCLI prmTag, string prmValue)
-        {
-            Tag = prmTag;
-
-            value = prmValue;
-        }
-        public void SetAtivo(bool prmAtivo) => ativo = prmAtivo;
-
-    }
-
-    public class OptionsTagCLI : List<OptionTagCLI>
-    {
-        
-        private TagCLI Tag;
-
-        public string log => GetLOG();
-
-        public OptionsTagCLI() { }
-
-        public OptionsTagCLI(TagCLI prmTag, xLista prmOptions)
-        {
-            Parse(prmTag, prmOptions);
-        }
-
-        private void Parse(TagCLI prmTag, xLista prmOptions)
-        {
-            Tag = prmTag;
-
-            Popular(prmOptions);
-        }
-        private void Popular(xLista prmOptions)
-        {
-            foreach (string item in prmOptions)
-                Add(new OptionTagCLI(Tag, prmValue: item));
-
-        }
-        public void SetAtivo(string prmOption, bool prmAtivo)
-        {
-            foreach (OptionTagCLI Option in this)
-                if (Option.IsEqual(prmOption))
-                    { Option.SetAtivo(prmAtivo); break; }
-        }
-
-        private string GetLOG()
-        {
-            xLinhas txt = new xLinhas();
-
-            foreach (OptionTagCLI Option in this)
-                txt.Add(Option.log);
-
-            return txt.memo;
-
         }
 
     }

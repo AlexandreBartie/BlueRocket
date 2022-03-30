@@ -1,6 +1,6 @@
 ﻿namespace BlueRocket
 {
-    partial class usrActionMain
+    partial class usrActionMenu
     {
         /// <summary> 
         /// Variável de designer necessária.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(usrActionMain));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(usrActionMenu));
             this.mnuMain = new System.Windows.Forms.MenuStrip();
             this.mnuProject = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuProjectOpen = new System.Windows.Forms.ToolStripMenuItem();

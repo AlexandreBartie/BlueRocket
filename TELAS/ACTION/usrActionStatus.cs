@@ -8,12 +8,12 @@ using System.Windows.Forms;
 
 namespace BlueRocket
 {
-    public partial class usrActionProject : UserControl
+    public partial class usrActionStatus : UserControl
     {
 
         private EditorCLI Editor;
 
-        public usrActionProject()
+        public usrActionStatus()
         {
             InitializeComponent();
         }
