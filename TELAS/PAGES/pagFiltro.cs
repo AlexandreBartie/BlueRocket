@@ -32,7 +32,7 @@ namespace BlueRocket
         {
             usrFilterTags.Refresh();
 
-            usrFilterScripts.View();
+            usrFilterScripts.Refresh();
         }
 
         public void View()

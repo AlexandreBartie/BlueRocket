@@ -58,12 +58,15 @@ namespace BlueRocket
 
         public ColorScriptCLI Cor;
 
+
         private TestConsole Console => Script.Console;
+
         public TestResult Result => Script.Result;
+        public TestScriptTags Tags => Script.Tags;
 
         public string name => Result.name_INI;
+        public string timeSeconds => Result.SQL.timeSecondsTXT;
 
-        public string elapsed_seconds => "xxx";
         public string code => Result.code;
 
         public string title => name + GetTitleExt();

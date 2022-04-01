@@ -329,7 +329,6 @@ namespace BlueRocket
         public bool TemScript => Project.TemScript;
 
         public bool TemAtivos => Project.TemAtivos;
-
         public bool TemSelect => Select.IsFull;
 
 
