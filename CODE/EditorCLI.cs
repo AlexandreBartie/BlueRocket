@@ -1,4 +1,5 @@
-﻿using Dooggy.CORE;
+﻿using Dooggy;
+using Dooggy.CORE;
 using Dooggy.LIBRARY;
 using System;
 using System.Collections.Generic;
@@ -64,8 +65,6 @@ namespace BlueRocket
             Format = new EditorFormat(this);
 
             Page = new EditorPage(this);
-
-            Cor = new EditorColor();
 
             Setup();
         }
@@ -321,6 +320,8 @@ namespace BlueRocket
         public TestDataSource Dados => Console.Dados;
         public TestConsoleConfig Config => Console.Config;
 
+        public DataTags MainTAGs => Config.Global.Tags;
+
         public bool IsDbOK => Console.IsDbOK;
 
         public bool IsMultiSelection => Select.IsMultiSelection;
@@ -330,8 +331,6 @@ namespace BlueRocket
 
         public bool TemAtivos => Project.TemAtivos;
         public bool TemSelect => Select.IsFull;
-
-
 
         public bool IsMassaDados => TemScript && ICanPlay;
 
@@ -371,7 +370,7 @@ namespace BlueRocket
 
         public EditorFormat Format;
 
-        public EditorColor Cor;
+        public ColorEditorCLI Cor;
 
         public EditorBatch Batch => Select.Batch;
 
@@ -500,7 +499,7 @@ namespace BlueRocket
         private Font FontPadrao;
         private Font FontTreeView;
 
-        public EditorColor ColorCLI;
+        public ColorEditorCLI Cor;
 
         public EditorFormat(EditorCLI prmEditor)
         {
@@ -514,15 +513,15 @@ namespace BlueRocket
         private void Setup()
         {
 
-            string nameFontDefault = "Consolas";
+            string nameFontDefault = "Consoles";
 
             FontPath = new Font(nameFontDefault, 8);
 
-            FontPadrao = new Font(nameFontDefault, 12);
+            FontPadrao = new Font(nameFontDefault, 11);
 
             FontTreeView = new Font(nameFontDefault, 11);
 
-            ColorCLI = new EditorColor();
+            Cor = new ColorEditorCLI();
 
         }
 
@@ -616,18 +615,6 @@ namespace BlueRocket
         {
             prmObjectA.Visible = prmON && prmAtive; prmObjectB.Visible = !prmON && prmAtive;
         }
-    }
-    public class EditorColor
-    {
-        public Color cor_frente_consulta => Color.Black;
-        public Color cor_frente_edicao => Color.DarkGreen;
-        public Color cor_frente_modificado => Color.DarkBlue;
-        public Color cor_frente_erro => Color.DarkRed;
-
-        public Color cor_fundo_padrao => Color.White;
-        public Color cor_fundo_empty => Color.SeaShell;
-        public Color cor_fundo_erro => Color.LightYellow;
-
     }
     public class TestTimeOut
     {

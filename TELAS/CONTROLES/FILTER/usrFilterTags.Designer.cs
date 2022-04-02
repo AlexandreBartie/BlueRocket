@@ -41,13 +41,14 @@
             this.trvTags.Name = "trvTags";
             this.trvTags.Size = new System.Drawing.Size(446, 520);
             this.trvTags.TabIndex = 9;
+            this.trvTags.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.trvTags_AfterCheck);
             // 
-            // usrTagsFilter
+            // usrFilterTags
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.trvTags);
-            this.Name = "usrTagsFilter";
+            this.Name = "usrFilterTags";
             this.Size = new System.Drawing.Size(446, 560);
             this.Controls.SetChildIndex(this.trvTags, 0);
             this.ResumeLayout(false);

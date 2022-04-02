@@ -61,8 +61,8 @@ namespace BlueRocket
                 txtCode.ReadOnly = Editor.Script.IsLocked;
 
                 txtCode.Text = Editor.Script.code;
-                txtCode.ForeColor = Editor.Script.Cor.GetCodeForeColor();
-                txtCode.BackColor = Editor.Script.Cor.GetCodeBackColor();
+                txtCode.ForeColor = Editor.Script.Cor.Code.GetCorFrente();
+                txtCode.BackColor = Editor.Script.Cor.Code.GetCorFundo();
             }
             else
             {

@@ -63,17 +63,17 @@ namespace BlueRocket
             {
                 txtMassaDados.Text = Editor.Result.data;
 
-                txtMassaDados.ForeColor = Editor.Script.Cor.GetCodeForeColor();
-                txtMassaDados.BackColor = Editor.Script.Cor.GetLogBackColor();
+                txtMassaDados.ForeColor = Editor.Script.Cor.Code.GetCorFrente();
+                txtMassaDados.BackColor = Editor.Script.Cor.Log.GetCorFundo();
 
-                lstLogExecucao.ForeColor = Editor.Script.Cor.GetLogForeColor();
-                lstLogExecucao.BackColor = Editor.Script.Cor.GetLogBackColor();
+                lstLogExecucao.ForeColor = Editor.Script.Cor.Log.GetCorFrente();
+                lstLogExecucao.BackColor = Editor.Script.Cor.Log.GetCorFundo();
 
-                lstLogErrors.ForeColor = Editor.Script.Cor.GetLogForeColor();
-                lstLogErrors.BackColor = Editor.Script.Cor.GetLogBackColor();
+                lstLogErrors.ForeColor = Editor.Script.Cor.Log.GetCorFrente();
+                lstLogErrors.BackColor = Editor.Script.Cor.Log.GetCorFundo();
 
-                lstSqlCommands.ForeColor = Editor.Script.Cor.GetLogForeColor();
-                lstSqlCommands.BackColor = Editor.Script.Cor.GetLogBackColor();
+                lstSqlCommands.ForeColor = Editor.Script.Cor.Log.GetCorFrente();
+                lstSqlCommands.BackColor = Editor.Script.Cor.Log.GetCorFundo();
 
                 ViewListas();
             }
@@ -112,7 +112,7 @@ namespace BlueRocket
 
                 linha.Text = "...";
 
-                linha.ForeColor = Editor.Script.Cor.GetItemLogForeColor(Item.tipo);
+                linha.ForeColor = Editor.Script.Cor.ItemLog.GetCorFrente(Item.tipo);
 
             }
 

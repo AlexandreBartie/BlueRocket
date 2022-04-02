@@ -7,112 +7,179 @@ using System.Text;
 
 namespace BlueRocket
 {
-    public class ColorScriptCLI
+
+    public class ColorEditorCLI
     {
-        private ScriptCLI ScriptCLI;
+        public Color cor_frente_consulta => Color.Black;
+        public Color cor_frente_edicao => Color.DarkGreen;
+        public Color cor_frente_modificado => Color.DarkBlue;
+        public Color cor_frente_erro => Color.DarkRed;
 
-        private EditorFormat Format => ScriptCLI.Editor.Format;
+        public Color cor_fundo_padrao => Color.White;
+        public Color cor_fundo_empty => Color.SeaShell;
+        public Color cor_fundo_erro => Color.LightYellow;
 
-        public ColorScriptCLI(ScriptCLI prmScriptCLI)
+        public myColor GetPadrao()
         {
-            ScriptCLI = prmScriptCLI;
-        }
-
-        public myColor GetCodeColor()
-        {
-            return new myColor(GetCodeForeColor(), GetCodeBackColor());
-        }
-        public Color GetCodeForeColor()
-        {
-            if (!ScriptCLI.IsLocked)
-
-                if (ScriptCLI.IsChanged)
-                    return Format.ColorCLI.cor_frente_modificado;
-                else
-                    return Format.ColorCLI.cor_frente_edicao;
-
-            return Format.ColorCLI.cor_frente_consulta;
-        }
-        public Color GetCodeBackColor()
-        {
-            if (ScriptCLI.IsLogError)
-                return Format.ColorCLI.cor_fundo_erro;
-
-            return Format.ColorCLI.cor_fundo_padrao;
-        }
-        public Color GetLogForeColor()
-        {
-            if (ScriptCLI.IsLogError)
-                return Format.ColorCLI.cor_frente_erro;
-
-            return GetCodeForeColor();
-        }
-        public Color GetLogBackColor()
-        {
-
-            if (!ScriptCLI.IsResult)
-                return Format.ColorCLI.cor_fundo_empty;
-
-            return Format.ColorCLI.cor_fundo_padrao;
-        }
-        public Color GetItemLogForeColor(string prmTipo)
-        {
-
-            if (myString.IsEqual(prmTipo, "erro"))
-                return Format.ColorCLI.cor_frente_erro;
-
-            return GetCodeForeColor();
+            return new myColor(cor_frente_consulta, cor_fundo_padrao);
         }
 
     }
 
+    public class ColorScriptCLI
+    {
+        private ScriptCLI ScriptCLI;
+
+        public ColorCodeCLI Code;
+        public ColorLogCLI Log;
+        public ColorItemLogCLI ItemLog;
+
+        public ColorEditorCLI Padrao => ScriptCLI.Editor.Format.Cor;
+
+        public myColor GetPadrao() => Code.Get();
+
+        public ColorScriptCLI(ScriptCLI prmScriptCLI)
+        {
+            ScriptCLI = prmScriptCLI;
+
+            Code = new ColorCodeCLI(prmScriptCLI);
+            Log = new ColorLogCLI(prmScriptCLI);
+            ItemLog = new ColorItemLogCLI(prmScriptCLI);
+        }
+
+    }
+    public class ColorCodeCLI
+    {
+        private ScriptCLI Script;
+
+        private ColorEditorCLI Padrao => Script.Cor.Padrao;
+
+        public ColorCodeCLI(ScriptCLI prmScript)
+        {
+            Script = prmScript;
+        }
+        public myColor Get()
+        {
+            return new myColor(GetCorFrente(), GetCorFundo());
+        }
+        public Color GetCorFrente()
+        {
+            if (!Script.IsLocked)
+
+                if (Script.IsChanged)
+                    return Padrao.cor_frente_modificado;
+                else
+                    return Padrao.cor_frente_edicao;
+
+            return Padrao.cor_frente_consulta;
+        }
+        public Color GetCorFundo()
+        {
+            if (Script.IsLogError)
+                return Padrao.cor_fundo_erro;
+
+            return Padrao.cor_fundo_padrao;
+        }
+
+    }
+    public class ColorLogCLI
+    {
+        private ScriptCLI Script;
+
+        private ColorEditorCLI Padrao => Script.Cor.Padrao;
+        private ColorCodeCLI Cor => Script.Cor.Code;
+
+        public ColorLogCLI(ScriptCLI prmScript)
+        {
+            Script = prmScript;
+        }
+        public Color GetCorFrente()
+        {
+            if (Script.IsLogError)
+                return Padrao.cor_frente_erro;
+
+            return Cor.GetCorFrente();
+        }
+        public Color GetCorFundo()
+        {
+
+            if (!Script.IsResult)
+                return Padrao.cor_fundo_empty;
+
+            return Padrao.cor_fundo_padrao;
+        }
+    }
+    public class ColorItemLogCLI
+    {
+        private ScriptCLI Script;
+
+        private ColorEditorCLI Padrao => Script.Cor.Padrao;
+        private ColorCodeCLI Cor => Script.Cor.Code;
+
+        public ColorItemLogCLI(ScriptCLI prmScript)
+        {
+            Script = prmScript;
+        }
+
+        public Color GetCorFrente(string prmTipo)
+        {
+            if (myString.IsEqual(prmTipo, "erro"))
+                return Padrao.cor_frente_erro;
+
+            return Cor.GetCorFrente();
+        }
+    }
     public class ColorTagCLI
     {
-        private TagCLI Tag;
+        private DataTag Tag;
 
-        private EditorFormat Format => Tag.Editor.Format;
+        private ColorEditorCLI Padrao;// => Tag.Editor.Format.Cor;
 
-        public ColorTagCLI(TagCLI prmTag)
+        public ColorTagCLI(DataTag prmTag)
         {
             Tag = prmTag;
         }
 
-        public myColor GetCodeColor()
+        public myColor Get()
         {
-            return new myColor(GetFilterForeColor(), GetFilterBackColor());
+            return new myColor(GetCorFrente(), GetCorFundo());
         }
-        public Color GetFilterForeColor()
+        public Color GetCorFrente()
         {
-            return Format.ColorCLI.cor_frente_consulta;
+            return Padrao.cor_frente_consulta;
         }
-        public Color GetFilterBackColor()
+        public Color GetCorFundo()
         {
-            return Format.ColorCLI.cor_fundo_padrao;
+            return Padrao.cor_fundo_padrao;
         }
     }
 
     public class ColorOptionTagCLI
     {
-        private OptionTagCLI OptionTagCLI;
+        private OptionTag Option;
 
-        private EditorFormat Format => OptionTagCLI.Format;
+        private ColorEditorCLI Padrao;// => Option.Tag.Format.Cor;
 
-        public ColorOptionTagCLI(OptionTagCLI prmOptionTagCLI)
+        public ColorOptionTagCLI(OptionTag prmOptionTag)
         {
-            OptionTagCLI = prmOptionTagCLI;
+            Option = prmOptionTag;
         }
 
-        public myColor GetCodeColor()
+        public myColor Get()
         {
-            return new myColor(GetFilterForeColor(), GetFilterBackColor());
+            return new myColor(GetCorFrente(), GetCorFundo());
         }
-        public Color GetFilterForeColor()
+        public Color GetCorFrente()
         {
-            return Format.ColorCLI.cor_frente_consulta;
+            return Padrao.cor_frente_consulta;
         }
-        public Color GetFilterBackColor()
+        public Color GetCorFundo()
         {
-            return Format.ColorCLI.cor_fundo_padrao;
+            
+            if (Option.IsPadrao)
+                return Color.LightGray;
+
+            return Padrao.cor_fundo_padrao;
         }
     }
 

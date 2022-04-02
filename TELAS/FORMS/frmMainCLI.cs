@@ -125,7 +125,7 @@ namespace BlueRocket
         private void ScriptLocked() => Editor.CodeLocked();
         private void ScriptChecked(string prmScript, bool prmChecked) { Editor.Select.SetScript(prmScript, prmChecked); MenuStatusView(); }
 
-        private void FilterTagChecked(string prmTag, string prmOption, bool prmChecked) { Editor.Filter.SetTag(prmTag, prmOption, prmChecked); FiltroView(); }
+        private void FilterTagChecked(string prmTag, string prmOption, bool prmChecked) { Editor.Filter.SetChecked(prmTag, prmOption, prmChecked); FiltroView(); }
 
         private void ScriptView()
         {

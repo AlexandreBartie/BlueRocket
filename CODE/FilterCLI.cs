@@ -1,4 +1,5 @@
-﻿using Dooggy.LIBRARY;
+﻿using Dooggy.CORE;
+using Dooggy.LIBRARY;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,185 +10,193 @@ namespace BlueRocket
     {
         public EditorCLI Editor;
 
-        private TagsCLI Tags => Editor.Project.Tags;
+        private DataTags Tags => Editor.Project.Tags;
 
-        public OptionsTagCLI Todos => Tags.Todos;
-        public OptionsTagCLI Ativos => Tags.Ativos;
+        public DataTags Todos => Tags.Todos;
+        public DataTags Ativos => Tags.Ativos;
 
         public EditorFilter(EditorCLI prmEditor)
         {
             Editor = prmEditor;
         }
 
-        public void SetTag(string prmTag, string prmOption, bool prmChecked) => Tags.SetAtivo(prmTag, prmOption, prmChecked);
+        public void SetChecked(string prmTag, string prmOption, bool prmChecked) => Tags.SetAtivado(prmTag, prmOption, prmChecked);
 
     }
 
-    public class TagCLI
-    {
-        public EditorCLI Editor;
+    //public class TagCLI
+    //{
+    //    public EditorCLI Editor;
 
-        private myDominio Dominio;
+    //    private myDominio Dominio;
 
-        public EditorFormat Format => Editor.Format;
+    //    public EditorFormat Format => Editor.Format;
 
-        public string name => Dominio.name;
+    //    public string name => Dominio.name;
 
-        public bool IsMatch(string prmName) => myString.IsEqual(name, prmName);
+    //    public string value;
+    //    public string padrao => Dominio.padrao;
 
-        public OptionsTagCLI Options;
+    //    public bool IsMatch(string prmName) => myString.IsEqual(name, prmName);
+    //    public bool IsPadrao(string prmValue) => myString.IsEqual(padrao, prmValue);
 
-        public ColorTagCLI Cor;
+    //    public OptionsTagCLI Options;
 
-        public TagCLI(myDominio prmDominio, EditorCLI prmEditor)
-        {
-            Editor = prmEditor;
+    //    public ColorTagCLI Cor;
 
-            Dominio = prmDominio;
+    //    public TagCLI(myDominio prmDominio, EditorCLI prmEditor)
+    //    {
+    //        Editor = prmEditor;
 
-            Options = new OptionsTagCLI(this, prmDominio.Opcoes);
+    //        Options = new OptionsTagCLI(this, prmDominio);
 
-            Cor = new ColorTagCLI(this);
-        }
+    //        Cor = new ColorTagCLI(this);
+    //    }
 
-        public void SetAtivo(string prmOption, bool prmAtivo) => Options.SetAtivo(prmOption, prmAtivo);
-    }
+    //    public void SetAtivado(string prmOption, bool prmAtivo) => Options.SetAtivado(prmOption, prmAtivo);
+    //}
 
-    public class TagsCLI : List<TagCLI>
-    {
+    //public class TagsCLI : List<TagCLI>
+    //{
 
-        private EditorCLI Editor;
+    //    private EditorCLI Editor;
 
-        private Dooggy.CORE.DataTags MasterTAGs => Editor.Config.Global.Tags;
+    //    public OptionsTagCLI Todos => GetTodos();
+    //    public OptionsTagCLI Ativos => GetTodos(prmFiltrar: true);
 
-        public OptionsTagCLI Todos => GetTodos();
-        public OptionsTagCLI Ativos => GetTodos(prmFiltrar: true);
+    //    public TagsCLI(EditorCLI prmEditor)
+    //    {
+    //        Editor = prmEditor;
 
-        public TagsCLI(EditorCLI prmEditor)
-        {
-            Editor = prmEditor;
+    //        foreach (DataTag Tag in prmEditor.MainTAGs)
+    //            AddItem(Tag);
+    //    }
 
-            Popular();
-        }
-        private void Popular()
-        {
-            foreach (myDominio Tag in MasterTAGs)
-                AddItem(Tag);
-        }
+    //    public TagsCLI(EditorCLI prmEditor, prmS)
+    //    {
+    //        Editor = prmEditor;
 
-        private void AddItem(myDominio prmTag) => base.Add(new TagCLI(prmTag, Editor));
+    //        foreach (myDominio Tag in prmEditor.MainTAGs)
+    //            AddItem(Tag);
+    //    }
 
-        public void SetAtivo(string prmName, string prmOption, bool prmAtivo)
-        {
-            foreach (TagCLI Tag in this)
+    //    private void AddItem(myDominio prmTag) => base.Add(new TagCLI(prmTag, Editor));
 
-                if (Tag.IsMatch(prmName))
-                { Tag.SetAtivo(prmOption, prmAtivo); break; }
-        }
+    //    public void SetAtivado(string prmName, string prmOption, bool prmAtivo)
+    //    {
+    //        foreach (TagCLI Tag in this)
 
-        private OptionsTagCLI GetTodos() => GetTodos(prmFiltrar: false);
-        private OptionsTagCLI GetTodos(bool prmFiltrar)
-        {
-            OptionsTagCLI itens = new OptionsTagCLI();
+    //            if (Tag.IsMatch(prmName))
+    //            { Tag.SetAtivado(prmOption, prmAtivo); break; }
+    //    }
 
-            foreach (TagCLI Tag in this)
-            {
-                foreach (OptionTagCLI item in Tag.Options)
-                    if (item.ativo || !prmFiltrar)
-                        itens.Add(item);
-            }
-            return itens;
-        }
+    //    private OptionsTagCLI GetTodos() => GetTodos(prmFiltrar: false);
+    //    private OptionsTagCLI GetTodos(bool prmFiltrar)
+    //    {
+    //        OptionsTagCLI itens = new OptionsTagCLI();
 
-    }
+    //        foreach (TagCLI Tag in this)
+    //        {
+    //            foreach (OptionTagCLI item in Tag.Options)
+    //                if (item.ativo || !prmFiltrar)
+    //                    itens.Add(item);
+    //        }
+    //        return itens;
+    //    }
 
-    public class OptionTagCLI
-    {
+    //}
 
-        private TagCLI Tag;
+    //public class OptionTagCLI
+    //{
 
-        public EditorFormat Format => Tag.Editor.Format;
+    //    public TagCLI Tag;
 
-        public string name => Tag.name;
+    //    public string name => Tag.name;
 
-        public string value;
+    //    public string value;
 
-        public bool ativo;
-        public string log => String.Format("{0}: {1}", Tag.name, value);
+    //    public bool ativo;
+    //    public string log => String.Format("{0}: {1}", Tag.name, value);
 
-        public bool IsMatch(string prmName, string prmValue) => IsMatchName(prmName) && IsMatchValue(prmValue);
-        public bool IsMatch(string prmValue) => IsMatchValue(prmValue);
+    //    public bool IsPadrao => Tag.IsPadrao(value);
 
-        private bool IsMatchName(string prmName) => myString.IsEqual(name, prmName);
-        private bool IsMatchValue(string prmValue) => myString.IsEqual(value, prmValue);
+    //    public bool IsMatch(string prmName, string prmValue) => IsMatchName(prmName) && IsMatchValue(prmValue);
+    //    public bool IsMatch(string prmValue) => IsMatchValue(prmValue);
 
-        public ColorOptionTagCLI Cor;
+    //    private bool IsMatchName(string prmName) => myString.IsEqual(name, prmName);
+    //    private bool IsMatchValue(string prmValue) => myString.IsEqual(value, prmValue);
 
-        public OptionTagCLI(TagCLI prmTag, string prmValue)
-        {
-            Parse(prmTag, prmValue);
+    //    public ColorOptionTagCLI Cor;
 
-            Cor = new ColorOptionTagCLI(this);
-        }
+    //    public OptionTagCLI(TagCLI prmTag, string prmValue)
+    //    {
+    //        Parse(prmTag, prmValue);
 
-        private void Parse(TagCLI prmTag, string prmValue)
-        {
-            Tag = prmTag;
+    //        Cor = new ColorOptionTagCLI(this);
+    //    }
 
-            value = prmValue;
-        }
-        public void SetAtivo(bool prmAtivo) => ativo = prmAtivo;
+    //    private void Parse(TagCLI prmTag, string prmValue)
+    //    {
+    //        Tag = prmTag;
 
-    }
+    //        value = prmValue;
+    //    }
+    //    public void SetAtivo(bool prmAtivo) => ativo = prmAtivo;
 
-    public class OptionsTagCLI : List<OptionTagCLI>
-    {
+    //}
 
-        private TagCLI Tag;
+    //public class OptionsTagCLI : List<OptionTagCLI>
+    //{
 
-        public string log => GetLOG();
+    //    private TagCLI Tag;
 
-        public OptionsTagCLI()
-        {
-        }
+    //    private myDominio Dominio;
 
-        public OptionsTagCLI(TagCLI prmTag, xLista prmOptions)
-        {
-            Tag = prmTag; Popular(prmTag, prmOptions);
-        }
+    //    public string log => GetLOG();
 
-        private void Popular(TagCLI prmTag, xLista prmOptions)
-        {
-            foreach (string item in prmOptions)
-                Add(new OptionTagCLI(prmTag, prmValue: item));
+    //    public OptionsTagCLI()
+    //    {
+    //    }
 
-        }
-        public void SetAtivo(string prmOption, bool prmAtivo)
-        {
-            foreach (OptionTagCLI Option in this)
-                if (Option.IsMatch(prmOption))
-                { Option.SetAtivo(prmAtivo); break; }
-        }
+    //    public OptionsTagCLI(TagCLI prmTag, myDominio prmDominio)
+    //    {
+    //        Tag = prmTag; Dominio = prmDominio;
+            
+    //        Popular(prmTag, prmDominio);
+    //    }
 
-        public bool GetAtivo(string prmTag, string prmOption)
-        {
-            foreach (OptionTagCLI Option in this)
-                if (Option.IsMatch(prmTag, prmOption))
-                    return true;
-            return false;
-        }
+    //    private void Popular(TagCLI prmTag, myDominio prmDominio)
+    //    {
+    //        foreach (string item in prmDominio.Opcoes)
+    //            Add(new OptionTagCLI(prmTag, prmValue: item));
 
-        private string GetLOG()
-        {
-            xLinhas txt = new xLinhas();
+    //    }
+    //    public void SetAtivado(string prmOption, bool prmAtivo)
+    //    {
+    //        foreach (OptionTagCLI Option in this)
+    //            if (Option.IsMatch(prmOption))
+    //            { Option.SetAtivo(prmAtivo); break; }
+    //    }
 
-            foreach (OptionTagCLI Option in this)
-                txt.Add(Option.log);
+    //    public bool GetAtivado(string prmTag, string prmOption)
+    //    {
+    //        foreach (OptionTagCLI Option in this)
+    //            if (Option.IsMatch(prmTag, prmOption))
+    //                return true;
+    //        return false;
+    //    }
 
-            return txt.memo;
+    //    private string GetLOG()
+    //    {
+    //        xLinhas txt = new xLinhas();
 
-        }
+    //        foreach (OptionTagCLI Option in this)
+    //            txt.Add(Option.log);
 
-    }
+    //        return txt.memo;
+
+    //    }
+
+    //}
 
 }

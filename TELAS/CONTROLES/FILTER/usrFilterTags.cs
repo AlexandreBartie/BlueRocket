@@ -1,4 +1,5 @@
-﻿using Dooggy.LIBRARY;
+﻿using Dooggy.CORE;
+using Dooggy.LIBRARY;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,6 +15,17 @@ namespace BlueRocket
         private EditorCLI Editor;
 
         private TreeNode Root;
+
+        private void trvTags_AfterCheck(object sender, TreeViewEventArgs e)
+        {
+            if (Editor.IsFree)
+            {
+                if (e.Node.Nodes.Count != 0)
+                    InverterTodos(e.Node);
+                else
+                    Editor.OnFilterTagChecked(prmTag: e.Node.Parent.Text, prmOption: e.Node.Text, prmChecked: e.Node.Checked);
+            }
+        }
 
         public usrFilterTags()
         {
@@ -35,23 +47,28 @@ namespace BlueRocket
 
             Root = AddNode(prmItem: "Tags");
 
-            foreach (TagCLI Tag in Editor.Project.Tags)
+            foreach (DataTag Tag in Editor.Project.Tags)
                 PopularOpcoes(Tag);
 
             Root.Expand();
         }
 
-        private void PopularOpcoes(TagCLI prmTag)
+        private void PopularOpcoes(DataTag prmTag)
         {
 
-            TreeNode Folha = AddNode(prmItem: prmTag.name, Root, prmCor: prmTag.Cor.GetCodeColor(), prmChecked: false);
+            TreeNode Folha = AddNode(prmItem: prmTag.name, Root, prmCor: Editor.Format.Cor.GetPadrao(), prmChecked: false);
 
-            foreach (OptionTagCLI Opcao in prmTag.Options)
-                AddNode(Opcao.value, Folha, prmCor: Opcao.Cor.GetCodeColor(), prmChecked: true);
+            foreach (OptionTag Opcao in prmTag)
+                AddNode(Opcao.value, Folha, prmCor: Editor.Format.Cor.GetPadrao(), prmChecked: true);
 
             Folha.Expand();
         }
 
+        private void InverterTodos(TreeNode prmNode)
+        {
+            foreach (TreeNode item in prmNode.Nodes)
+                item.Checked = !(item.Checked);
+        }
         private TreeNode AddNode(string prmItem) => trvTags.Nodes.Add(prmItem);
 
         private TreeNode AddNode(string prmItem, TreeNode prmPai, myColor prmCor, bool prmChecked)
@@ -71,5 +88,6 @@ namespace BlueRocket
 
             return prmNode;
         }
+
     }
 }

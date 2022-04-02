@@ -26,6 +26,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\DOOGGY\CORE\Dooggy.CORE.csproj" />
+    <ProjectReference Include="..\..\DOOGGY\LIBRARY\Dooggy.LIBRARY.csproj" />
   </ItemGroup>
 
   <ItemGroup>

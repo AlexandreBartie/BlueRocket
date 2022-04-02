@@ -53,16 +53,6 @@ namespace BlueRocket
             }
         }
 
-        private void trvFiltro_AfterCheck(object sender, TreeViewEventArgs e)
-        {
-            if (Editor.IsFree)
-            {
-                if (e.Node.Nodes.Count != 0)
-                    InverterTodos(e.Node);
-                else
-                    Editor.OnFilterTagChecked(prmTag: e.Node.Parent.Text,  prmOption: e.Node.Text, prmChecked: e.Node.Checked);
-            }
-        }
         public void Setup(EditorCLI prmEditor)
         {
             Editor = prmEditor;
@@ -75,8 +65,7 @@ namespace BlueRocket
             SetTitulo(prmTexto: GetProjectTitle());
 
             Popular();
-        }
-        
+        }      
 
         private void Popular()
         {
@@ -85,7 +74,7 @@ namespace BlueRocket
             Root = AddNode(prmItem: "ini");
 
             foreach (ScriptCLI Script in Editor.Project.Scripts)
-                AddNode(prmItem: Script.Result.name_INI, Root, prmCor: Script.Cor.GetCodeColor(), prmChecked: false);
+                AddNode(prmItem: Script.Result.name_INI, Root, prmCor: Script.Cor.GetPadrao(), prmChecked: false);
 
             Root.Expand();
         }
@@ -93,7 +82,7 @@ namespace BlueRocket
         public void View()
         {
             if (Editor.TemScript)
-                SetNodeColor(prmNode: trvProjeto.SelectedNode, prmCor: Editor.Script.Cor.GetCodeColor());
+                SetNodeColor(prmNode: trvProjeto.SelectedNode, prmCor: Editor.Script.Cor.GetPadrao());
         }
 
         private void DoubleClickScript()

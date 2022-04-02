@@ -14,7 +14,7 @@ namespace BlueRocket
 
         public ScriptsCLI Scripts;
 
-        public TagsCLI Tags;
+        public DataTags Tags => Editor.Config.Global.Tags;
 
         public ScriptCLI Script => Scripts.Corrente;
 
@@ -38,9 +38,6 @@ namespace BlueRocket
         public void Reset()
         {
             Scripts = new ScriptsCLI(Editor);
-
-            Tags = new TagsCLI(Editor);
-
         }
 
         public bool SetScript(ScriptCLI prmScript) => Scripts.SetScript(prmScript);
@@ -56,13 +53,14 @@ namespace BlueRocket
 
         public EditorCLI Editor;
 
+        public DataTags Tags => Script.Tags;
+
         public ColorScriptCLI Cor;
 
 
         private TestConsole Console => Script.Console;
 
         public TestResult Result => Script.Result;
-        public TestScriptTags Tags => Script.Tags;
 
         public string name => Result.name_INI;
         public string timeSeconds => Result.SQL.timeSecondsTXT;
@@ -128,8 +126,8 @@ namespace BlueRocket
 
         private bool GetAtivo()
         {
-            foreach (TestScriptTag Tag in Script.Tags)
-                if (!Editor.Filter.Ativos.GetAtivo(Tag.name,Tag.valor))
+            foreach (DataTag Tag in Script.Tags)
+                if (!Editor.Filter.Ativos.GetAtivado(Tag.name,Tag.value))
                         return false;
 
             return true;

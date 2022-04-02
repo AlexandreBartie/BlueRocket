@@ -41,13 +41,7 @@ namespace BlueRocket
             lstScripts.Items.Clear();
 
             if (Editor.TemAtivos)
-            {
-
-                //lstScripts.ForeColor = Editor.Script.Cor.GetLogForeColor();
-                //lstScripts.BackColor = Editor.Script.Cor.GetLogBackColor();
-
                 ViewScripts();
-            }
         }
 
         private void ViewScripts()
@@ -62,21 +56,31 @@ namespace BlueRocket
                 linha.SubItems.Add(Script.name);
                 linha.SubItems.Add(Script.timeSeconds);
 
-                //                linha.SubItems.Add(Script.t);
+                linha.ForeColor = Script.Cor.GetPadrao().frente;
+                linha.BackColor = Script.Cor.GetPadrao().fundo;
 
-                //linha.Text = "...";
-
-                //linha.ForeColor = Editor.Script.Cor.GetItemLogForeColor(Item.tipo);
-
-                foreach (TestScriptTag Tag in Script.Tags)
-                    linha.SubItems.Add(Tag.valor);
-
+                ViewTAGS(Script, linha);
             }
-
-            //lstScripts.Refresh();
 
         }
 
+        private void ViewTAGS(ScriptCLI prmScript, ListViewItem prmLinha)
+        {
+
+            ListViewItem.ListViewSubItem celula;
+
+            foreach (DataTag Tag in prmScript.Tags)
+            {
+
+                celula = prmLinha.SubItems.Add(Tag.name) ;
+
+                //qcelula.ForeColor = Tag..frente;
+                //celula.BackColor = Tag.Cor.GetPadrao().fundo;
+
+            }
+
+
+        }
         private void MontarListScripts()
         {
             CabecalhoListScripts(); View();
@@ -88,7 +92,7 @@ namespace BlueRocket
             lstScripts.Columns.Clear();
 
             lstScripts.Columns.Add("x",0);
-            lstScripts.Columns.Add("Nome Script",-1);
+            lstScripts.Columns.Add("Nome Script",400);
             lstScripts.Columns.Add("Duração",100, textAlign: HorizontalAlignment.Center);
 
             CabecalhoListTags();
@@ -100,7 +104,7 @@ namespace BlueRocket
            
             if (Editor.TemProject)
             {
-                foreach (TagCLI Tag in Editor.Project.Tags)
+                foreach (DataTag Tag in Editor.Project.Tags)
                 {
                     lstScripts.Columns.Add(Tag.name, -2, textAlign: HorizontalAlignment.Center);
 
