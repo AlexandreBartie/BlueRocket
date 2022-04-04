@@ -51,6 +51,8 @@ namespace BlueRocket
             Editor.Format.SetPadrao(lstLogExecucao);
             Editor.Format.SetPadrao(lstLogErrors);
             Editor.Format.SetPadrao(lstSqlCommands);
+
+            MontarCabecalhos();
         }
 
         public void View()
@@ -112,12 +114,37 @@ namespace BlueRocket
 
                 linha.Text = "...";
 
-                linha.ForeColor = Editor.Script.Cor.ItemLog.GetCorFrente(Item.tipo);
+                linha.ForeColor = Editor.Script.Cor.Msg.GetCorFrente(Item.tipo);
 
             }
 
         }
 
+        private void MontarCabecalhos()
+        {
+            MontarCabecalho(prmLista: lstLogExecucao, prmSQL: false);
+            MontarCabecalho(prmLista: lstLogErrors, prmSQL: false);
+            MontarCabecalho(prmLista: lstSqlCommands, prmSQL: true);
+        }
+        private void MontarCabecalho(ListView prmLista, bool prmSQL)
+        {
+
+            prmLista.Columns.Clear();
+
+            prmLista.Columns.Add("x", 0);
+
+            if (prmSQL)
+            {
+                prmLista.Columns.Add("Tempo", 80, textAlign: HorizontalAlignment.Center);
+                prmLista.Columns.Add("SQL", -2);
+            }
+            else
+            {
+                prmLista.Columns.Add("Tipo", 80, textAlign: HorizontalAlignment.Center);
+                prmLista.Columns.Add("Descrição", -2);
+            }
+
+        }
         public void ViewPage(ePageResult prmPage) => this.tabControl.SelectedIndex = Convert.ToInt16(prmPage) - 1;
 
         private string GetSqlSelected(eLogColumn prmColumn) => lstSqlCommands.SelectedItems[0].SubItems[Convert.ToInt16(prmColumn)].Text;

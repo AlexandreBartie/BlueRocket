@@ -74,7 +74,7 @@ namespace BlueRocket
             Root = AddNode(prmItem: "ini");
 
             foreach (ScriptCLI Script in Editor.Project.Scripts)
-                AddNode(prmItem: Script.Result.name_INI, Root, prmCor: Script.Cor.GetPadrao(), prmChecked: false);
+                AddNode(prmItem: Script.Result.name_INI, Root, prmCor: Script.Cor.GetCor(), prmChecked: false);
 
             Root.Expand();
         }
@@ -82,7 +82,7 @@ namespace BlueRocket
         public void View()
         {
             if (Editor.TemScript)
-                SetNodeColor(prmNode: trvProjeto.SelectedNode, prmCor: Editor.Script.Cor.GetPadrao());
+                SetNodeColor(prmNode: trvProjeto.SelectedNode, prmCor: Editor.Script.Cor.GetCor());
         }
 
         private void DoubleClickScript()

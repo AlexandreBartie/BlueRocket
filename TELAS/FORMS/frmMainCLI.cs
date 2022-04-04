@@ -12,6 +12,12 @@ using System.Windows.Forms;
 
 namespace BlueRocket
 {
+
+    public enum ePageMain: int
+    {
+        ePageEdicao = 1,
+        ePageFiltro = 2,
+    }
     public partial class frmMainCLI : Form
     {
 
@@ -22,6 +28,16 @@ namespace BlueRocket
         {
             InitializeComponent();
         }
+
+        private void tabPages_Selected(object sender, TabControlEventArgs e)
+        {
+            if (Editor.TemProject)
+            
+                if (GetPage() == (int)ePageMain.ePageFiltro)
+                    pagFiltro.View();
+
+        }
+
         public void Setup(EditorCLI prmEditor)
         {
 
@@ -71,7 +87,6 @@ namespace BlueRocket
             ProjectSetup();
 
             this.ShowDialog();
-
         }
 
         private void frmTestDataFactoryConsole_Load(object sender, EventArgs e) => ProjectSetup();
@@ -261,6 +276,8 @@ namespace BlueRocket
 
         }
         public void SetAction(string prmTexto) => usrStatus.SetAction(prmTexto);
+
+        private int GetPage() => tabPages.SelectedIndex + 1;
 
     }
 

@@ -64,6 +64,8 @@ namespace BlueRocket
 
             Format = new EditorFormat(this);
 
+            Cor = new EditorColor(this);
+
             Page = new EditorPage(this);
 
             Setup();
@@ -317,7 +319,7 @@ namespace BlueRocket
         public TestConsole Console => Factory.Console;
 
         public TestResult Result => Console.Result;
-        public TestDataSource Dados => Console.Dados;
+        public DataSource Dados => Console.Dados;
         public TestConsoleConfig Config => Console.Config;
 
         public DataTags MainTAGs => Config.Global.Tags;
@@ -370,7 +372,7 @@ namespace BlueRocket
 
         public EditorFormat Format;
 
-        public ColorEditorCLI Cor;
+        public EditorColor Cor;
 
         public EditorBatch Batch => Select.Batch;
 
@@ -499,18 +501,16 @@ namespace BlueRocket
         private Font FontPadrao;
         private Font FontTreeView;
 
-        public ColorEditorCLI Cor;
-
         public EditorFormat(EditorCLI prmEditor)
         {
 
             Editor = prmEditor;
 
-            Setup();
+            SetFontes();
 
         }
 
-        private void Setup()
+        private void SetFontes()
         {
 
             string nameFontDefault = "Consoles";
@@ -520,8 +520,6 @@ namespace BlueRocket
             FontPadrao = new Font(nameFontDefault, 11);
 
             FontTreeView = new Font(nameFontDefault, 11);
-
-            Cor = new ColorEditorCLI();
 
         }
 
@@ -614,6 +612,14 @@ namespace BlueRocket
         public void SetTurnOnOff(bool prmON, ToolStripButton prmObjectA, ToolStripButton prmObjectB, bool prmAtive)
         {
             prmObjectA.Visible = prmON && prmAtive; prmObjectB.Visible = !prmON && prmAtive;
+        }
+    }
+
+    public class EditorColor : ColorEditorCLI
+    {
+        public EditorColor(EditorCLI prmEditor) : base(prmEditor)
+        {
+            Editor = prmEditor;
         }
     }
     public class TestTimeOut

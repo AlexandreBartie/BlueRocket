@@ -69,6 +69,7 @@
             this.tabPages.SelectedIndex = 0;
             this.tabPages.Size = new System.Drawing.Size(1257, 728);
             this.tabPages.TabIndex = 20;
+            this.tabPages.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabPages_Selected);
             // 
             // tabEditor
             // 

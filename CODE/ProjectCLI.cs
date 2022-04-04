@@ -1,9 +1,6 @@
 ﻿using Dooggy.CORE;
 using Dooggy.LIBRARY;
-using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Text;
 
 namespace BlueRocket
 {
@@ -57,7 +54,6 @@ namespace BlueRocket
 
         public ColorScriptCLI Cor;
 
-
         private TestConsole Console => Script.Console;
 
         public TestResult Result => Script.Result;
@@ -69,7 +65,9 @@ namespace BlueRocket
 
         public string title => name + GetTitleExt();
 
-        public bool IsMatch(string prmTexto) => myString.IsEqual(name, prmTexto);
+        public string status => GetStatus();
+
+        public bool IsMatch(string prmTexto) => myString.IsMatch(name, prmTexto);
 
         public bool IsAtivo => GetAtivo();
 
@@ -106,7 +104,6 @@ namespace BlueRocket
         public bool SaveCode() => Console.SaveCode(code);
         public void UndoCode() => Console.UndoCode();
 
-
         public void PlayStart() => SetPlaying(prmStart: true);
         public void PlayStop() => SetPlaying(prmStart: false);
         public void PlayEnd() => SetPlaying(prmStart: false);
@@ -126,13 +123,22 @@ namespace BlueRocket
 
         private bool GetAtivo()
         {
-            foreach (DataTag Tag in Script.Tags)
-                if (!Editor.Filter.Ativos.GetAtivado(Tag.name,Tag.value))
-                        return false;
+            foreach (myTag Tag in Script.Tags)
+                if (!Editor.Filter.Tags.Ativos.IsFind(Tag.name, Tag.value))
+                    return false;
 
             return true;
         }
 
+        private string GetStatus()
+        {
+            if (IsLogError)
+                return "Erro";
+            else if (IsResult)
+                return "OK";
+
+            return "-";
+        }
     }
     public class ScriptsCLI : List<ScriptCLI>
     {

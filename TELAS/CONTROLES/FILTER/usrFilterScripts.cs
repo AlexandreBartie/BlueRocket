@@ -54,10 +54,11 @@ namespace BlueRocket
                 linha = lstScripts.Items.Add("x");
 
                 linha.SubItems.Add(Script.name);
+                linha.SubItems.Add(Script.status);
                 linha.SubItems.Add(Script.timeSeconds);
 
-                linha.ForeColor = Script.Cor.GetPadrao().frente;
-                linha.BackColor = Script.Cor.GetPadrao().fundo;
+                linha.ForeColor = Script.Cor.GetCorFrente();
+                linha.BackColor = Script.Cor.GetCorFundo();
 
                 ViewTAGS(Script, linha);
             }
@@ -69,16 +70,15 @@ namespace BlueRocket
 
             ListViewItem.ListViewSubItem celula;
 
-            foreach (DataTag Tag in prmScript.Tags)
+            foreach (myTag Tag in prmScript.Tags)
             {
 
-                celula = prmLinha.SubItems.Add(Tag.name) ;
+                celula = prmLinha.SubItems.Add(Tag.value) ;
 
-                //qcelula.ForeColor = Tag..frente;
-                //celula.BackColor = Tag.Cor.GetPadrao().fundo;
+                celula.ForeColor = Editor.Cor.Tag.GetCorFrente(Tag);
+                celula.BackColor = Editor.Cor.Tag.GetCorFundo(Tag);
 
             }
-
 
         }
         private void MontarListScripts()
@@ -93,6 +93,7 @@ namespace BlueRocket
 
             lstScripts.Columns.Add("x",0);
             lstScripts.Columns.Add("Nome Script",400);
+            lstScripts.Columns.Add("Status", 200, textAlign: HorizontalAlignment.Center);
             lstScripts.Columns.Add("Duração",100, textAlign: HorizontalAlignment.Center);
 
             CabecalhoListTags();
@@ -104,7 +105,7 @@ namespace BlueRocket
            
             if (Editor.TemProject)
             {
-                foreach (DataTag Tag in Editor.Project.Tags)
+                foreach (myTag Tag in Editor.Project.Tags)
                 {
                     lstScripts.Columns.Add(Tag.name, -2, textAlign: HorizontalAlignment.Center);
 

@@ -10,10 +10,7 @@ namespace BlueRocket
     {
         public EditorCLI Editor;
 
-        private DataTags Tags => Editor.Project.Tags;
-
-        public DataTags Todos => Tags.Todos;
-        public DataTags Ativos => Tags.Ativos;
+        public DataTags Tags => Editor.Project.Tags;
 
         public EditorFilter(EditorCLI prmEditor)
         {
@@ -37,10 +34,10 @@ namespace BlueRocket
     //    public string value;
     //    public string padrao => Dominio.padrao;
 
-    //    public bool IsMatch(string prmName) => myString.IsEqual(name, prmName);
-    //    public bool IsPadrao(string prmValue) => myString.IsEqual(padrao, prmValue);
+    //    public bool IsMatch(string prmName) => myString.IsMatch(name, prmName);
+    //    public bool IsPadrao(string prmValue) => myString.IsMatch(padrao, prmValue);
 
-    //    public OptionsTagCLI Options;
+    //    public DataTagOptionsCLI Options;
 
     //    public ColorTagCLI Cor;
 
@@ -48,7 +45,7 @@ namespace BlueRocket
     //    {
     //        Editor = prmEditor;
 
-    //        Options = new OptionsTagCLI(this, prmDominio);
+    //        Options = new DataTagOptionsCLI(this, prmDominio);
 
     //        Cor = new ColorTagCLI(this);
     //    }
@@ -61,8 +58,8 @@ namespace BlueRocket
 
     //    private EditorCLI Editor;
 
-    //    public OptionsTagCLI Todos => GetTodos();
-    //    public OptionsTagCLI Ativos => GetTodos(prmFiltrar: true);
+    //    public DataTagOptionsCLI Todos => GetTodos();
+    //    public DataTagOptionsCLI Ativos => GetTodos(prmFiltrar: true);
 
     //    public TagsCLI(EditorCLI prmEditor)
     //    {
@@ -80,8 +77,6 @@ namespace BlueRocket
     //            AddItem(Tag);
     //    }
 
-    //    private void AddItem(myDominio prmTag) => base.Add(new TagCLI(prmTag, Editor));
-
     //    public void SetAtivado(string prmName, string prmOption, bool prmAtivo)
     //    {
     //        foreach (TagCLI Tag in this)
@@ -90,10 +85,10 @@ namespace BlueRocket
     //            { Tag.SetAtivado(prmOption, prmAtivo); break; }
     //    }
 
-    //    private OptionsTagCLI GetTodos() => GetTodos(prmFiltrar: false);
-    //    private OptionsTagCLI GetTodos(bool prmFiltrar)
+    //    private DataTagOptionsCLI GetTodos() => GetTodos(prmFiltrar: false);
+    //    private DataTagOptionsCLI GetTodos(bool prmFiltrar)
     //    {
-    //        OptionsTagCLI itens = new OptionsTagCLI();
+    //        DataTagOptionsCLI itens = new DataTagOptionsCLI();
 
     //        foreach (TagCLI Tag in this)
     //        {
@@ -123,8 +118,8 @@ namespace BlueRocket
     //    public bool IsMatch(string prmName, string prmValue) => IsMatchName(prmName) && IsMatchValue(prmValue);
     //    public bool IsMatch(string prmValue) => IsMatchValue(prmValue);
 
-    //    private bool IsMatchName(string prmName) => myString.IsEqual(name, prmName);
-    //    private bool IsMatchValue(string prmValue) => myString.IsEqual(value, prmValue);
+    //    private bool IsMatchName(string prmName) => myString.IsMatch(name, prmName);
+    //    private bool IsMatchValue(string prmValue) => myString.IsMatch(value, prmValue);
 
     //    public ColorOptionTagCLI Cor;
 
@@ -145,7 +140,7 @@ namespace BlueRocket
 
     //}
 
-    //public class OptionsTagCLI : List<OptionTagCLI>
+    //public class DataTagOptionsCLI : List<OptionTagCLI>
     //{
 
     //    private TagCLI Tag;
@@ -154,11 +149,11 @@ namespace BlueRocket
 
     //    public string log => GetLOG();
 
-    //    public OptionsTagCLI()
+    //    public DataTagOptionsCLI()
     //    {
     //    }
 
-    //    public OptionsTagCLI(TagCLI prmTag, myDominio prmDominio)
+    //    public DataTagOptionsCLI(TagCLI prmTag, myDominio prmDominio)
     //    {
     //        Tag = prmTag; Dominio = prmDominio;
             

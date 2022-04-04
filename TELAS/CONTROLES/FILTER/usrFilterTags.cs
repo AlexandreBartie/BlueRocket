@@ -47,19 +47,19 @@ namespace BlueRocket
 
             Root = AddNode(prmItem: "Tags");
 
-            foreach (DataTag Tag in Editor.Project.Tags)
+            foreach (myTag Tag in Editor.Project.Tags)
                 PopularOpcoes(Tag);
 
             Root.Expand();
         }
 
-        private void PopularOpcoes(DataTag prmTag)
+        private void PopularOpcoes(myTag prmTag)
         {
 
-            TreeNode Folha = AddNode(prmItem: prmTag.name, Root, prmCor: Editor.Format.Cor.GetPadrao(), prmChecked: false);
+            TreeNode Folha = AddNode(prmItem: prmTag.name, Root, prmCor: Editor.Cor.Tag.GetCor(prmTag), prmChecked: false);
 
-            foreach (OptionTag Opcao in prmTag)
-                AddNode(Opcao.value, Folha, prmCor: Editor.Format.Cor.GetPadrao(), prmChecked: true);
+            foreach (myTagOption Option in prmTag)
+                AddNode(Option.value, Folha, prmCor: Editor.Cor.Option.GetCor(Option), prmChecked: true);
 
             Folha.Expand();
         }
