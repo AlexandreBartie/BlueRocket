@@ -47,6 +47,15 @@ namespace BlueRocket
 
             return Padrao.cor_fundo_padrao;
         }
+
+        public Color GetCorSlowSQL()
+        {
+            if (Script.IsSlow)
+                return Padrao.cor_fundo_erro;
+
+            return Padrao.cor_fundo_padrao;
+        }
+
     }
     public class ColorCodeCLI : ColorBaseScriptCLI
     {

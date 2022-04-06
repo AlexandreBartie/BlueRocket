@@ -40,13 +40,14 @@
             this.lstScripts.Size = new System.Drawing.Size(891, 635);
             this.lstScripts.TabIndex = 1;
             this.lstScripts.UseCompatibleStateImageBehavior = false;
+            this.lstScripts.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.lstScripts_ItemSelectionChanged);
             // 
-            // usrTestScripts
+            // usrFilterScripts
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.lstScripts);
-            this.Name = "usrTestScripts";
+            this.Name = "usrFilterScripts";
             this.Size = new System.Drawing.Size(891, 675);
             this.Controls.SetChildIndex(this.lstScripts, 0);
             this.ResumeLayout(false);

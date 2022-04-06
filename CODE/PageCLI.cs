@@ -1,6 +1,8 @@
-﻿using System;
+﻿using BlueRocket;
+using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows.Forms;
 
 namespace BlueRocket
 {
@@ -55,6 +57,11 @@ namespace BlueRocket
         private frmAboutBox FormLocal;
 
         public void Show() { FormLocal = new frmAboutBox(); FormLocal.Setup(Editor); }
+
+
+        // private frmAbout Window;
+
+        //public void Show() { Window = new frmAbout(); Window.ShowDialog(); }
 
     }
 

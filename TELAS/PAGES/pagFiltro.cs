@@ -30,14 +30,14 @@ namespace BlueRocket
 
         public new void Refresh()
         {
+
             usrFilterTags.Refresh();
 
             usrFilterScripts.Refresh();
         }
 
-        public void View()
-        {
-            usrFilterScripts.View();
-        }
+        public void View() => View(prmRefresh: true);
+        public void View(bool prmRefresh) => usrFilterScripts.View(prmRefresh);
+
     }
 }

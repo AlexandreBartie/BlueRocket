@@ -98,7 +98,7 @@
             this.tabFilter.Padding = new System.Windows.Forms.Padding(3);
             this.tabFilter.Size = new System.Drawing.Size(1249, 700);
             this.tabFilter.TabIndex = 1;
-            this.tabFilter.Text = "Filtro";
+            this.tabFilter.Text = "...";
             this.tabFilter.UseVisualStyleBackColor = true;
             // 
             // pagFiltro

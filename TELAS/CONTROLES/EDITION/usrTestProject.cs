@@ -82,7 +82,8 @@ namespace BlueRocket
         public void View()
         {
             if (Editor.TemScript)
-                SetNodeColor(prmNode: trvProjeto.SelectedNode, prmCor: Editor.Script.Cor.GetCor());
+                if (trvProjeto.SelectedNode != null)
+                    SetNodeColor(prmNode: trvProjeto.SelectedNode, prmCor: Editor.Script.Cor.GetCor());
         }
 
         private void DoubleClickScript()

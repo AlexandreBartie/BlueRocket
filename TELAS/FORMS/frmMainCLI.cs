@@ -13,11 +13,6 @@ using System.Windows.Forms;
 namespace BlueRocket
 {
 
-    public enum ePageMain: int
-    {
-        ePageEdicao = 1,
-        ePageFiltro = 2,
-    }
     public partial class frmMainCLI : Form
     {
 
@@ -27,17 +22,15 @@ namespace BlueRocket
         public frmMainCLI()
         {
             InitializeComponent();
+
+            this.Text = String.Format("About: {0}", myAssembly.AssemblyTitle);
         }
 
         private void tabPages_Selected(object sender, TabControlEventArgs e)
         {
-            if (Editor.TemProject)
-            
-                if (GetPage() == (int)ePageMain.ePageFiltro)
-                    pagFiltro.View();
-
-        }
-
+            if (Editor.View.SetView(tabPages))
+                pagFiltro.View(prmRefresh: false);
+          }
         public void Setup(EditorCLI prmEditor)
         {
 
@@ -93,6 +86,7 @@ namespace BlueRocket
 
         private void ProjectSetup()
         {
+
             pagEdicao.Setup(Editor);
             pagFiltro.Setup(Editor);
 
@@ -113,7 +107,9 @@ namespace BlueRocket
         {
             Editor.PagePaintStart(); 
             
-            Editor.Open(prmArquivoCFG); ProjectReset();
+            Editor.Open(prmArquivoCFG); 
+
+            ProjectReset();
 
             Editor.PagePaintEnd();
         }
@@ -133,14 +129,15 @@ namespace BlueRocket
 
             pagFiltro.Refresh();
 
-            MenuStatusView();
         }
+
+        private void ViewRefresh() { MenuStatusView(); }
         private void ProjectExit() { }
 
         private void ScriptLocked() => Editor.CodeLocked();
         private void ScriptChecked(string prmScript, bool prmChecked) { Editor.Select.SetScript(prmScript, prmChecked); MenuStatusView(); }
 
-        private void FilterTagChecked(string prmTag, string prmOption, bool prmChecked) { Editor.Filter.SetChecked(prmTag, prmOption, prmChecked); FiltroView(); }
+        private void FilterTagChecked(string prmTag, string prmOption, bool prmChecked) { Editor.Filter.SetTagOption(prmTag, prmOption, prmChecked); FiltroView(); }
 
         private void ScriptView()
         {
@@ -275,9 +272,8 @@ namespace BlueRocket
             //Editor.CodePlayStop();
 
         }
-        public void SetAction(string prmTexto) => usrStatus.SetAction(prmTexto);
 
-        private int GetPage() => tabPages.SelectedIndex + 1;
+        public void SetAction(string prmTexto) => usrStatus.SetAction(prmTexto);
 
     }
 

@@ -13,7 +13,7 @@ namespace BlueRocket
         //static string arquivoCFG = @"C:\MassaTestes\VICTOR\victor.cfg";
         //static string arquivoCFG = @"C:\MassaTestes\POC\CLI\projeto-teste.cfg";
 
-        [STAThread]
+        //[STAThread]
         static void Main(string[] args)
         {
 

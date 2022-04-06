@@ -31,7 +31,7 @@
             this.logoPictureBox = new System.Windows.Forms.PictureBox();
             this.cmdClose = new System.Windows.Forms.Button();
             this.grpInformations = new System.Windows.Forms.GroupBox();
-            this.lblFramework = new System.Windows.Forms.Label();
+            this.lblVersion = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -67,19 +67,19 @@
             this.grpInformations.TabIndex = 21;
             this.grpInformations.TabStop = false;
             // 
-            // lblFramework
+            // lblVersion
             // 
-            this.lblFramework.AutoSize = true;
-            this.lblFramework.BackColor = System.Drawing.SystemColors.Highlight;
-            this.lblFramework.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblFramework.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lblFramework.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblFramework.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.lblFramework.Location = new System.Drawing.Point(45, 232);
-            this.lblFramework.Name = "lblFramework";
-            this.lblFramework.Size = new System.Drawing.Size(161, 23);
-            this.lblFramework.TabIndex = 22;
-            this.lblFramework.Text = "DOOGGY Framework";
+            this.lblVersion.BackColor = System.Drawing.SystemColors.Highlight;
+            this.lblVersion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblVersion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblVersion.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblVersion.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.lblVersion.Location = new System.Drawing.Point(35, 233);
+            this.lblVersion.Margin = new System.Windows.Forms.Padding(0);
+            this.lblVersion.Name = "lblVersion";
+            this.lblVersion.Size = new System.Drawing.Size(178, 22);
+            this.lblVersion.TabIndex = 23;
+            this.lblVersion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // frmAboutBox
             // 
@@ -87,8 +87,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.ClientSize = new System.Drawing.Size(551, 260);
+            this.Controls.Add(this.lblVersion);
             this.Controls.Add(this.grpInformations);
-            this.Controls.Add(this.lblFramework);
             this.Controls.Add(this.cmdClose);
             this.Controls.Add(this.logoPictureBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -104,7 +104,6 @@
             this.Text = "About ...";
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -113,6 +112,6 @@
         private System.Windows.Forms.PictureBox logoPictureBox;
         private System.Windows.Forms.Button cmdClose;
         private System.Windows.Forms.GroupBox grpInformations;
-        private System.Windows.Forms.Label lblFramework;
+        private System.Windows.Forms.Label lblVersion;
     }
 }

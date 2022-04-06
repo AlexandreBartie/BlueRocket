@@ -43,6 +43,7 @@ namespace BlueRocket
 
         public new void Refresh()
         {
+
             trvTags.Nodes.Clear();
 
             Root = AddNode(prmItem: "Tags");
@@ -51,6 +52,7 @@ namespace BlueRocket
                 PopularOpcoes(Tag);
 
             Root.Expand();
+
         }
 
         private void PopularOpcoes(myTag prmTag)

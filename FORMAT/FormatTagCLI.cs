@@ -23,9 +23,6 @@ namespace BlueRocket
         }
         public Color GetCorFundo(myTag prmTag)
         {
-            if (prmTag.IsPadrao)
-                return Color.LightGray;
-
             return Padrao.cor_fundo_padrao;
         }
     }

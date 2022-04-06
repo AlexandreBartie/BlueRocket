@@ -68,6 +68,8 @@ namespace BlueRocket
 
             Page = new EditorPage(this);
 
+            View = new EditorView(this);
+
             Setup();
         }
 
@@ -256,7 +258,11 @@ namespace BlueRocket
 
         public void Open(string prmArquivoCFG) 
         {
-            Console.Setup(prmArquivoCFG); Reset();
+            Console.Setup(prmArquivoCFG);
+
+            Filter.Setup();
+
+            Reset();
         }
         public void Close() 
         { 
@@ -282,7 +288,7 @@ namespace BlueRocket
             
             OnScriptCodeChanged();
         }
-        public void Reset() => Project.Reset();
+        public void Reset() { Project.Reset(); Filter.Reset(); } 
 
         public void PagePaintStart() => Page.Start();
         public void PagePaintEnd() => Page.End();
@@ -310,6 +316,7 @@ namespace BlueRocket
 
         public void SetAction(string prmTexto) => Page.SetAction(prmTexto);
         public ScriptCLI GetScript(string prmName) => Project.GetScript(prmName);
+        public DataTagOption GetTagOption(string prmTag, string prmOption) => Project.GetTagOption(prmTag, prmOption);
 
     }
     public class EditorMode : EditorBase
@@ -374,9 +381,74 @@ namespace BlueRocket
 
         public EditorColor Cor;
 
+        public EditorView View;
         public EditorBatch Batch => Select.Batch;
 
         public void Setup() => Factory = new TestDataProject();
+
+    }
+
+    public class EditorFilter : DataTagOptions
+    {
+        public EditorCLI Editor;
+
+        public DataTags Tags => Editor.Project.Tags;
+
+        private DataTagOption GetTagOption(string prmTag, string prmOption) => Editor.GetTagOption(prmTag, prmOption);
+
+        public EditorFilter(EditorCLI prmEditor)
+        {
+            Editor = prmEditor;
+        }
+        public void Setup()
+        {
+            Reset();
+
+            foreach (myTagOption Option in Tags.GetAll())
+                Add(new DataTagOption(Option));
+        }
+
+        public void Reset() => this.Clear();
+        public void SetTagOption(string prmTag, string prmOption, bool prmChecked)
+        {
+            if (prmChecked)
+                AddTagOption(prmTag, prmOption);
+            else
+                DelTagOption(prmTag, prmOption);
+        }
+        private void AddTagOption(string prmTag, string prmOption)
+        {
+            try
+            { 
+                DataTagOption Option = Editor.GetTagOption(prmTag, prmOption);
+
+                Add(Option);
+                
+            }
+            catch (Exception e)
+            { Console.WriteLine(e.Message); };
+
+        }
+        private void DelTagOption(string prmTag, string prmOption)
+        {
+            try
+            {
+                DataTagOption Option = Editor.GetTagOption(prmTag, prmOption);
+
+                Remove(Option);
+
+            }
+            catch (Exception e)
+            { Console.WriteLine(e.Message); };
+        }
+
+        public bool IsMatch(string prmTag, string prmOption)
+        {
+            foreach (myTagOption Option in this)
+                if (!Option.IsMatch(prmTag, prmOption))
+                   return false;
+            return true;
+        }
 
     }
     public class EditorSelect : List<ScriptCLI>
@@ -416,6 +488,47 @@ namespace BlueRocket
         private new void Clear() { if (!IsMultiSelection) base.Clear(); }
 
     }
+
+    public class EditorView
+    {
+        public EditorCLI Editor;
+
+        public enum eViewMain : int
+        {
+            eViewEdition = 0,
+            eViewProcess = 1,
+        }
+
+
+        private eViewMain view = eViewMain.eViewEdition;
+
+        public bool IsEdition => view == eViewMain.eViewEdition;
+        public bool IsProcess => view == eViewMain.eViewProcess;
+
+        public EditorView(EditorCLI prmEditor)
+        {
+            Editor = prmEditor;
+        }
+
+        public bool SetView(TabControl prmTabs)
+        {
+
+            view = (eViewMain)prmTabs.SelectedIndex;
+
+            string text;
+
+            if (Editor.TemProject)
+                text = "Process";
+            else
+                text = "...";
+
+            prmTabs.TabPages[(int)eViewMain.eViewProcess].Text = text;
+
+            return (IsProcess);
+        }
+
+    }
+
     public class EditorBatch
     {
         private EditorSelect Select;

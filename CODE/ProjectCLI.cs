@@ -42,6 +42,8 @@ namespace BlueRocket
 
         public ScriptCLI GetScript(string prmName) => Scripts.GetScript(prmName);
 
+        public DataTagOption GetTagOption(string prmTag, string prmOption) => (DataTagOption)Tags.Options.Find(prmTag, prmOption);
+
     }
 
     public class ScriptCLI
@@ -59,7 +61,13 @@ namespace BlueRocket
         public TestResult Result => Script.Result;
 
         public string name => Result.name_INI;
+
+        public int qtdSql => Result.SQL.qtde;
+
+        public string qtdTests => Result.SQL.qtdTestsTXT;
         public string timeSeconds => Result.SQL.timeSecondsTXT;
+        public string timeAverage => Result.SQL.timeAverageTXT;
+        public string timeBigger => Result.SQL.timeBiggerTXT;
 
         public string code => Result.code;
 
@@ -67,9 +75,11 @@ namespace BlueRocket
 
         public string status => GetStatus();
 
+        public string filtro => myBool.GetYesNo(IsAtived);
+
         public bool IsMatch(string prmTexto) => myString.IsMatch(name, prmTexto);
 
-        public bool IsAtivo => GetAtivo();
+        public bool IsAtived => GetActived();
 
         public bool IsPlaying = false;
 
@@ -80,6 +90,7 @@ namespace BlueRocket
         public bool IsLogOK => IsResult && !Result.IsError;
         public bool IsLogError => (Result.IsError);
 
+        public bool IsSlow => (Result.IsSlow);
         public bool ICanEdit => (!IsLocked);
 
         public bool ICanPlay => (Editor.ICanPlay && !IsPlaying);
@@ -121,10 +132,10 @@ namespace BlueRocket
 
         }
 
-        private bool GetAtivo()
+        private bool GetActived()
         {
             foreach (myTag Tag in Script.Tags)
-                if (!Editor.Filter.Tags.Ativos.IsFind(Tag.name, Tag.value))
+                if (!Editor.Filter.IsMatch(Tag.name, Tag.value))
                     return false;
 
             return true;
@@ -203,7 +214,7 @@ namespace BlueRocket
             foreach (ScriptCLI Tag in this)
             {
                 foreach (ScriptCLI item in this)
-                    if (item.IsAtivo || !prmFiltrar)
+                    if (item.IsAtived || !prmFiltrar)
                         itens.Add(item);
             }
             return itens;
