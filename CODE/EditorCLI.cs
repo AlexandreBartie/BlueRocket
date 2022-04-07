@@ -610,7 +610,6 @@ namespace BlueRocket
 
         private EditorCLI Editor;
 
-        private Font FontPath;
         private Font FontPadrao;
         private Font FontTreeView;
 
@@ -626,11 +625,9 @@ namespace BlueRocket
         private void SetFontes()
         {
 
-            string nameFontDefault = "Consoles";
+            string nameFontDefault = "Cascadia Code";
 
-            FontPath = new Font(nameFontDefault, 8);
-
-            FontPadrao = new Font(nameFontDefault, 11);
+            FontPadrao = new Font(nameFontDefault, 12);
 
             FontTreeView = new Font(nameFontDefault, 11);
 
@@ -639,14 +636,12 @@ namespace BlueRocket
         public void SetPadrao(Button prmBotao)
         {
             prmBotao.BackColor = Color.DimGray;
-            prmBotao.ForeColor = Color.White;
+            prmBotao.ForeColor = Color.Black;
 
             prmBotao.FlatStyle = FlatStyle.Flat;
         }
         public void SetPadrao(TextBox prmTextBox, bool prmEditavel)
         {
-            prmTextBox.Font = FontPath;
-
             prmTextBox.ReadOnly = !prmEditavel;
         }
         public void SetMemo(TextBox prmTextBox)
@@ -673,6 +668,7 @@ namespace BlueRocket
             prmListView.FullRowSelect = true;
 
             prmListView.Scrollable = true;
+
         }
 
         public void SetPadrao(TreeView prmTreeView) => SetPadrao(prmTreeView, prmCheckBoxes: false);
@@ -708,8 +704,8 @@ namespace BlueRocket
 
         public void SetPadrao(usrTitulo prmTitulo)
         {
-            prmTitulo.BackColor = Color.Aquamarine;
-            prmTitulo.ForeColor = Color.White;
+            prmTitulo.BackColor = Color.Yellow;
+            prmTitulo.ForeColor = Color.Black;
         }
 
         private void SetControl(Control prmControle) => SetControl(prmControle, prmFont: FontPadrao);

@@ -60,6 +60,10 @@ namespace BlueRocket
 
         public TestResult Result => Script.Result;
 
+        private int id;
+
+        public string key => myFormat.GetKey(id, 3);
+
         public string name => Result.name_INI;
 
         public int qtdSql => Result.SQL.qtde;
@@ -99,8 +103,11 @@ namespace BlueRocket
         public bool ICanSave => IsChanged;
         public bool ICanUndo => IsChanged;
 
-        public ScriptCLI(TestScript prmScript, EditorCLI prmEditor)
+        public ScriptCLI(int prmId, TestScript prmScript, EditorCLI prmEditor)
         {
+
+            id = prmId;
+            
             Script = prmScript;
 
             Editor = prmEditor;
@@ -162,10 +169,11 @@ namespace BlueRocket
 
         public bool TemScripts => (Count > 0);
 
+        private int idNext => Count + 1;
+
         public bool TemAtivos => Ativos.TemScripts;
 
-        public ScriptsCLI Todos => GetTodos();
-        public ScriptsCLI Ativos => GetTodos(prmFiltrar: true);
+        public ScriptsCLI Ativos => GetAtivos();
 
         public ScriptsCLI(EditorCLI prmEditor)
         {
@@ -180,7 +188,7 @@ namespace BlueRocket
                 Add(Script);
         }
 
-        private void Add(TestScript prmScript) => base.Add(new ScriptCLI(prmScript, Editor));
+        private void Add(TestScript prmScript) => base.Add(new ScriptCLI(prmId: idNext, prmScript, Editor));
 
         public bool SetScript(ScriptCLI prmScript)
         {
@@ -206,17 +214,13 @@ namespace BlueRocket
 
         private bool Sincronizar() => Console.SetScript(prmKey: Corrente.name);
 
-        private ScriptsCLI GetTodos() => GetTodos(prmFiltrar: false);
-        private ScriptsCLI GetTodos(bool prmFiltrar)
+        private ScriptsCLI GetAtivos()
         {
             ScriptsCLI itens = new ScriptsCLI(Editor);
 
-            foreach (ScriptCLI Tag in this)
-            {
-                foreach (ScriptCLI item in this)
-                    if (item.IsAtived || !prmFiltrar)
-                        itens.Add(item);
-            }
+            foreach (ScriptCLI item in this)
+                if (item.IsAtived)
+                    itens.Add(item);
             return itens;
         }
 

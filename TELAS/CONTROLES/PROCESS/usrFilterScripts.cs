@@ -63,20 +63,22 @@ namespace BlueRocket
 
                     for (int x = 1; x < qtde_colunas; x++)
                         linha.SubItems.Add("");
-
                 }
 
                 linha = lstScripts.Items[cont];
 
                 linha.Tag = Script.name;
 
-                linha.SubItems[1].Text = Script.name;
-                linha.SubItems[2].Text = Script.status;
-                linha.SubItems[3].Text = Script.filtro;
-                linha.SubItems[4].Text = Script.qtdTests;
-                linha.SubItems[5].Text = Script.timeBigger;
-                linha.SubItems[6].Text = Script.timeAverage;
-                linha.SubItems[7].Text = Script.timeSeconds;
+                linha.SubItems[1].Text = Script.key;
+                linha.SubItems[2].Text = Script.name;
+                linha.SubItems[3].Text = Script.status;
+                linha.SubItems[4].Text = Script.filtro;
+                linha.SubItems[5].Text = Script.qtdTests;
+                linha.SubItems[6].Text = Script.timeBigger;
+                linha.SubItems[7].Text = Script.timeAverage;
+                linha.SubItems[8].Text = Script.timeSeconds;
+
+                linha.UseItemStyleForSubItems = false;
 
                 for (int x = 1; x < qtde_colunas; x++)
                 {
@@ -84,9 +86,9 @@ namespace BlueRocket
                         linha.SubItems[x].ForeColor = Script.Cor.GetCorFrente();
                     else
                         linha.SubItems[x].ForeColor = Script.Cor.GetCorSlowSQL();
-                }
 
-                // linha.BackColor = Script.Cor.GetCorFundo();
+                    linha.SubItems[x].BackColor = Script.Cor.GetCorFundo();
+                }
 
                 ViewTAGS(Script, linha, prmRefresh);
 
@@ -110,7 +112,7 @@ namespace BlueRocket
                 celula.Text = Tag.value;
 
                 celula.ForeColor = Editor.Cor.Tag.GetCorFrente(Tag);
-                celula.BackColor = Editor.Cor.Tag.GetCorFundo(Tag);
+                celula.ForeColor = Editor.Cor.Tag.GetCorFundo(Tag);
 
                 cont++;
 
@@ -127,7 +129,8 @@ namespace BlueRocket
 
             lstScripts.Columns.Clear();
 
-            lstScripts.Columns.Add("#",0);
+            lstScripts.Columns.Add("!",0);
+            lstScripts.Columns.Add("#", 40, textAlign: HorizontalAlignment.Right);
             lstScripts.Columns.Add("Nome Script",300);
             lstScripts.Columns.Add("Status", 80, textAlign: HorizontalAlignment.Center);
             lstScripts.Columns.Add("Filtro", 80, textAlign: HorizontalAlignment.Center);
@@ -159,4 +162,6 @@ namespace BlueRocket
         }
 
     }
+       
+
 }

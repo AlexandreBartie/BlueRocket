@@ -13,7 +13,7 @@ namespace BlueRocket
         public ScriptCLI Script;
         public ColorEditorCLI Padrao => Script.Editor.Cor.Padrao;
 
-        public ColorCodeCLI Code;
+        private ColorCodeCLI Code;
         public ColorLogCLI Log;
         public ColorMsgCLI Msg;
 
@@ -25,35 +25,18 @@ namespace BlueRocket
             Log = new ColorLogCLI(this);
             Msg = new ColorMsgCLI(this);
         }
-        public myColor GetCor()
-        {
-            return new myColor(GetCorFrente(), GetCorFundo());
-        }
-        public Color GetCorFrente()
-        {
-            if (!Script.IsLocked)
+        public myColor GetCor() => Code.GetCor();
 
-                if (Script.IsChanged)
-                    return Padrao.cor_frente_modificado;
-                else
-                    return Padrao.cor_frente_edicao;
+        public Color GetCorFrente() => Code.GetCorFrente();
 
-            return Padrao.cor_frente_consulta;
-        }
-        public Color GetCorFundo()
-        {
-            if (Script.IsLogError)
-                return Padrao.cor_fundo_erro;
-
-            return Padrao.cor_fundo_padrao;
-        }
+        public Color GetCorFundo() => Code.GetCorFundo();
 
         public Color GetCorSlowSQL()
         {
             if (Script.IsSlow)
-                return Padrao.cor_fundo_erro;
+                return Padrao.cor_frente_erro;
 
-            return Padrao.cor_fundo_padrao;
+            return Padrao.cor_frente_consulta;
         }
 
     }
@@ -73,14 +56,14 @@ namespace BlueRocket
 
                 if (Script.IsChanged)
                     return Padrao.cor_frente_modificado;
-                else
+                else 
                     return Padrao.cor_frente_edicao;
 
             return Padrao.cor_frente_consulta;
         }
         public Color GetCorFundo()
         {
-            if (Script.IsLogError)
+            if (Script.IsLogError || Script.IsSlow)
                 return Padrao.cor_fundo_erro;
 
             return Padrao.cor_fundo_padrao;

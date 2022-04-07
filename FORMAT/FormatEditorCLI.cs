@@ -19,6 +19,7 @@ namespace BlueRocket
         public Color cor_fundo_padrao => Color.White;
         public Color cor_fundo_empty => Color.SeaShell;
         public Color cor_fundo_erro => Color.LightYellow;
+        public Color cor_fundo_destaque => Color.LightGray;
 
         public ColorEditorCLI(EditorCLI prmEditor) : base(prmEditor)
         {

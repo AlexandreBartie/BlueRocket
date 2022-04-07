@@ -65,7 +65,7 @@ namespace BlueRocket
             {
                 txtMassaDados.Text = Editor.Result.data;
 
-                txtMassaDados.ForeColor = Editor.Script.Cor.Code.GetCorFrente();
+                txtMassaDados.ForeColor = Editor.Script.Cor.GetCorFrente();
                 txtMassaDados.BackColor = Editor.Script.Cor.Log.GetCorFundo();
 
                 lstLogExecucao.ForeColor = Editor.Script.Cor.Log.GetCorFrente();
