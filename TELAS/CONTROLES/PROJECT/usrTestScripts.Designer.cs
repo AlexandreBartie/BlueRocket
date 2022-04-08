@@ -1,6 +1,6 @@
 ﻿namespace BlueRocket
 {
-    partial class usrFilterScripts
+    partial class usrTestScripts
     {
         /// <summary> 
         /// Variável de designer necessária.
@@ -37,18 +37,19 @@
             this.lstScripts.HideSelection = false;
             this.lstScripts.Location = new System.Drawing.Point(0, 40);
             this.lstScripts.Name = "lstScripts";
-            this.lstScripts.Size = new System.Drawing.Size(891, 635);
+            this.lstScripts.Size = new System.Drawing.Size(636, 524);
             this.lstScripts.TabIndex = 1;
             this.lstScripts.UseCompatibleStateImageBehavior = false;
             this.lstScripts.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.lstScripts_ItemSelectionChanged);
+            this.lstScripts.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lstScripts_MouseDoubleClick);
             // 
-            // usrFilterScripts
+            // usrTestScripts
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.lstScripts);
-            this.Name = "usrFilterScripts";
-            this.Size = new System.Drawing.Size(891, 675);
+            this.Name = "usrTestScripts";
+            this.Size = new System.Drawing.Size(636, 564);
             this.Controls.SetChildIndex(this.lstScripts, 0);
             this.ResumeLayout(false);
 

@@ -1,6 +1,6 @@
 ﻿namespace BlueRocket
 {
-    partial class usrFilterTags
+    partial class usrTestTags
     {
         /// <summary> 
         /// Variável de designer necessária.

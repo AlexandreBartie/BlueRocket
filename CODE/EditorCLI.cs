@@ -262,11 +262,11 @@ namespace BlueRocket
 
             Filter.Setup();
 
-            Reset();
+            Build();
         }
         public void Close() 
         { 
-            Setup(); Reset();
+            Setup(); Build();
 
             SetAction(String.Format("Project closed: {0} ...", Import.file_name));
         }
@@ -288,7 +288,8 @@ namespace BlueRocket
             
             OnScriptCodeChanged();
         }
-        public void Reset() { Project.Reset(); Filter.Reset(); } 
+        
+        public void Build() { Project.Setup(); Filter.Setup(); }
 
         public void PagePaintStart() => Page.Start();
         public void PagePaintEnd() => Page.End();

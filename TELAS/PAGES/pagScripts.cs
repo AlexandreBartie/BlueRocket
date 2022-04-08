@@ -8,11 +8,11 @@ using System.Windows.Forms;
 
 namespace BlueRocket
 {
-    public partial class pagFiltro : UserControl
+    public partial class pagScripts : UserControl
     {
 
         private EditorCLI Editor;
-        public pagFiltro()
+        public pagScripts()
         {
             InitializeComponent();
         }
@@ -23,21 +23,19 @@ namespace BlueRocket
 
             Editor.Format.SetPadrao(SeparadorH);
 
-            usrFilterTags.Setup(Editor);
-            usrFilterScripts.Setup(Editor);
-
+            usrTestScripts.Setup(Editor);
+            usrTestTags.Setup(Editor);
         }
 
-        public new void Refresh()
+        public void Build()
         {
+            usrTestScripts.Build();
 
-            usrFilterTags.Refresh();
-
-            usrFilterScripts.Refresh();
+            usrTestTags.Build();
         }
+        public void View() => usrTestScripts.View();
 
-        public void View() => View(prmRefresh: true);
-        public void View(bool prmRefresh) => usrFilterScripts.View(prmRefresh);
+        public void ViewAll(bool prmCleanup) => usrTestScripts.ViewAll(prmCleanup);
 
     }
 }

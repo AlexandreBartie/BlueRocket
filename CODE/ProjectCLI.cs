@@ -32,7 +32,7 @@ namespace BlueRocket
             Editor = prmEditor;
         }
 
-        public void Reset()
+        public void Setup()
         {
             Scripts = new ScriptsCLI(Editor);
         }
@@ -43,6 +43,14 @@ namespace BlueRocket
         public ScriptCLI GetScript(string prmName) => Scripts.GetScript(prmName);
 
         public DataTagOption GetTagOption(string prmTag, string prmOption) => (DataTagOption)Tags.Options.Find(prmTag, prmOption);
+
+        public string GetConsoleTitle()
+        {
+            if (IsLoad)
+                return nome;
+
+            return "Selecionar Projeto (*.cfg)";
+        }
 
     }
 

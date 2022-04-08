@@ -26,11 +26,6 @@ namespace BlueRocket
             this.Text = String.Format("About: {0}", myAssembly.AssemblyTitle);
         }
 
-        private void tabPages_Selected(object sender, TabControlEventArgs e)
-        {
-            if (Editor.View.SetView(tabPages))
-                pagFiltro.View(prmRefresh: false);
-          }
         public void Setup(EditorCLI prmEditor)
         {
 
@@ -87,15 +82,15 @@ namespace BlueRocket
         private void ProjectSetup()
         {
 
-            pagEdicao.Setup(Editor);
-            pagFiltro.Setup(Editor);
+            pagScripts.Setup(Editor);
+            pagEdition.Setup(Editor);
 
-            Editor.Reset();
+            Editor.Build();
 
             MenuStatusView();
 
         }
-        private void ProjectMultiSelect(bool prmAtivar) { pagEdicao.MultiSelect(prmAtivar); MenuStatusView(); }
+        private void ProjectMultiSelect(bool prmAtivar) { pagEdition.MultiSelect(prmAtivar); MenuStatusView(); }
 
         private void ProjectDBConnect()
         {
@@ -107,9 +102,9 @@ namespace BlueRocket
         {
             Editor.PagePaintStart(); 
             
-            Editor.Open(prmArquivoCFG); 
+            Editor.Open(prmArquivoCFG);
 
-            ProjectReset();
+            ProjectBuild();
 
             Editor.PagePaintEnd();
         }
@@ -121,15 +116,18 @@ namespace BlueRocket
 
             Editor.PagePaintEnd();
         }
-        private void ProjectReset()
+
+        private void ProjectReset() => ProjectBuild();
+
+        private void ProjectBuild()
         {
-            Editor.Reset();
+            Editor.Build();
 
-            pagEdicao.Refresh();
+            pagScripts.Build();
 
-            pagFiltro.Refresh();
+            pagEdition.View();
 
-        }
+         }
 
         private void ViewRefresh() { MenuStatusView(); }
         private void ProjectExit() { }
@@ -141,20 +139,22 @@ namespace BlueRocket
 
         private void ScriptView()
         {
-            pagEdicao.View();
+            pagScripts.View();
+
+            pagEdition.View();
 
             MenuStatusView();
         }
 
         private void FiltroView()
         {
-            pagFiltro.View();
+            pagScripts.ViewAll(prmCleanup: true);
 
             MenuStatusView();
         }
 
-        private void ScriptLogOK() => pagEdicao.ViewResult(prmPage: ePageResult.ePageMassaDados);
-        private void ScriptLogError() => pagEdicao.ViewResult(prmPage: ePageResult.ePageLogErrors);
+        private void ScriptLogOK() => pagEdition.ViewResult(prmPage: ePageResult.ePageMassaDados);
+        private void ScriptLogError() => pagEdition.ViewResult(prmPage: ePageResult.ePageLogErrors);
 
         private void ScriptLogClipBoard(string prmLog) => Clipboard.SetText(prmLog);
 
@@ -172,7 +172,7 @@ namespace BlueRocket
             foreach (ScriptCLI Script in Editor.Select)
             {
 
-                if (pagEdicao.FindNodeScript(Script))
+                if (pagEdition.FindNodeScript(Script))
                 {
 
                     Editor.CodeBatchSet(Script);
@@ -186,7 +186,7 @@ namespace BlueRocket
 
         }
         private void MenuStatusView() { usrStatus.View(); usrMenu.View(); }
-        private void BatchSet(ScriptCLI prmScript) => pagEdicao.UncheckedNodeScript(prmScript);
+        private void BatchSet(ScriptCLI prmScript) => pagEdition.UncheckedNodeScript(prmScript);
         private void BatchEnd() => usrMenu.Refresh();
         private void SelectedPlayAll() => SelectedPlaySaveAll(prmPlay: true, prmSave: false);
         private void SelectedSaveAll() => SelectedPlaySaveAll(prmPlay: false, prmSave: true);
@@ -199,7 +199,7 @@ namespace BlueRocket
             foreach (ScriptCLI Script in Editor.Select)
             {
 
-                if (pagEdicao.FindNodeScript(Script))
+                if (pagEdition.FindNodeScript(Script))
                 {
 
                     Editor.CodeBatchSet(Script);

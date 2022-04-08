@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace BlueRocket
 {
-    public partial class usrFilterTags : usrMoldura
+    public partial class usrTestTags : usrMoldura
     {
         private EditorCLI Editor;
 
@@ -27,7 +27,7 @@ namespace BlueRocket
             }
         }
 
-        public usrFilterTags()
+        public usrTestTags()
         {
             InitializeComponent();
 
@@ -41,10 +41,10 @@ namespace BlueRocket
             Editor.Format.SetPadrao(trvTags, prmCheckBoxes: true);
         }
 
-        public new void Refresh()
+        public void Build()
         {
 
-            trvTags.Nodes.Clear();
+            Reset();
 
             Root = AddNode(prmItem: "Tags");
 
@@ -91,5 +91,6 @@ namespace BlueRocket
             return prmNode;
         }
 
+        private void Reset() => trvTags.Nodes.Clear();
     }
 }

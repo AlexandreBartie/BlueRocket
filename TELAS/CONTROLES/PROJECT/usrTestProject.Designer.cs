@@ -40,10 +40,7 @@
             this.trvProjeto.Location = new System.Drawing.Point(0, 40);
             this.trvProjeto.Name = "trvProjeto";
             this.trvProjeto.Size = new System.Drawing.Size(794, 520);
-            this.trvProjeto.TabIndex = 10;
-            this.trvProjeto.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.trvProjeto_AfterCheck);
-            this.trvProjeto.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.trvProjeto_AfterSelect);
-            this.trvProjeto.DoubleClick += new System.EventHandler(this.trvProjeto_DoubleClick);
+            this.trvProjeto.TabIndex = 12;
             // 
             // usrTestProject
             // 
