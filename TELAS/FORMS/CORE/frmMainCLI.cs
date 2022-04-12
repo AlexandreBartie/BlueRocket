@@ -74,7 +74,6 @@ namespace BlueRocket
 
             ProjectSetup();
 
-            this.ShowDialog();
         }
 
         private void frmTestDataFactoryConsole_Load(object sender, EventArgs e) => ProjectSetup();
@@ -139,8 +138,6 @@ namespace BlueRocket
 
         private void ScriptView()
         {
-            pagScripts.View();
-
             pagEdition.View();
 
             MenuStatusView();

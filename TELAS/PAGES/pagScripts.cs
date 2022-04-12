@@ -8,20 +8,34 @@ using System.Windows.Forms;
 
 namespace BlueRocket
 {
-    public partial class pagScripts : UserControl
+
+    public enum ePageScripts : int
+    {
+        ePageLista = 0,
+        ePageFiltro = 1,
+        ePageEstrutura = 2,
+    }
+
+    public partial class pagScripts : usrMoldura
     {
 
         private EditorCLI Editor;
+        private void tabPage_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabPage.SelectedIndex == (int)ePageScripts.ePageLista)
+                Editor.OnFilterTagChanged();
+        }
         public pagScripts()
         {
             InitializeComponent();
+
         }
 
         public void Setup(EditorCLI prmEditor)
         {
             Editor = prmEditor;
 
-            Editor.Format.SetPadrao(SeparadorH);
+            SetTitle(prmText: Editor.Project.GetConsoleTitle());
 
             usrTestScripts.Setup(Editor);
             usrTestTags.Setup(Editor);
@@ -33,7 +47,6 @@ namespace BlueRocket
 
             usrTestTags.Build();
         }
-        public void View() => usrTestScripts.View();
 
         public void ViewAll(bool prmCleanup) => usrTestScripts.ViewAll(prmCleanup);
 

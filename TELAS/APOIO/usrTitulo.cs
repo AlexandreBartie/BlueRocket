@@ -30,7 +30,7 @@ namespace BlueRocket
             Editor.Format.SetPadrao(cmdTitulo);
         }
 
-        public void SetTitulo(string prmTexto) { cmdTitulo.Text = prmTexto; }
+        public void SetTitle(string prmText) { cmdTitulo.Text = prmText; }
 
     }
 }

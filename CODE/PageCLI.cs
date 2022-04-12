@@ -8,26 +8,34 @@ namespace BlueRocket
 {
     public class EditorPage : EditorPageView
     {
+        
+        private EditorPage_Main pagMain;
 
-        private EditorPage_Main Main;
+        private EditorPage_About pagAbout;
 
-        private EditorPage_About About;
+        private EditorPage_Start pagStart;
 
         public EditorPage(EditorCLI prmEditor)
         {
 
             Editor = prmEditor;
 
-            Main = new EditorPage_Main();
+            pagMain = new EditorPage_Main();
 
-            About = new EditorPage_About();
+            pagAbout = new EditorPage_About();
+
+            pagStart = new EditorPage_Start();
 
         }
 
-        public void MainShow() => Main.Show();
-        public void AboutShow() => About.Show();
+        public void MainShow() => MainShow(prmPinned: false);
+        public void MainShow(bool prmPinned) => pagMain.Show(prmPinned);
 
-        public void SetAction(string prmTexto) => Main.SetAction(prmTexto);
+        public void AboutShow() => pagAbout.Show();
+
+        public void StartShow() => pagStart.Show();
+
+        public void SetAction(string prmTexto) => pagMain.SetAction(prmTexto);
 
     }
 
@@ -39,13 +47,34 @@ namespace BlueRocket
         public void Start() => IsPainting = true;
         public void End() => IsPainting = false;
     }
+    public class EditorPage_Start : EditorPageBase
+    {
+
+        private frmSplash FormSplash;
+
+        private frmStart FormLocal;
+
+        public void Show()
+        {
+            FormSplash = new frmSplash(); FormSplash.ShowDialog();
+
+            FormLocal = new frmStart(); FormLocal.Setup(Editor); 
+        }
+
+    }
 
     public class EditorPage_Main : EditorPageBase
     {
 
-        private frmMainCLI FormLocal;
+        static frmMainCLI FormLocal;
 
-        public void Show() { FormLocal = new frmMainCLI(); FormLocal.Setup(Editor); }
+        public void Show(bool prmPinned)
+        {
+            if (!prmPinned)
+            { FormLocal = new frmMainCLI(); FormLocal.Setup(Editor); }
+            else
+                FormLocal.ShowDialog();
+        }
 
         public void SetAction(string prmTexto) => FormLocal.SetAction(prmTexto);
 
@@ -68,7 +97,6 @@ namespace BlueRocket
     public class EditorPageBase
     {
         public static EditorCLI Editor;
-
     }
 
 }

@@ -54,6 +54,7 @@
             // 
             // pagScripts
             // 
+            this.pagScripts.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.pagScripts.Dock = System.Windows.Forms.DockStyle.Left;
             this.pagScripts.Location = new System.Drawing.Point(0, 27);
             this.pagScripts.Name = "pagScripts";
@@ -90,7 +91,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmMainCLI";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Blue-Rocket Console";
+            this.Text = "blue rocket";
             this.Load += new System.EventHandler(this.frmTestDataFactoryConsole_Load);
             this.ResumeLayout(false);
 

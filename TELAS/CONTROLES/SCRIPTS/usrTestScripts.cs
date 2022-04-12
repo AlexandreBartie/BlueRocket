@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace BlueRocket
 {
-    public partial class usrTestScripts : usrMoldura
+    public partial class usrTestScripts : UserControl
     {
         private PageBuilder Builder;
 
@@ -39,8 +39,6 @@ namespace BlueRocket
         public void Setup(EditorCLI prmEditor) => Builder.Setup(prmEditor);
 
         public void Build() => Builder.Build();
-
-        public void View() => Builder.View();
 
         public void ViewAll(bool prmCleanup) => Builder.ViewAll(prmCleanup);
 
@@ -86,9 +84,7 @@ namespace BlueRocket
         }
 
         internal void Reset()
-        {
-            Resource.SetTitle(prmText: Editor.Project.GetConsoleTitle());
-            
+        {           
             Structure.Build();
         }
         
@@ -96,25 +92,19 @@ namespace BlueRocket
         {
             Reset(); ViewAll(prmCleanup: true);
         }
-        internal void View()
-        {
-            //if (Editor.TemScript)
-              //  Elements.View(prmScript: Editor.Script);
-        }
         internal void ViewAll(bool prmCleanup)
         {
             Elements.ViewAll(prmCleanup);
         }
         internal void DoubleClick(string prmScript)
         {
-
             SetFocus(prmScript);
 
             if (Editor.Script.IsLocked)
                 Editor.OnScriptCodeLocked();
 
             if (Editor.Script.ICanPlay)
-                Editor.OnScriptCodePlay();
+            { Editor.OnScriptCodePlay(); Elements.View(prmScript: Editor.Script); }
         }
 
         internal void SetFocus(string prmScript)
@@ -152,15 +142,14 @@ namespace BlueRocket
 
             ListView.Columns.Clear();
 
-            ListView.Columns.Add("!", 0);
-            ListView.Columns.Add("#", 40, textAlign: HorizontalAlignment.Center);
-            ListView.Columns.Add("Nome Script", 400);
+            ListView.Columns.Add("", 40, textAlign: HorizontalAlignment.Center);
+            ListView.Columns.Add("Script", 400);
             ListView.Columns.Add("Status", 80, textAlign: HorizontalAlignment.Center);
             ListView.Columns.Add("Filtro", 80, textAlign: HorizontalAlignment.Center);
             ListView.Columns.Add("Testes", 80, textAlign: HorizontalAlignment.Center);
-            ListView.Columns.Add("Maior", 80, textAlign: HorizontalAlignment.Center);
-            ListView.Columns.Add("Média", 80, textAlign: HorizontalAlignment.Center);
-            ListView.Columns.Add("Total", 80, textAlign: HorizontalAlignment.Center);
+            ListView.Columns.Add("Maior", 80, textAlign: HorizontalAlignment.Right);
+            ListView.Columns.Add("Média", 80, textAlign: HorizontalAlignment.Right);
+            ListView.Columns.Add("Total", 80, textAlign: HorizontalAlignment.Right);
 
             Resource.qtde_colunas = ListView.Columns.Count;
 
@@ -205,13 +194,19 @@ namespace BlueRocket
         private void ViewScripts(bool prmCleanup)
         {
 
-            ListViewItem linha; int cont = 0;
+            ListViewItem linha; int cont = 0; string index;
 
             foreach (ScriptCLI Script in Editor.Project.Scripts.Ativos)
             {
+
+                cont++;
+
                 if (prmCleanup)
                 {
-                    linha = ListView.Items.Add("x");
+
+                    index = myFormat.GetKey(cont, 3);
+
+                    linha = ListView.Items.Add(index);
 
                     for (int x = 1; x < qtde_colunas; x++)
                         linha.SubItems.Add("");
@@ -221,25 +216,23 @@ namespace BlueRocket
 
                 ViewTAGS(Script, linha, prmCleanup);
 
-                cont++;
             }
 
         }
 
-        internal ListViewItem ViewScript(int prmIndice, ScriptCLI prmScript) => ViewScript(ListView.Items[prmIndice], prmScript);
+        internal ListViewItem ViewScript(int prmIndice, ScriptCLI prmScript) => ViewScript(ListView.Items[prmIndice-1], prmScript);
         internal ListViewItem ViewScript(ListViewItem prmLinha, ScriptCLI prmScript)
         {
         
             prmLinha.Tag = prmScript.name;
 
-            prmLinha.SubItems[1].Text = prmScript.key;
-            prmLinha.SubItems[2].Text = prmScript.name;
-            prmLinha.SubItems[3].Text = prmScript.status;
-            prmLinha.SubItems[4].Text = prmScript.filtro;
-            prmLinha.SubItems[5].Text = prmScript.qtdTests;
-            prmLinha.SubItems[6].Text = prmScript.timeBigger;
-            prmLinha.SubItems[7].Text = prmScript.timeAverage;
-            prmLinha.SubItems[8].Text = prmScript.timeSeconds;
+            prmLinha.SubItems[1].Text = prmScript.name;
+            prmLinha.SubItems[2].Text = prmScript.status;
+            prmLinha.SubItems[3].Text = prmScript.filtro;
+            prmLinha.SubItems[4].Text = prmScript.qtdTests;
+            prmLinha.SubItems[5].Text = prmScript.timeBigger;
+            prmLinha.SubItems[6].Text = prmScript.timeAverage;
+            prmLinha.SubItems[7].Text = prmScript.timeSeconds;
 
             prmLinha.UseItemStyleForSubItems = false;
 
@@ -279,9 +272,7 @@ namespace BlueRocket
             }
 
         }
-
         private ListViewItem GetListItem() => ListView.SelectedItems[0];
-
     }
 
     internal class PageBase
@@ -324,10 +315,6 @@ namespace BlueRocket
             Editor = prmEditor;
         }
 
-        internal void SetTitle(string prmText)
-        {
-            Page.SetTitulo(prmText);
-        }
     }
 
 }

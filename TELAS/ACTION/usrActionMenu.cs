@@ -17,7 +17,7 @@ namespace BlueRocket
         {
             InitializeComponent();
         }
-        private void mnuProjectOpen_Click(object sender, EventArgs e) => Editor.Import.SelectFileCFG();
+        private void mnuProjectOpen_Click(object sender, EventArgs e) => Editor.SelectFileCFG();
         private void mnuProjectClose_Click(object sender, EventArgs e) => Editor.OnProjectClose();
         private void mnuProjectRefresh_Click(object sender, EventArgs e) => Editor.OnProjectReset();
         private void mnuProjectExit_Click(object sender, EventArgs e) => Editor.OnProjectExit();

@@ -70,8 +70,6 @@ namespace BlueRocket
 
         private int id;
 
-        public string key => myFormat.GetKey(id, 3);
-
         public string name => Result.name_INI;
 
         public int qtdSql => Result.SQL.qtde;

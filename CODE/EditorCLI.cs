@@ -124,6 +124,8 @@ namespace BlueRocket
         public void OnProjectOpen(string prmArquivoCFG)
         {
 
+            Page.MainShow();
+
             SetAction(String.Format("Project loading: {0} ...", Import.file_name));
 
             ProjectOpen?.Invoke(prmArquivoCFG); 
@@ -131,6 +133,8 @@ namespace BlueRocket
             SetAction(String.Format("Project loaded: {0} ...", Import.file_name));
 
             OnProjectDBConnect();
+
+            Page.MainShow(prmPinned: true);
 
         }
         public void OnProjectClose()
@@ -188,7 +192,7 @@ namespace BlueRocket
          }
         public void OnFilterTagChecked(string prmTag, string prmOption, bool prmChecked)
         {
-            FilterTagChecked?.Invoke(prmTag, prmOption, prmChecked); OnFilterTagChanged();
+            FilterTagChecked?.Invoke(prmTag, prmOption, prmChecked); 
         }
         public void OnFilterTagChanged()
         {
@@ -217,6 +221,8 @@ namespace BlueRocket
             SetAction(String.Format("Script playing: {0} ...", Script.title));
 
             ScriptCodePlay?.Invoke();
+
+
 
             SetAction(String.Format("Script played: {0} ...", Script.title));
         }
@@ -253,7 +259,7 @@ namespace BlueRocket
             ScriptLogClipBoard?.Invoke(prmLog);
         }
 
-        public bool Start() { Page.MainShow(); return true; }
+        public bool Start() { Page.StartShow(); return true; }
         public bool Start(string prmArquivoCFG) => Console.Setup(prmArquivoCFG,prmPlay:true);
 
         public void Open(string prmArquivoCFG) 
@@ -293,6 +299,8 @@ namespace BlueRocket
 
         public void PagePaintStart() => Page.Start();
         public void PagePaintEnd() => Page.End();
+
+        public bool SelectFileCFG() => Import.SelectFileCFG();
 
         public void CodeBatchStart() => Batch.Start();
         public void CodeBatchSet(ScriptCLI prmScript) { Batch.Set(prmScript); OnBatchSet(prmScript); }
@@ -589,7 +597,7 @@ namespace BlueRocket
         }
 
         [STAThread]
-        public void SelectFileCFG()
+        public bool SelectFileCFG()
         {
 
             myFileDialog Selecao = new myFileDialog();
@@ -601,8 +609,10 @@ namespace BlueRocket
                 fileCFG = Selecao.Dialog.FileName;
 
                 Editor.OnProjectOpen(prmArquivoCFG: fileCFG);
-            }
 
+                return true;
+            }
+            return false;
         }
 
     }

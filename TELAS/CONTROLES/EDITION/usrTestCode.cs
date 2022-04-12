@@ -34,7 +34,7 @@ namespace BlueRocket
          
             InitializeComponent();
 
-            SetTitulo(prmTexto: "Script INI");
+            SetTitle(prmText: "Script INI");
 
         }
 
@@ -55,7 +55,7 @@ namespace BlueRocket
             if (Editor.TemScript)
             {
 
-                SetTitulo(prmTexto: Editor.Script.title);
+                SetTitle(prmText: Editor.Script.title);
 
                 txtCode.Enabled = true;
                 txtCode.ReadOnly = Editor.Script.IsLocked;
@@ -67,7 +67,7 @@ namespace BlueRocket
             else
             {
 
-                SetTitulo(prmTexto: "SCRIPT INI");
+                SetTitle(prmText: "SCRIPT INI");
 
                 txtCode.Enabled = false;
 

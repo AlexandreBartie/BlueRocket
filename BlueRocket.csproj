@@ -28,12 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Dooggy.CORE" Version="1.0.7.2" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\DOOGGY\CORE\Dooggy.CORE.csproj" />
-    <ProjectReference Include="..\..\DOOGGY\LIBRARY\Dooggy.LIBRARY.csproj" />
+    <PackageReference Include="Dooggy.CORE" Version="1.0.7.3" />
   </ItemGroup>
 
   <ItemGroup>

@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace BlueRocket
 {
-    public partial class usrTestTags : usrMoldura
+    public partial class usrTestTags : UserControl
     {
         private EditorCLI Editor;
 
@@ -31,7 +31,7 @@ namespace BlueRocket
         {
             InitializeComponent();
 
-            SetTitulo(prmTexto: "Filtragem por TAGS");
+            //SetTitle(prmText: "Filtragem por TAGS");
         }
 
         public void Setup(EditorCLI prmEditor)

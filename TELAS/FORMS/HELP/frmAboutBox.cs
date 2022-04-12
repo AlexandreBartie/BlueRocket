@@ -10,7 +10,6 @@ namespace BlueRocket
     {
 
         private EditorCLI Editor;
-
         private void cmdClose_Click(object sender, EventArgs e) => this.Close();
 
         public frmAboutBox()
