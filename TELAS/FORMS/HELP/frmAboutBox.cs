@@ -26,9 +26,6 @@ namespace BlueRocket
 
             Editor = prmEditor;
 
-            //Painel.Format.SetPadrao(splSeparadorH);
-            //Painel.Format.SetPadrao(splSeparadorV);
-
             View();
 
             this.ShowDialog();

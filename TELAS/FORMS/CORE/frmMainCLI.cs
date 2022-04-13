@@ -19,6 +19,18 @@ namespace BlueRocket
         private EditorCLI Editor;
 
         private Thread thread;
+
+        private void frmMainCLI_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                if (MessageBox.Show("Do you really want to close ?", "Exit Application", MessageBoxButtons.YesNo) == DialogResult.No)
+                    e.Cancel = true;
+                else
+                    Editor.Load.Quit();
+            }
+        }
+
         public frmMainCLI()
         {
             InitializeComponent();
@@ -101,7 +113,7 @@ namespace BlueRocket
         {
             Editor.PagePaintStart(); 
             
-            Editor.Open(prmArquivoCFG);
+            Editor.Setup(prmArquivoCFG);
 
             ProjectBuild();
 

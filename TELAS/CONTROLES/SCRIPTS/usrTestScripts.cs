@@ -14,13 +14,6 @@ namespace BlueRocket
     {
         private PageBuilder Builder;
 
-        public usrTestScripts()
-        {
-            InitializeComponent();
-
-            Builder = new PageBuilder(prmPage: this, prmListView: lstScripts);
-
-        }
         private void lstScripts_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
         {
             Builder.SetFocus(prmScript: e.Item.Tag.ToString());
@@ -29,11 +22,18 @@ namespace BlueRocket
         private void lstScripts_MouseDoubleClick(object sender, MouseEventArgs e)
         {
 
-            ListViewHitTestInfo info = lstScripts.HitTest(e.X, e.Y);
             ListViewItem item = GetListItem(prmMouseX: e.X, prmMouseY: e.Y);
 
             if (item != null)
                 Builder.DoubleClick(prmScript: item.Tag.ToString());
+        }
+
+        public usrTestScripts()
+        {
+            InitializeComponent();
+
+            Builder = new PageBuilder(prmPage: this, prmListView: lstScripts);
+
         }
 
         public void Setup(EditorCLI prmEditor) => Builder.Setup(prmEditor);

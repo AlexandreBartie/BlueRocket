@@ -28,55 +28,73 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmStart));
             this.cmdOpenProject = new System.Windows.Forms.Button();
-            this.lsvHistory = new System.Windows.Forms.ListView();
+            this.lstHistory = new System.Windows.Forms.ListView();
             this.lblHistorico = new System.Windows.Forms.Label();
             this.cmdExit = new System.Windows.Forms.Button();
+            this.lblFramework = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // cmdOpenProject
             // 
             this.cmdOpenProject.AllowDrop = true;
+            this.cmdOpenProject.BackColor = System.Drawing.SystemColors.ButtonShadow;
             this.cmdOpenProject.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.cmdOpenProject.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.cmdOpenProject.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.cmdOpenProject.Location = new System.Drawing.Point(570, 37);
+            this.cmdOpenProject.Location = new System.Drawing.Point(567, 91);
             this.cmdOpenProject.Name = "cmdOpenProject";
             this.cmdOpenProject.Size = new System.Drawing.Size(195, 58);
             this.cmdOpenProject.TabIndex = 0;
             this.cmdOpenProject.Text = "Find your Project";
-            this.cmdOpenProject.UseVisualStyleBackColor = true;
-            this.cmdOpenProject.Click += new System.EventHandler(this.cmdOpenProject_Click);
+            this.cmdOpenProject.UseVisualStyleBackColor = false;
+            this.cmdOpenProject.Click += new System.EventHandler(this.cmdFindProject_Click);
             // 
-            // lsvHistory
+            // lstHistory
             // 
-            this.lsvHistory.HideSelection = false;
-            this.lsvHistory.Location = new System.Drawing.Point(27, 37);
-            this.lsvHistory.Name = "lsvHistory";
-            this.lsvHistory.Size = new System.Drawing.Size(515, 391);
-            this.lsvHistory.TabIndex = 1;
-            this.lsvHistory.UseCompatibleStateImageBehavior = false;
+            this.lstHistory.HideSelection = false;
+            this.lstHistory.Location = new System.Drawing.Point(24, 91);
+            this.lstHistory.Name = "lstHistory";
+            this.lstHistory.Size = new System.Drawing.Size(515, 391);
+            this.lstHistory.TabIndex = 1;
+            this.lstHistory.UseCompatibleStateImageBehavior = false;
+            this.lstHistory.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lstHistory_MouseDoubleClick);
             // 
             // lblHistorico
             // 
             this.lblHistorico.AutoSize = true;
             this.lblHistorico.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblHistorico.Location = new System.Drawing.Point(27, 9);
+            this.lblHistorico.Location = new System.Drawing.Point(24, 63);
             this.lblHistorico.Name = "lblHistorico";
-            this.lblHistorico.Size = new System.Drawing.Size(297, 25);
+            this.lblHistorico.Size = new System.Drawing.Size(136, 25);
             this.lblHistorico.TabIndex = 2;
-            this.lblHistorico.Text = "Access History: Project BlueRocket";
+            this.lblHistorico.Text = "Access History:";
             // 
             // cmdExit
             // 
+            this.cmdExit.BackColor = System.Drawing.SystemColors.ButtonShadow;
             this.cmdExit.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.cmdExit.Location = new System.Drawing.Point(570, 370);
+            this.cmdExit.Location = new System.Drawing.Point(567, 424);
             this.cmdExit.Name = "cmdExit";
             this.cmdExit.Size = new System.Drawing.Size(195, 58);
             this.cmdExit.TabIndex = 3;
             this.cmdExit.Text = "Exit";
-            this.cmdExit.UseVisualStyleBackColor = true;
+            this.cmdExit.UseVisualStyleBackColor = false;
             this.cmdExit.Click += new System.EventHandler(this.cmdExit_Click);
+            // 
+            // lblFramework
+            // 
+            this.lblFramework.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblFramework.AutoSize = true;
+            this.lblFramework.Font = new System.Drawing.Font("Segoe UI", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblFramework.Location = new System.Drawing.Point(286, 9);
+            this.lblFramework.Name = "lblFramework";
+            this.lblFramework.Size = new System.Drawing.Size(279, 47);
+            this.lblFramework.TabIndex = 4;
+            this.lblFramework.Tag = "";
+            this.lblFramework.Text = "blue rocket 2022";
+            this.lblFramework.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // frmStart
             // 
@@ -84,12 +102,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.lsvHistory);
+            this.ClientSize = new System.Drawing.Size(800, 500);
+            this.Controls.Add(this.lblFramework);
+            this.Controls.Add(this.lstHistory);
             this.Controls.Add(this.cmdExit);
             this.Controls.Add(this.cmdOpenProject);
             this.Controls.Add(this.lblHistorico);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmStart";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Access History:";
@@ -101,8 +121,9 @@
         #endregion
 
         private System.Windows.Forms.Button cmdOpenProject;
-        private System.Windows.Forms.ListView lsvHistory;
+        private System.Windows.Forms.ListView lstHistory;
         private System.Windows.Forms.Label lblHistorico;
         private System.Windows.Forms.Button cmdExit;
+        private System.Windows.Forms.Label lblFramework;
     }
 }

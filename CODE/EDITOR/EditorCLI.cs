@@ -11,56 +11,20 @@ using System.Windows.Forms;
 namespace BlueRocket
 {
 
-    public delegate void Notify_ProjectDBConnect();
-
-    public delegate void Notify_ProjectNew();
-
-    public delegate void Notify_ProjectOpen(string prmArquivoCFG);
-    public delegate void Notify_ProjectClose();
-    public delegate void Notify_ProjectReset();
-   
-    public delegate void Notify_ProjectExit();
-
-    public delegate void Notify_FilterTagChanged();
-    public delegate void Notify_FilterTagChecked(string prmTag, string prmOption, bool prmChecked);
-
-    public delegate void Notify_MultiSelect(bool prmAtivar);
-
-    public delegate void Notify_BatchSet(ScriptCLI prmScript);
-    public delegate void Notify_BatchEnd();
-
-    public delegate void Notify_SelectedPlayAll();
-    public delegate void Notify_SelectedSaveAll();
-
-    public delegate void Notify_ScriptCodeChecked(string prmScript, bool prmChecked);
-
-    public delegate void Notify_ScriptCodeLocked();
-    public delegate void Notify_ScriptCodeSelect();
-    public delegate void Notify_ScriptCodeChanged();
-
-    public delegate void Notify_ScriptCodePlay();
-    public delegate void Notify_ScriptCodeSave();
-    public delegate void Notify_ScriptCodeUndo();
-
-    public delegate void Notify_ScriptPlayEnd();
-    public delegate void Notify_ScriptPlayStop();
-
-    public delegate void Notify_ScriptLogOk();
-    public delegate void Notify_ScriptLogError();
-
-    public delegate void Notify_ScriptLogClipBoard(string prmLog);
-
     public class EditorCLI : EditorAction
     {
         public EditorCLI()
         {
+
+            Register = new RegisterCLI(this);
+
+            Load = new LoadCLI(this);
+
             Project = new ProjectCLI(this);
 
             Filter = new EditorFilter(this);
 
             Select = new EditorSelect(this);
-
-            Import = new EditorImport(this);
 
             Format = new EditorFormat(this);
 
@@ -121,16 +85,21 @@ namespace BlueRocket
         {
             MultiSelect?.Invoke(prmAtivar);
         }
-        public void OnProjectOpen(string prmArquivoCFG)
+        public void OnProjectOpen()
+        {
+            Page.StartShow();
+        }
+        
+        public void OnProjectOpen(string prmFileCFG)
         {
 
             Page.MainShow();
 
-            SetAction(String.Format("Project loading: {0} ...", Import.file_name));
+            SetAction(String.Format("Project loading: {0} ...", Load.project_file));
 
-            ProjectOpen?.Invoke(prmArquivoCFG); 
+            ProjectOpen?.Invoke(prmFileCFG); 
             
-            SetAction(String.Format("Project loaded: {0} ...", Import.file_name));
+            SetAction(String.Format("Project loaded: {0} ...", Load.project_file));
 
             OnProjectDBConnect();
 
@@ -141,13 +110,13 @@ namespace BlueRocket
         {
             ProjectClose?.Invoke();
 
-            SetAction(String.Format("Project closed: {0} ...", Import.file_name));
+            SetAction(String.Format("Project closed: {0} ...", Load.project_file));
         }
         public void OnProjectReset()
         {
             ProjectReset?.Invoke();
 
-            SetAction(String.Format("Project refresh: {0} ...", Project.nome));
+            SetAction(String.Format("Project refresh: {0} ...", Load.project_file));
         }
         public void OneNewWindow()
         {
@@ -260,21 +229,24 @@ namespace BlueRocket
         }
 
         public bool Start() { Page.StartShow(); return true; }
-        public bool Start(string prmArquivoCFG) => Console.Setup(prmArquivoCFG,prmPlay:true);
+        public bool Start(string prmArquivoCFG) => Console.Setup(prmArquivoCFG, prmPlay: true);
 
-        public void Open(string prmArquivoCFG) 
+        public bool Setup(string prmArquivoCFG) 
         {
-            Console.Setup(prmArquivoCFG);
+            if (Console.Setup(prmArquivoCFG))
+            {
+                Build();
 
-            Filter.Setup();
+                return true;
+            }
 
-            Build();
+            return false;
         }
         public void Close() 
         { 
             Setup(); Build();
 
-            SetAction(String.Format("Project closed: {0} ...", Import.file_name));
+            SetAction(String.Format("Project closed: {0} ...", Load.project_file));
         }
         public void New() => Setup();
 
@@ -299,8 +271,6 @@ namespace BlueRocket
 
         public void PagePaintStart() => Page.Start();
         public void PagePaintEnd() => Page.End();
-
-        public bool SelectFileCFG() => Import.SelectFileCFG();
 
         public void CodeBatchStart() => Batch.Start();
         public void CodeBatchSet(ScriptCLI prmScript) { Batch.Set(prmScript); OnBatchSet(prmScript); }
@@ -355,6 +325,7 @@ namespace BlueRocket
         public bool IsFree => !(IsRunning || IsPainting);
         public bool IsPainting => Page.IsPainting;
         public bool IsRunning => Batch.IsRunning;
+        public bool IsWorking => Load.IsWorking;
         public bool IsPlaying { get { if (TemScript) return Script.IsPlaying; return false; } }
 
         public bool ICanExit => !IsPlaying;
@@ -376,15 +347,17 @@ namespace BlueRocket
     {
         public TestDataProject Factory;
 
+        public LoadCLI Load;
+
         public ProjectCLI Project;
+
+        public RegisterCLI Register;
 
         public EditorPage Page;
 
         public EditorFilter Filter;
 
         public EditorSelect Select;
-
-        public EditorImport Import;
 
         public EditorFormat Format;
 
@@ -582,40 +555,7 @@ namespace BlueRocket
         }
 
     }
-    public class EditorImport
-    {
-        private EditorCLI Editor;
 
-        private string fileCFG;
-
-        public string file_name => System.IO.Path.GetFileName(fileCFG);
-        public string file_path => System.IO.Path.GetDirectoryName(fileCFG);
-
-        public EditorImport(EditorCLI prmEditor)
-        {
-            Editor = prmEditor;
-        }
-
-        [STAThread]
-        public bool SelectFileCFG()
-        {
-
-            myFileDialog Selecao = new myFileDialog();
-
-            Selecao.Dialog.Filter = "Config files (*.cfg)|*.cfg";
-
-            if (Selecao.Open() == DialogResult.OK)
-            {
-                fileCFG = Selecao.Dialog.FileName;
-
-                Editor.OnProjectOpen(prmArquivoCFG: fileCFG);
-
-                return true;
-            }
-            return false;
-        }
-
-    }
     public class EditorFormat
     {
 

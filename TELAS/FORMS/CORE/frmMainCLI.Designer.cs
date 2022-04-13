@@ -92,6 +92,7 @@
             this.Name = "frmMainCLI";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "blue rocket";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMainCLI_FormClosing);
             this.Load += new System.EventHandler(this.frmTestDataFactoryConsole_Load);
             this.ResumeLayout(false);
 

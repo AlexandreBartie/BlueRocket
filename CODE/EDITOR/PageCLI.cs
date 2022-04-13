@@ -87,11 +87,6 @@ namespace BlueRocket
 
         public void Show() { FormLocal = new frmAboutBox(); FormLocal.Setup(Editor); }
 
-
-        // private frmAbout Window;
-
-        //public void Show() { Window = new frmAbout(); Window.ShowDialog(); }
-
     }
 
     public class EditorPageBase
