@@ -8,7 +8,7 @@ namespace BlueRocket
     static class Program
     {
 
-        static EditorCLI Editor;
+        static AppCLI App;
         
         //static string arquivoCFG = @"C:\MassaTestes\VICTOR\victor.cfg";
         //static string arquivoCFG = @"C:\MassaTestes\POC\CLI\projeto-teste.cfg";
@@ -17,14 +17,14 @@ namespace BlueRocket
         static void Main(string[] args)
         {
 
-            Editor = new EditorCLI();
+            App = new AppCLI();
 
             Console.WriteLine(string.Format("Programa: {0} - Versão: {1}", Application.ProductName, Application.ProductVersion));
 
             try
             {
                 if (args.Length == 0)
-                    ModoPainel();
+                    ModoApp();
                 else
                     ModoGerador(prmArquivoCFG: args[0]);
             }
@@ -40,11 +40,12 @@ namespace BlueRocket
 
         }
 
-        static void ModoPainel()
+        static void ModoApp()
         {
             try
             {
-                Editor.Start();
+                App.Start();
+                //App.Start(@"C:\MassaTestes\TesteQA.cfg");
             }
             catch (Exception e)
             { Console.WriteLine(e.Message); };
@@ -54,7 +55,7 @@ namespace BlueRocket
         {
             try
             {
-                Editor.Start(prmArquivoCFG);
+                App.Batch(prmArquivoCFG);
             }
             catch (Exception e)
             { Console.WriteLine(e.Message); };

@@ -1,11 +1,7 @@
-﻿using Dooggy;
-using Dooggy.CORE;
+﻿using Dooggy.CORE;
 using Dooggy.LIBRARY;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Text;
-using System.Timers;
 using System.Windows.Forms;
 
 namespace BlueRocket
@@ -13,26 +9,19 @@ namespace BlueRocket
 
     public class EditorCLI : EditorAction
     {
-        public EditorCLI()
+        
+        public EditorCLI(AppCLI prmApp) : base(prmApp)
         {
 
-            Register = new RegisterCLI(this);
-
-            Load = new LoadCLI(this);
+            App = prmApp;
 
             Project = new ProjectCLI(this);
 
-            Filter = new EditorFilter(this);
+            Filter = new FilterCLI(this);
 
-            Select = new EditorSelect(this);
+            Select = new SelectCLI(this);
 
-            Format = new EditorFormat(this);
-
-            Cor = new EditorColor(this);
-
-            Page = new EditorPage(this);
-
-            View = new EditorView(this);
+            View = new ViewCLI(this);
 
             Setup();
         }
@@ -81,12 +70,17 @@ namespace BlueRocket
 
         public event Notify_ScriptLogClipBoard ScriptLogClipBoard;
 
+        public EditorAction(AppCLI prmApp) : base(prmApp)
+        { }
+
         public void OnMultiSelect(bool prmAtivar)
         {
             MultiSelect?.Invoke(prmAtivar);
         }
         public void OnProjectOpen()
-        {
+        {  
+            Page.MainHide();
+            
             Page.StartShow();
         }
         
@@ -191,8 +185,6 @@ namespace BlueRocket
 
             ScriptCodePlay?.Invoke();
 
-
-
             SetAction(String.Format("Script played: {0} ...", Script.title));
         }
         public void OnScriptCodeSave()
@@ -228,7 +220,8 @@ namespace BlueRocket
             ScriptLogClipBoard?.Invoke(prmLog);
         }
 
-        public bool Start() { Page.StartShow(); return true; }
+        public bool Show() { Page.StartShow(); return true; }
+        public bool Show(string prmArquivoCFG) { Page.StartShow(prmArquivoCFG); return true; }
         public bool Start(string prmArquivoCFG) => Console.Setup(prmArquivoCFG, prmPlay: true);
 
         public bool Setup(string prmArquivoCFG) 
@@ -269,12 +262,8 @@ namespace BlueRocket
         
         public void Build() { Project.Setup(); Filter.Setup(); }
 
-        public void PagePaintStart() => Page.Start();
-        public void PagePaintEnd() => Page.End();
-
-        public void CodeBatchStart() => Batch.Start();
-        public void CodeBatchSet(ScriptCLI prmScript) { Batch.Set(prmScript); OnBatchSet(prmScript); }
-        public void CodeBatchEnd() { Batch.End(); Select.Reset(); OnBatchEnd(); }
+        //public void PagePaintStart() => Page.Start();
+        //public void PagePaintEnd() => Page.End();
 
         public void SelScript(string prmName, bool prmChecked) => Select.SetScript(prmName, prmChecked);
 
@@ -310,6 +299,9 @@ namespace BlueRocket
 
         public DataTags MainTAGs => Config.Global.Tags;
 
+        public EditorMode(AppCLI prmApp) : base(prmApp)
+        { }
+
         public bool IsDbOK => Console.IsDbOK;
 
         public bool IsMultiSelection => Select.IsMultiSelection;
@@ -322,8 +314,8 @@ namespace BlueRocket
 
         public bool IsMassaDados => TemScript && ICanPlay;
 
-        public bool IsFree => !(IsRunning || IsPainting);
-        public bool IsPainting => Page.IsPainting;
+        public bool IsFree => !(IsRunning); // || IsPainting);
+        //public bool IsPainting => Page.IsPainting;
         public bool IsRunning => Batch.IsRunning;
         public bool IsWorking => Load.IsWorking;
         public bool IsPlaying { get { if (TemScript) return Script.IsPlaying; return false; } }
@@ -347,30 +339,33 @@ namespace BlueRocket
     {
         public TestDataProject Factory;
 
-        public LoadCLI Load;
+        public AppCLI App;
+        public AppPage Page => App.Page;
+        public LoadCLI Load => App.Load;
+
+        public AppFormat Format => App.Format;
+        public AppColor Cor => App.Cor;
 
         public ProjectCLI Project;
 
-        public RegisterCLI Register;
+        public SelectCLI Select;
 
-        public EditorPage Page;
+        public FilterCLI Filter;
 
-        public EditorFilter Filter;
+        public ViewCLI View;
 
-        public EditorSelect Select;
+        public BatchCLI Batch;
 
-        public EditorFormat Format;
+        public EditorBase(AppCLI prmApp)
+        {
+            App = prmApp;
+        }
 
-        public EditorColor Cor;
-
-        public EditorView View;
-        public EditorBatch Batch => Select.Batch;
-
-        public void Setup() => Factory = new TestDataProject();
+         public void Setup() => Factory = new TestDataProject();
 
     }
 
-    public class EditorFilter : DataTagOptions
+    public class FilterCLI : DataTagOptions
     {
         public EditorCLI Editor;
 
@@ -378,7 +373,7 @@ namespace BlueRocket
 
         private DataTagOption GetTagOption(string prmTag, string prmOption) => Editor.GetTagOption(prmTag, prmOption);
 
-        public EditorFilter(EditorCLI prmEditor)
+        public FilterCLI(EditorCLI prmEditor)
         {
             Editor = prmEditor;
         }
@@ -433,22 +428,18 @@ namespace BlueRocket
         }
 
     }
-    public class EditorSelect : List<ScriptCLI>
+    public class SelectCLI : List<ScriptCLI>
     {
         public EditorCLI Editor;
-
-        public EditorBatch Batch;
 
         public bool IsMultiSelection;
 
         public bool IsFull => (qtde > 0);
         private int qtde => Count;
 
-        public EditorSelect(EditorCLI prmEditor)
+        public SelectCLI(EditorCLI prmEditor)
         {
             Editor = prmEditor;
-
-            Batch = new EditorBatch(this);
         }
 
         public void Reset() { IsMultiSelection = false; Clear(); }
@@ -470,8 +461,7 @@ namespace BlueRocket
         private new void Clear() { if (!IsMultiSelection) base.Clear(); }
 
     }
-
-    public class EditorView
+    public class ViewCLI
     {
         public EditorCLI Editor;
 
@@ -487,7 +477,7 @@ namespace BlueRocket
         public bool IsEdition => view == eViewMain.eViewEdition;
         public bool IsProcess => view == eViewMain.eViewProcess;
 
-        public EditorView(EditorCLI prmEditor)
+        public ViewCLI(EditorCLI prmEditor)
         {
             Editor = prmEditor;
         }
@@ -510,12 +500,11 @@ namespace BlueRocket
         }
 
     }
-
-    public class EditorBatch
+    public class BatchCLI
     {
-        private EditorSelect Select;
+        private EditorCLI Editor;
 
-        private EditorCLI Editor => Select.Editor;
+        private SelectCLI Select => Editor.Select;
 
         public ScriptCLI Script;
 
@@ -525,186 +514,34 @@ namespace BlueRocket
         public int qtde => Select.Count;
         private string txt_progresso => String.Format("{0} de {1}", cont, qtde);
 
-        public EditorBatch(EditorSelect prmSelect)
+        public BatchCLI(EditorCLI prmEditor)
         {
-            Select = prmSelect;
+            Editor = prmEditor;
         }
+
         public void Start()
         {
-
             IsRunning = true; cont = 0;
 
             Editor.SetAction("Batch started ...");
-
         }
         public void Set(ScriptCLI prmScript)
         {
-
             cont += 1; Script = prmScript;
 
             Editor.OnScriptCodeSelect();
 
+            Editor.OnBatchSet(prmScript);
         }
         public void End()
         {
-
             IsRunning = false;
 
             Editor.SetAction("Batch ended ...");
 
-        }
+            Select.Reset();
 
-    }
-
-    public class EditorFormat
-    {
-
-        private EditorCLI Editor;
-
-        private Font FontPadrao;
-        private Font FontTreeView;
-
-        public EditorFormat(EditorCLI prmEditor)
-        {
-
-            Editor = prmEditor;
-
-            SetFontes();
-
-        }
-
-        private void SetFontes()
-        {
-
-            string nameFontDefault = "Cascadia Code";
-
-            FontPadrao = new Font(nameFontDefault, 12);
-
-            FontTreeView = new Font(nameFontDefault, 11);
-
-        }
-
-        public void SetPadrao(Button prmBotao)
-        {
-            prmBotao.BackColor = Color.DimGray;
-            prmBotao.ForeColor = Color.Black;
-
-            prmBotao.FlatStyle = FlatStyle.Flat;
-        }
-        public void SetPadrao(TextBox prmTextBox, bool prmEditavel)
-        {
-            prmTextBox.ReadOnly = !prmEditavel;
-        }
-        public void SetMemo(TextBox prmTextBox)
-        {
-            SetControl(prmTextBox);
-
-            prmTextBox.WordWrap = false;
-            prmTextBox.Multiline = true;
-
-            prmTextBox.ScrollBars = ScrollBars.Both;
-
-            prmTextBox.ReadOnly = true;
-        }
-        public void SetPadrao(ListView prmListView)
-        {
-            SetControl(prmListView);
-
-            prmListView.LabelEdit = false;
-
-            prmListView.View = View.Details;
-
-            prmListView.HideSelection = false;
-
-            prmListView.FullRowSelect = true;
-
-            prmListView.Scrollable = true;
-
-        }
-
-        public void SetPadrao(TreeView prmTreeView) => SetPadrao(prmTreeView, prmCheckBoxes: false);
-        public void SetPadrao(TreeView prmTreeView, bool prmCheckBoxes)
-        {
-            SetControl(prmTreeView, FontTreeView);
-
-            prmTreeView.CheckBoxes = prmCheckBoxes;
-
-            prmTreeView.LabelEdit = false;
-
-            prmTreeView.HideSelection = false;
-
-            prmTreeView.FullRowSelect = true;
-
-            prmTreeView.Scrollable = true;
-        }
-
-        public void SetPadrao(Splitter prmSeparador)
-        {
-            prmSeparador.BackColor = Color.DimGray;
-
-            prmSeparador.Size = new Size(6, 6);
-        }
-
-        public void SetPadrao(ToolStrip prmStatus) => SetPadrao(prmStatus, prmVisible: true);
-        public void SetPadrao(ToolStrip prmStatus, bool prmVisible)
-        {
-            prmStatus.Visible = prmVisible;
-
-            prmStatus.Refresh();
-        }
-
-        public void SetPadrao(usrTitulo prmTitulo)
-        {
-            prmTitulo.BackColor = Color.Yellow;
-            prmTitulo.ForeColor = Color.Black;
-        }
-
-        private void SetControl(Control prmControle) => SetControl(prmControle, prmFont: FontPadrao);
-        private void SetControl(Control prmControle, Font prmFont)
-        {
-            prmControle.Font = prmFont;
-
-            prmControle.BackColor = Color.White;
-        }
-
-        public void SetTurnOnOff(bool prmON, ToolStripButton prmObjectA, ToolStripButton prmObjectB, ToolStripLabel prmObjectC) => SetTurnOnOff(prmON, prmObjectA, prmObjectB, prmAtive: prmObjectC.Visible);
-        public void SetTurnOnOff(bool prmON, ToolStripButton prmObjectA, ToolStripButton prmObjectB) => SetTurnOnOff(prmON, prmObjectA, prmObjectB, prmAtive: true);
-        public void SetTurnOnOff(bool prmON, ToolStripButton prmObjectA, ToolStripButton prmObjectB, bool prmAtive)
-        {
-            prmObjectA.Visible = prmON && prmAtive; prmObjectB.Visible = !prmON && prmAtive;
-        }
-    }
-
-    public class EditorColor : ColorEditorCLI
-    {
-        public EditorColor(EditorCLI prmEditor) : base(prmEditor)
-        {
-            Editor = prmEditor;
-        }
-    }
-    public class TestTimeOut
-    {
-
-        private static System.Timers.Timer aTimer;
-
-        private static void SetTimer(int prmSeconds)
-        {
-            // Create a timer with a two second interval.
-            //x = new Timer(GetInterval(prmSeconds));
-
-            aTimer = new System.Timers.Timer(GetInterval(prmSeconds));
-
-            // Hook up the Elapsed event for the timer. 
-            aTimer.Elapsed += OnTimedEvent;
-            aTimer.AutoReset = true;
-            aTimer.Enabled = true;
-        }
-
-        private static int GetInterval(int prmSeconds) => (prmSeconds * 1000);
-
-        private static void OnTimedEvent(Object source, ElapsedEventArgs e)
-        {
-            //Console.WriteLine("The Elapsed event was raised at {0:HH:mm:ss.fff}", e.SignalTime);
+            Editor.OnBatchEnd();
         }
 
     }

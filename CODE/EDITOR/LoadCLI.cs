@@ -9,21 +9,20 @@ namespace BlueRocket
 {
     public class LoadCLI
     {
-        public EditorCLI Editor;
+        public AppCLI App;
 
         public LoadFile File;
 
         public LoadHistory History;
-
-        private EditorPage Page => Editor.Page;
+        public RegisterCLI Register => App.Register;
 
         public bool IsWorking = true;
 
         public string project_file => History.name;
 
-        public LoadCLI(EditorCLI prmEditor)
+        public LoadCLI(AppCLI prmApp)
         {
-            Editor = prmEditor;
+            App = prmApp;
 
             File = new LoadFile(this);
 
@@ -40,7 +39,7 @@ namespace BlueRocket
         {
             History.NewFile(prmFileCFG);
 
-            Editor.OnProjectOpen(prmFileCFG);
+            App.Start(prmFileCFG);
         }
 
         public void Quit() => IsWorking = false;
@@ -83,9 +82,7 @@ namespace BlueRocket
     {
         private LoadCLI Load;
 
-        private EditorCLI Editor => Load.Editor;
-
-        private RegisterCLI Register => Editor.Register;
+        private RegisterCLI Register => Load.Register;
 
         private FileLoaded Current;
 

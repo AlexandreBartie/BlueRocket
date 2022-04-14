@@ -42,6 +42,15 @@ namespace BlueRocket
 
         public void ViewAll(bool prmCleanup) => Builder.ViewAll(prmCleanup);
 
+        public bool FindScript(ScriptCLI prmScript)
+        {
+            foreach (ListViewItem item in lstScripts.Items)
+                if (prmScript.IsMatch(item.Tag.ToString()))
+                { item.Selected = true; item.Focused = true; return true; }
+
+            return false;
+        }
+
         private ListViewItem GetListItem(int prmMouseX, int prmMouseY)
         {
 

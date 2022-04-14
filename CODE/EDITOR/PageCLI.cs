@@ -6,81 +6,100 @@ using System.Windows.Forms;
 
 namespace BlueRocket
 {
-    public class EditorPage : EditorPageView
+    public class AppPage : AppPageBase //AppPageView
     {
         
-        private EditorPage_Main pagMain;
+        private AppPageMain pagMain;
 
-        private EditorPage_About pagAbout;
+        private AppPageAbout pagAbout;
 
-        private EditorPage_Start pagStart;
+        private AppPageStart pagStart;
 
-        public EditorPage(EditorCLI prmEditor)
+        public AppPage(EditorCLI prmEditor)
         {
 
             Editor = prmEditor;
 
-            pagMain = new EditorPage_Main();
+            pagMain = new AppPageMain();
 
-            pagAbout = new EditorPage_About();
+            pagAbout = new AppPageAbout();
 
-            pagStart = new EditorPage_Start();
+            pagStart = new AppPageStart();
 
         }
 
         public void MainShow() => MainShow(prmPinned: false);
         public void MainShow(bool prmPinned) => pagMain.Show(prmPinned);
 
+        public void MainHide() => pagMain.Hide();
+
         public void AboutShow() => pagAbout.Show();
 
         public void StartShow() => pagStart.Show();
+        public void StartShow(string prmArquivoCFG) => pagStart.Show(prmArquivoCFG);
 
         public void SetAction(string prmTexto) => pagMain.SetAction(prmTexto);
 
     }
 
-    public class EditorPageView : EditorPageBase
-    {
+    //public class AppPageView : AppPageBase
+    //{
 
-        public bool IsPainting;
+    //    public bool IsPainting;
 
-        public void Start() => IsPainting = true;
-        public void End() => IsPainting = false;
-    }
-    public class EditorPage_Start : EditorPageBase
+    //    public void Start() => IsPainting = true;
+    //    public void End() => IsPainting = false;
+    //}
+    public class AppPageStart : AppPageBase
     {
 
         private frmSplash FormSplash;
 
-        private frmStart FormLocal;
+        private frmStart FormStart;
+
+        public void Show(string prmArquivoCFG)
+        {
+            FormStart = new frmStart(); FormStart.Setup(Editor);
+
+            FormStart.OpenProject(prmArquivoCFG);
+        }
 
         public void Show()
         {
-            FormSplash = new frmSplash(); FormSplash.ShowDialog();
+            if (FormStart == null) // It´s first time
+            {
+                FormSplash = new frmSplash(); FormSplash.ShowDialog();
 
-            FormLocal = new frmStart(); FormLocal.Setup(Editor); 
+                FormStart = new frmStart(); FormStart.Setup(Editor);
+            }
+            else
+                FormStart.Show();
         }
 
     }
 
-    public class EditorPage_Main : EditorPageBase
+    public class AppPageMain : AppPageBase
     {
 
-        static frmMainCLI FormLocal;
+        static frmMainCLI FormMain;
 
         public void Show(bool prmPinned)
         {
-            if (!prmPinned)
-            { FormLocal = new frmMainCLI(); FormLocal.Setup(Editor); }
+            if (prmPinned)
+                FormMain.ShowDialog();
+            else if (FormMain == null)
+                { FormMain = new frmMainCLI(); FormMain.Setup(Editor); }
             else
-                FormLocal.ShowDialog();
+                FormMain.Show();
         }
 
-        public void SetAction(string prmTexto) => FormLocal.SetAction(prmTexto);
+        public void Hide() => FormMain.Hide();
+
+        public void SetAction(string prmTexto) => FormMain.SetAction(prmTexto);
 
     }
 
-    public class EditorPage_About : EditorPageBase
+    public class AppPageAbout : AppPageBase
     {
 
         private frmAboutBox FormLocal;
@@ -89,7 +108,7 @@ namespace BlueRocket
 
     }
 
-    public class EditorPageBase
+    public class AppPageBase
     {
         public static EditorCLI Editor;
     }

@@ -27,8 +27,8 @@ namespace BlueRocket
         {
             Editor = prmEditor;
 
-           // Painel.Format.SetPadrao(txtPath, prmEditavel: false);
-           // Painel.Format.SetPadrao(cmdPath);
+           // App.Format.SetPadrao(txtPath, prmEditavel: false);
+           // App.Format.SetPadrao(cmdPath);
 
         }
 

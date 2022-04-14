@@ -56,7 +56,7 @@ namespace BlueRocket
             linha.SubItems.Add(prmFile.loaded_txt);
             linha.SubItems.Add(prmFile.path);
         }
-        private void OpenProject(string prmProject)
+        public void OpenProject(string prmProject)
         {
             Hide();
 

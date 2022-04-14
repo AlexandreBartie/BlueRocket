@@ -7,15 +7,15 @@ namespace BlueRocket
 {
     public class RegisterCLI
     {
-        private EditorCLI Editor;
+        private AppCLI App;
 
         public RegisterHistoryCLI History;
 
         internal myRegisterUser root;
 
-        public RegisterCLI(EditorCLI prmEditor)
+        public RegisterCLI(AppCLI prmApp)
         {
-            Editor = prmEditor;
+            App = prmApp;
 
             root = new myRegisterUser(prmRoot: "BlueRocket");
 

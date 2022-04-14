@@ -50,5 +50,7 @@ namespace BlueRocket
 
         public void ViewAll(bool prmCleanup) => usrTestScripts.ViewAll(prmCleanup);
 
+        public bool FindScript(ScriptCLI prmScript) => usrTestScripts.FindScript(prmScript);
+
     }
 }

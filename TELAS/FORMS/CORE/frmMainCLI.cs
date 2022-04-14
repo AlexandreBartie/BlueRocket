@@ -24,10 +24,10 @@ namespace BlueRocket
         {
             if (e.CloseReason == CloseReason.UserClosing)
             {
-                if (MessageBox.Show("Do you really want to close ?", "Exit Application", MessageBoxButtons.YesNo) == DialogResult.No)
-                    e.Cancel = true;
-                else
+                if (ToConfirm("Do you really want to close this application?", "Exit Application"))
                     Editor.Load.Quit();
+                else
+                    e.Cancel = true;
             }
         }
 
@@ -35,7 +35,7 @@ namespace BlueRocket
         {
             InitializeComponent();
 
-            this.Text = String.Format("About: {0}", myAssembly.AssemblyTitle);
+            this.Text = String.Format("{0} ", myAssembly.AssemblyProduct);
         }
 
         public void Setup(EditorCLI prmEditor)
@@ -88,8 +88,6 @@ namespace BlueRocket
 
         }
 
-        private void frmTestDataFactoryConsole_Load(object sender, EventArgs e) => ProjectSetup();
-
         private void ProjectSetup()
         {
 
@@ -111,21 +109,26 @@ namespace BlueRocket
         }
         private void ProjectOpen(string prmArquivoCFG)
         {
-            Editor.PagePaintStart(); 
+            //Editor.PagePaintStart(); 
             
             Editor.Setup(prmArquivoCFG);
 
             ProjectBuild();
 
-            Editor.PagePaintEnd();
+            //Editor.PagePaintEnd();
         }
         private void ProjectClose()
         {
-            Editor.PagePaintStart();
 
-            Editor.Close(); ProjectReset();
+            if (ToConfirm("Do you want to close your current project ?", "Exit Application"))
+            {
+                Editor.Close();
 
-            Editor.PagePaintEnd();
+                ProjectReset();
+
+                MenuStatusView();
+
+            }
         }
 
         private void ProjectReset() => ProjectBuild();
@@ -141,7 +144,7 @@ namespace BlueRocket
          }
 
         private void ViewRefresh() { MenuStatusView(); }
-        private void ProjectExit() { }
+        private void ProjectExit() { Close(); }
 
         private void ScriptLocked() => Editor.CodeLocked();
         private void ScriptChecked(string prmScript, bool prmChecked) { Editor.Select.SetScript(prmScript, prmChecked); MenuStatusView(); }
@@ -176,22 +179,22 @@ namespace BlueRocket
         private void SelectedAll(bool prmLocked)
         {
 
-            Editor.CodeBatchStart();
+            Editor.Batch.Start();
 
             foreach (ScriptCLI Script in Editor.Select)
             {
 
-                if (pagEdition.FindNodeScript(Script))
+                if (pagScripts.FindScript(Script))
                 {
 
-                    Editor.CodeBatchSet(Script);
+                    Editor.Batch.Set(Script);
 
                     Editor.CodeLocked(prmLocked);
 
                 }
             }
 
-            Editor.CodeBatchEnd();
+            Editor.Batch.End();
 
         }
         private void MenuStatusView() { usrStatus.View(); usrMenu.View(); }
@@ -203,26 +206,24 @@ namespace BlueRocket
         private void SelectedPlaySaveAll(bool prmPlay, bool prmSave)
         {
 
-            Editor.CodeBatchStart();
+            Editor.Batch.Start();
             
             foreach (ScriptCLI Script in Editor.Select)
             {
 
                 if (pagEdition.FindNodeScript(Script))
                 {
-
-                    Editor.CodeBatchSet(Script);
+                    Editor.Batch.Set(Script);
 
                     if (prmPlay)
                         ScriptPlay();
 
                     if (prmSave)
                         ScriptSave();
-
                 }
             }
 
-            Editor.CodeBatchEnd();
+            Editor.Batch.End();
 
         }
 
@@ -283,6 +284,14 @@ namespace BlueRocket
         }
 
         public void SetAction(string prmTexto) => usrStatus.SetAction(prmTexto);
+
+        public bool ToConfirm(string prmText, string prmLabel)
+        {
+            return MessageBox.Show(prmText, prmLabel, MessageBoxButtons.YesNo) == DialogResult.Yes;
+        }
+
+        //MessageBox.Show("Do you really want to close ?", "Exit Application", MessageBoxButtons.YesNo) == DialogResult.No)
+        
 
     }
 
