@@ -60,18 +60,17 @@ namespace BlueRocket
 
         public EditorCLI Editor;
 
-        public DataTags Tags => Script.Tags;
+        public ScriptStatusCLI Status;
 
-        public ColorScriptCLI Cor;
+        public AppColorScript Cor;
 
         private TestConsole Console => Script.Console;
 
         public TestResult Result => Script.Result;
 
-        private int id;
+        public DataTags Tags => Script.Tags;
 
         public string name => Result.name_INI;
-
         public int qtdSql => Result.SQL.qtde;
 
         public string qtdTests => Result.SQL.qtdTestsTXT;
@@ -83,13 +82,12 @@ namespace BlueRocket
 
         public string title => name + GetTitleExt();
 
-        public string status => GetStatus();
-
         public string filtro => myBool.GetYesNo(IsAtived);
 
         public bool IsMatch(string prmTexto) => myString.IsMatch(name, prmTexto);
 
         public bool IsAtived => GetActived();
+        public bool IsSelected => Editor.Batch.Select.IsSelected(this);
 
         public bool IsPlaying = false;
 
@@ -109,16 +107,15 @@ namespace BlueRocket
         public bool ICanSave => IsChanged;
         public bool ICanUndo => IsChanged;
 
-        public ScriptCLI(int prmId, TestScript prmScript, EditorCLI prmEditor)
+        public ScriptCLI(TestScript prmScript, EditorCLI prmEditor)
         {
-
-            id = prmId;
-            
             Script = prmScript;
 
             Editor = prmEditor;
 
-            Cor = new ColorScriptCLI(this);
+            Status = new ScriptStatusCLI(this);
+
+            Cor = new AppColorScript(this);
         }
 
         public void SetLocked(bool prmLocked) { IsLocked = prmLocked; }
@@ -154,16 +151,63 @@ namespace BlueRocket
             return true;
         }
 
+    }
+
+    public enum eScriptStatus
+    {
+        Nothing = 0,
+        Selected = 1,
+        Ok = 2,
+        Error = 3
+    };
+    public class ScriptStatusCLI
+    {
+        private ScriptCLI Script;
+
+        public string name => GetStatus();
+        public eScriptStatus id => GetIdStatus();
+
+        public ScriptStatusCLI(ScriptCLI prmScript)
+        {
+            Script = prmScript;
+        }
+
         private string GetStatus()
         {
-            if (IsLogError)
-                return "Erro";
-            else if (IsResult)
-                return "OK";
+            switch (id)
+            {
+                case eScriptStatus.Nothing:
+                    return "-";
 
-            return "-";
+                case eScriptStatus.Selected:
+                    return "*";
+
+                case eScriptStatus.Ok:
+                    return "Ok";
+
+                case eScriptStatus.Error:
+                    return "Error";
+            }
+
+            return "X";
         }
+
+        private eScriptStatus GetIdStatus()
+        {
+            if (Script.IsAtived)
+
+                if (Script.IsLogError)
+                return eScriptStatus.Error;
+
+            else if (Script.IsResult)
+                return eScriptStatus.Ok;
+
+            return eScriptStatus.Nothing;
+        }
+
     }
+
+
     public class ScriptsCLI : List<ScriptCLI>
     {
 
@@ -174,8 +218,6 @@ namespace BlueRocket
         public ScriptCLI Corrente;
 
         public bool TemScripts => (Count > 0);
-
-        private int idNext => Count + 1;
 
         public bool TemAtivos => Ativos.TemScripts;
 
@@ -194,7 +236,7 @@ namespace BlueRocket
                 Add(Script);
         }
 
-        private void Add(TestScript prmScript) => base.Add(new ScriptCLI(prmId: idNext, prmScript, Editor));
+        private void Add(TestScript prmScript) => base.Add(new ScriptCLI(prmScript, Editor));
 
         public bool SetScript(ScriptCLI prmScript)
         {

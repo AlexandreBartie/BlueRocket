@@ -15,13 +15,7 @@ namespace BlueRocket
 
             App = prmApp;
 
-            Project = new ProjectCLI(this);
-
-            Filter = new FilterCLI(this);
-
-            Select = new SelectCLI(this);
-
-            View = new ViewCLI(this);
+            Painel = new PainelCLI(this);
 
             Setup();
         }
@@ -31,11 +25,11 @@ namespace BlueRocket
     {
         public event Notify_MultiSelect MultiSelect;
 
-        public event Notify_ProjectNew NewWindow;
+        public event Notify_NewWindow NewWindow;
 
         public event Notify_ProjectOpen ProjectOpen;
         public event Notify_ProjectClose ProjectClose;
-        public event Notify_ProjectReset ProjectReset;
+        public event Notify_ProjectRefresh ProjectRefresh;
         public event Notify_ProjectExit ProjectExit;
 
         public event Notify_ProjectDBConnect ProjectDBConnect;
@@ -77,40 +71,34 @@ namespace BlueRocket
         {
             MultiSelect?.Invoke(prmAtivar);
         }
-        public void OnProjectOpen()
-        {  
-            Page.MainHide();
-            
-            Page.StartShow();
-        }
         
         public void OnProjectOpen(string prmFileCFG)
         {
 
-            Page.MainShow();
+            Painel.Hide();
 
-            SetAction(String.Format("Project loading: {0} ...", Load.project_file));
+            SetAction(String.Format("Project loading: {0} ...", Load.project_name));
 
-            ProjectOpen?.Invoke(prmFileCFG); 
-            
-            SetAction(String.Format("Project loaded: {0} ...", Load.project_file));
+            ProjectOpen?.Invoke(prmFileCFG);
+
+            SetAction(String.Format("Project loaded: {0} ...", Load.project_name));
 
             OnProjectDBConnect();
 
-            Page.MainShow(prmPinned: true);
+            Painel.Show();
 
         }
         public void OnProjectClose()
         {
             ProjectClose?.Invoke();
 
-            SetAction(String.Format("Project closed: {0} ...", Load.project_file));
+            SetAction(String.Format("Project closed: {0} ...", Load.project_name));
         }
-        public void OnProjectReset()
+        public void OnProjectRefresh()
         {
-            ProjectReset?.Invoke();
+            ProjectRefresh?.Invoke();
 
-            SetAction(String.Format("Project refresh: {0} ...", Load.project_file));
+            SetAction(String.Format("Project refresh: {0} ...", Load.project_name));
         }
         public void OneNewWindow()
         {
@@ -221,8 +209,8 @@ namespace BlueRocket
         }
 
         public bool Show() { Page.StartShow(); return true; }
-        public bool Show(string prmArquivoCFG) { Page.StartShow(prmArquivoCFG); return true; }
-        public bool Start(string prmArquivoCFG) => Console.Setup(prmArquivoCFG, prmPlay: true);
+        public bool Open(string prmArquivoCFG) { Page.StartOpen(prmArquivoCFG); return true; }
+        public bool Play(string prmArquivoCFG) => Console.Setup(prmArquivoCFG, prmPlay: true);
 
         public bool Setup(string prmArquivoCFG) 
         {
@@ -239,8 +227,11 @@ namespace BlueRocket
         { 
             Setup(); Build();
 
-            SetAction(String.Format("Project closed: {0} ...", Load.project_file));
+            SetAction(String.Format("Project closed: {0} ...", Load.project_name));
         }
+
+        public void Exit() => App.Action.OnProjectExit();
+
         public void New() => Setup();
 
         public void DoConnect()
@@ -265,7 +256,7 @@ namespace BlueRocket
         //public void PagePaintStart() => Page.Start();
         //public void PagePaintEnd() => Page.End();
 
-        public void SelScript(string prmName, bool prmChecked) => Select.SetScript(prmName, prmChecked);
+        //public void SelScript(string prmName, bool prmChecked) => Batch.SetScript(prmName, prmChecked);
 
         public bool SetScript(ScriptCLI prmScript) => Project.SetScript(prmScript);
         public bool SetScript(string prmName) => Project.SetScript(prmName);
@@ -282,7 +273,7 @@ namespace BlueRocket
         public void CodePlayStop() { Script.PlayStop(); OnScriptCodeChanged(); }
         public void CodePlayEnd() { Script.PlayEnd(); }
 
-        public void SetAction(string prmTexto) => Page.SetAction(prmTexto);
+        public void SetAction(string prmTexto) => Painel.SetAction(prmTexto);
         public ScriptCLI GetScript(string prmName) => Project.GetScript(prmName);
         public DataTagOption GetTagOption(string prmTag, string prmOption) => Project.GetTagOption(prmTag, prmOption);
 
@@ -304,25 +295,21 @@ namespace BlueRocket
 
         public bool IsDbOK => Console.IsDbOK;
 
-        public bool IsMultiSelection => Select.IsMultiSelection;
-
         public bool TemProject => Project.IsLoad;
         public bool TemScript => Project.TemScript;
 
         public bool TemAtivos => Project.TemAtivos;
-        public bool TemSelect => Select.IsFull;
 
         public bool IsMassaDados => TemScript && ICanPlay;
 
-        public bool IsFree => !(IsRunning); // || IsPainting);
-        //public bool IsPainting => Page.IsPainting;
+        public bool IsFree => !(IsRunning);
         public bool IsRunning => Batch.IsRunning;
         public bool IsWorking => Load.IsWorking;
         public bool IsPlaying { get { if (TemScript) return Script.IsPlaying; return false; } }
 
         public bool ICanExit => !IsPlaying;
 
-        public bool ICanBatch => TemSelect && IsMultiSelection;
+        public bool ICanBatch => View.ICanBatch;
 
         public bool ICanOpen => !TemProject && ICanExit;
         public bool ICanClose => TemProject && ICanExit;
@@ -331,7 +318,7 @@ namespace BlueRocket
         public bool ICanMultiSelect => ICanClose;
         public bool ICanPlay => IsDbOK && Project.TemAtivos;
 
-        public bool ICanPlayAll => IsMultiSelection && ICanPlay && Select.IsFull;
+        public bool ICanPlayAll => ICanPlay && ICanBatch;
         public bool ICanSaveAll => ICanPlayAll;
 
     }
@@ -341,20 +328,18 @@ namespace BlueRocket
 
         public AppCLI App;
         public AppPage Page => App.Page;
-        public LoadCLI Load => App.Load;
+        public AppLoad Load => App.Load;
 
         public AppFormat Format => App.Format;
         public AppColor Cor => App.Cor;
 
-        public ProjectCLI Project;
 
-        public SelectCLI Select;
+        public PainelCLI Painel;
 
-        public FilterCLI Filter;
-
-        public ViewCLI View;
-
-        public BatchCLI Batch;
+        public ProjectCLI Project => Painel.Project;
+        public FilterCLI Filter => Painel.Filter;
+        public BatchCLI Batch => Painel.Batch;
+        public ViewCLI View => Painel.View;
 
         public EditorBase(AppCLI prmApp)
         {
@@ -362,187 +347,6 @@ namespace BlueRocket
         }
 
          public void Setup() => Factory = new TestDataProject();
-
-    }
-
-    public class FilterCLI : DataTagOptions
-    {
-        public EditorCLI Editor;
-
-        public DataTags Tags => Editor.Project.Tags;
-
-        private DataTagOption GetTagOption(string prmTag, string prmOption) => Editor.GetTagOption(prmTag, prmOption);
-
-        public FilterCLI(EditorCLI prmEditor)
-        {
-            Editor = prmEditor;
-        }
-        public void Setup()
-        {
-            Reset();
-
-            foreach (myTagOption Option in Tags.GetAll())
-                Add(new DataTagOption(Option));
-        }
-
-        public void Reset() => this.Clear();
-        public void SetTagOption(string prmTag, string prmOption, bool prmChecked)
-        {
-            if (prmChecked)
-                AddTagOption(prmTag, prmOption);
-            else
-                DelTagOption(prmTag, prmOption);
-        }
-        private void AddTagOption(string prmTag, string prmOption)
-        {
-            try
-            { 
-                DataTagOption Option = Editor.GetTagOption(prmTag, prmOption);
-
-                Add(Option);
-                
-            }
-            catch (Exception e)
-            { Console.WriteLine(e.Message); };
-
-        }
-        private void DelTagOption(string prmTag, string prmOption)
-        {
-            try
-            {
-                DataTagOption Option = Editor.GetTagOption(prmTag, prmOption);
-
-                Remove(Option);
-
-            }
-            catch (Exception e)
-            { Console.WriteLine(e.Message); };
-        }
-
-        public bool IsMatch(string prmTag, string prmOption)
-        {
-            foreach (myTagOption Option in this)
-                if (!Option.IsMatch(prmTag, prmOption))
-                   return false;
-            return true;
-        }
-
-    }
-    public class SelectCLI : List<ScriptCLI>
-    {
-        public EditorCLI Editor;
-
-        public bool IsMultiSelection;
-
-        public bool IsFull => (qtde > 0);
-        private int qtde => Count;
-
-        public SelectCLI(EditorCLI prmEditor)
-        {
-            Editor = prmEditor;
-        }
-
-        public void Reset() { IsMultiSelection = false; Clear(); }
-
-        public bool SetMultiSelection(bool prmAtivar) { IsMultiSelection = prmAtivar; Clear(); return prmAtivar; }
-
-        public void SetScript(string prmKey, bool prmChecked)
-        {
-
-            Editor.SetScript(prmKey);
-            
-            if (prmChecked)
-                AddScript(prmKey);
-            else
-                DelScript(prmKey);
-        }
-        private void AddScript(string prmKey) => Add(Editor.GetScript(prmKey));
-        private void DelScript(string prmKey) => Remove(Editor.GetScript(prmKey));
-        private new void Clear() { if (!IsMultiSelection) base.Clear(); }
-
-    }
-    public class ViewCLI
-    {
-        public EditorCLI Editor;
-
-        public enum eViewMain : int
-        {
-            eViewEdition = 0,
-            eViewProcess = 1,
-        }
-
-
-        private eViewMain view = eViewMain.eViewEdition;
-
-        public bool IsEdition => view == eViewMain.eViewEdition;
-        public bool IsProcess => view == eViewMain.eViewProcess;
-
-        public ViewCLI(EditorCLI prmEditor)
-        {
-            Editor = prmEditor;
-        }
-
-        public bool SetView(TabControl prmTabs)
-        {
-
-            view = (eViewMain)prmTabs.SelectedIndex;
-
-            string text;
-
-            if (Editor.TemProject)
-                text = "Process";
-            else
-                text = "...";
-
-            prmTabs.TabPages[(int)eViewMain.eViewProcess].Text = text;
-
-            return (IsProcess);
-        }
-
-    }
-    public class BatchCLI
-    {
-        private EditorCLI Editor;
-
-        private SelectCLI Select => Editor.Select;
-
-        public ScriptCLI Script;
-
-        public bool IsRunning;
-
-        public int cont;
-        public int qtde => Select.Count;
-        private string txt_progresso => String.Format("{0} de {1}", cont, qtde);
-
-        public BatchCLI(EditorCLI prmEditor)
-        {
-            Editor = prmEditor;
-        }
-
-        public void Start()
-        {
-            IsRunning = true; cont = 0;
-
-            Editor.SetAction("Batch started ...");
-        }
-        public void Set(ScriptCLI prmScript)
-        {
-            cont += 1; Script = prmScript;
-
-            Editor.OnScriptCodeSelect();
-
-            Editor.OnBatchSet(prmScript);
-        }
-        public void End()
-        {
-            IsRunning = false;
-
-            Editor.SetAction("Batch ended ...");
-
-            Select.Reset();
-
-            Editor.OnBatchEnd();
-        }
 
     }
 

@@ -12,14 +12,18 @@ namespace BlueRocket
     {
 
         private EditorCLI Editor;
+        private AppCLI App => Editor.App;
 
         public usrActionMenu()
         {
             InitializeComponent();
         }
-        private void mnuProjectOpen_Click(object sender, EventArgs e) => Editor.OnProjectOpen();
-        private void mnuProjectClose_Click(object sender, EventArgs e) => Editor.OnProjectClose();
-        private void mnuProjectRefresh_Click(object sender, EventArgs e) => Editor.OnProjectReset();
+        private void mnuProjectOpen_Click(object sender, EventArgs e) => App.Action.OnProjectStart();
+        private void mnuProjectClose_Click(object sender, EventArgs e) => App.Action.OnProjectClose();
+        private void mnuProjectRefresh_Click(object sender, EventArgs e) => Editor.OnProjectRefresh();
+
+        private void mnuNewWindow_Click(object sender, EventArgs e) => App.Action.OnProjectNew();
+
         private void mnuProjectExit_Click(object sender, EventArgs e) => Editor.OnProjectExit();
 
         private void mnuLockedAll_Click(object sender, EventArgs e) => Editor.OnSelectedLockedAll();
@@ -36,6 +40,9 @@ namespace BlueRocket
             Editor = prmEditor;
 
             Editor.Format.SetPadrao(mnuMain);
+
+            SeparatorNew.Visible = false;
+            mnuNewWindow.Visible = false;
         }
 
         private void usrActionProject_Load(object sender, EventArgs e)
@@ -61,8 +68,8 @@ namespace BlueRocket
             mnuPlayAll.Visible = Editor.ICanPlayAll;
             mnuSaveAll.Visible = Editor.ICanSaveAll;
 
-            if (Editor.ICanOpen)
-                Editor.SetAction("Please, select CFG file to open a project ...");
+            //if (Editor.ICanOpen)
+            //   Editor.SetAction("Please, select CFG file to open a project ...");
 
         }
 

@@ -7,60 +7,83 @@ using System.Windows.Forms;
 
 namespace BlueRocket
 {
-    public class LoadCLI
+    public class AppLoad
     {
         public AppCLI App;
 
-        public LoadFile File;
+        public LoadDirect Direct;
 
         public LoadHistory History;
-        public RegisterCLI Register => App.Register;
 
-        public bool IsWorking = true;
+        public bool IsDirect => Direct.IsFull;
+        public bool TemHistory => History.IsFull;
 
-        public string project_file => History.name;
+        public bool IsWorking => Direct.IsWorking;
+        public string project_name => History.name;
 
-        public LoadCLI(AppCLI prmApp)
+        public string project_lastAcess => History.lastAcess;
+
+
+        public AppLoad(AppCLI prmApp)
         {
             App = prmApp;
 
-            File = new LoadFile(this);
+            Direct = new LoadDirect(this);
 
             History = new LoadHistory(this);
         }
 
-        public void FindProject()
+        public void ProjectFind()
         {
-            if (File.SelectCFG())
-                OpenProject(File.project_name);
+            if (Direct.FileCFG())
+                ProjectOpen(Direct.project_file);
         }
 
-        public void OpenProject(string prmFileCFG)
+        public void ProjectOpen(string prmFileCFG)
         {
             History.NewFile(prmFileCFG);
 
-            App.Start(prmFileCFG);
+            App.Session.OnProjectOpen(prmFileCFG);
+
+            Direct.Start();
+
         }
 
-        public void Quit() => IsWorking = false;
+        public void ProjectClose()
+        {
+            App.Session.OnProjectClose();
+        }
+
+        public void ProjectExit()
+        {
+            Direct.End();
+        }
 
     }
 
-    public class LoadFile
+    public class LoadDirect
     {
-        private LoadCLI Load;
+        private AppLoad Load;
 
-        public string project_name;
+        public string project_file;
 
-        private LoadHistory History => Load.History;
+        public bool IsWorking;
 
-        public LoadFile(LoadCLI prmLoad)
+        public bool IsFull => myString.IsFull(project_file);
+
+        public LoadDirect(AppLoad prmLoad)
         {
             Load = prmLoad;
         }
 
+        public void Start() { project_file = ""; IsWorking = true; }
+
+        public void End() { IsWorking = false; }
+
+        public void SetFileCFG(string prmFileCFG) => project_file = prmFileCFG;
+
         [STAThread]
-        public bool SelectCFG()
+        public bool FileCFG()
         {
             myFileDialog Selecao = new myFileDialog();
 
@@ -68,7 +91,7 @@ namespace BlueRocket
 
             if (Selecao.Open() == DialogResult.OK)
             {
-                project_name = Selecao.Dialog.FileName;
+                project_file = Selecao.Dialog.FileName;
 
                 return true;
             }
@@ -80,15 +103,17 @@ namespace BlueRocket
 
     public class LoadHistory : List<FileLoaded>
     {
-        private LoadCLI Load;
+        private AppLoad Load;
 
-        private RegisterCLI Register => Load.Register;
+        private AppRegister Register => Load.App.Register;
 
         private FileLoaded Current;
 
         public string name => Current.name;
+        public bool IsFull => (this.Count > 0);
+        public string lastAcess => GetLastAcess();
 
-        public LoadHistory(LoadCLI prmLoad)
+        public LoadHistory(AppLoad prmLoad)
         {
             Load = prmLoad; Setup();
         }
@@ -98,7 +123,13 @@ namespace BlueRocket
             Clear();
 
             foreach (string name in Register.History.LastOpenedProject)
-                Add(new FileLoaded(prmFile: name, prmLoaded: Register.History.GetDateTimeLoaded(name)));
+                AddItem(new FileLoaded(prmFile: name, prmLoaded: Register.History.GetDateTimeLoaded(name)));              
+        }
+
+        private void AddItem(FileLoaded prmFile)
+        {
+            if (prmFile.IsExists())
+                Add(prmFile);
         }
 
         public void NewFile(string prmFileCFG)
@@ -117,7 +148,6 @@ namespace BlueRocket
                 { Remove(File); break;  }
 
             Insert(0, Current);
-
         }
 
         private void Save()
@@ -126,6 +156,14 @@ namespace BlueRocket
 
             foreach (FileLoaded File in this)
                 Register.History.Add(prmName: File.full_name, prmValue: File.loaded);
+        }
+
+        private string GetLastAcess()
+        {
+            if (IsFull)
+                return this[0].full_name;
+
+            return "";
         }
 
     }
@@ -139,6 +177,7 @@ namespace BlueRocket
         public string path => System.IO.Path.GetDirectoryName(file);
 
         public bool IsMatch(string prmFile) => myString.IsMatch(prmFile, file);
+        public bool IsExists() => System.IO.File.Exists(file);
 
         public string full_name => path + @"\" + name;
 

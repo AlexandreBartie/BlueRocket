@@ -7,13 +7,13 @@ namespace BlueRocket
 
     public delegate void Notify_ProjectDBConnect();
 
-    public delegate void Notify_ProjectNew();
+    public delegate void Notify_NewWindow();
 
-    public delegate void Notify_ProjectHistory(string prmArquivoCFG);
+    public delegate void Notify_ProjectSelect();
 
     public delegate void Notify_ProjectOpen(string prmArquivoCFG);
     public delegate void Notify_ProjectClose();
-    public delegate void Notify_ProjectReset();
+    public delegate void Notify_ProjectRefresh();
 
     public delegate void Notify_ProjectExit();
 

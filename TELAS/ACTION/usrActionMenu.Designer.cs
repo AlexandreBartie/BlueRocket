@@ -82,50 +82,51 @@
             // mnuProjectOpen
             // 
             this.mnuProjectOpen.Name = "mnuProjectOpen";
-            this.mnuProjectOpen.Size = new System.Drawing.Size(145, 22);
+            this.mnuProjectOpen.Size = new System.Drawing.Size(180, 22);
             this.mnuProjectOpen.Text = "Open";
             this.mnuProjectOpen.Click += new System.EventHandler(this.mnuProjectOpen_Click);
             // 
             // mnuProjectClose
             // 
             this.mnuProjectClose.Name = "mnuProjectClose";
-            this.mnuProjectClose.Size = new System.Drawing.Size(145, 22);
+            this.mnuProjectClose.Size = new System.Drawing.Size(180, 22);
             this.mnuProjectClose.Text = "Close";
             this.mnuProjectClose.Click += new System.EventHandler(this.mnuProjectClose_Click);
             // 
             // SeparatorAction
             // 
             this.SeparatorAction.Name = "SeparatorAction";
-            this.SeparatorAction.Size = new System.Drawing.Size(142, 6);
+            this.SeparatorAction.Size = new System.Drawing.Size(177, 6);
             // 
             // mnuProjectRefresh
             // 
             this.mnuProjectRefresh.Image = global::BlueRocket.Properties.Resources.refresh;
             this.mnuProjectRefresh.Name = "mnuProjectRefresh";
-            this.mnuProjectRefresh.Size = new System.Drawing.Size(145, 22);
+            this.mnuProjectRefresh.Size = new System.Drawing.Size(180, 22);
             this.mnuProjectRefresh.Text = "Refresh";
             this.mnuProjectRefresh.Click += new System.EventHandler(this.mnuProjectRefresh_Click);
             // 
             // SeparatorNew
             // 
             this.SeparatorNew.Name = "SeparatorNew";
-            this.SeparatorNew.Size = new System.Drawing.Size(142, 6);
+            this.SeparatorNew.Size = new System.Drawing.Size(177, 6);
             // 
             // mnuNewWindow
             // 
             this.mnuNewWindow.Name = "mnuNewWindow";
-            this.mnuNewWindow.Size = new System.Drawing.Size(145, 22);
+            this.mnuNewWindow.Size = new System.Drawing.Size(180, 22);
             this.mnuNewWindow.Text = "New Window";
+            this.mnuNewWindow.Click += new System.EventHandler(this.mnuNewWindow_Click);
             // 
             // SeparatorExit
             // 
             this.SeparatorExit.Name = "SeparatorExit";
-            this.SeparatorExit.Size = new System.Drawing.Size(142, 6);
+            this.SeparatorExit.Size = new System.Drawing.Size(177, 6);
             // 
             // mnuProjectExit
             // 
             this.mnuProjectExit.Name = "mnuProjectExit";
-            this.mnuProjectExit.Size = new System.Drawing.Size(145, 22);
+            this.mnuProjectExit.Size = new System.Drawing.Size(180, 22);
             this.mnuProjectExit.Text = "Exit";
             this.mnuProjectExit.Click += new System.EventHandler(this.mnuProjectExit_Click);
             // 
@@ -192,16 +193,16 @@
             // 
             this.mnuAbout.Image = ((System.Drawing.Image)(resources.GetObject("mnuAbout.Image")));
             this.mnuAbout.Name = "mnuAbout";
-            this.mnuAbout.Size = new System.Drawing.Size(180, 22);
+            this.mnuAbout.Size = new System.Drawing.Size(107, 22);
             this.mnuAbout.Text = "About";
             this.mnuAbout.Click += new System.EventHandler(this.mnuAbout_Click);
             // 
-            // usrActionMain
+            // usrActionMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.mnuMain);
-            this.Name = "usrActionMain";
+            this.Name = "usrActionMenu";
             this.Size = new System.Drawing.Size(628, 42);
             this.mnuMain.ResumeLayout(false);
             this.mnuMain.PerformLayout();

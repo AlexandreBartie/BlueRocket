@@ -6,10 +6,10 @@ using System.Text;
 
 namespace BlueRocket
 {
-    public class ColorEditorCLI : ColorBaseEditorCLI
+    public class AppColor : AppColorBase
     {
-        public ColorTagCLI Tag;
-        public ColorOptionCLI Option;
+        public AppColorTag Tag;
+        public AppColorOption Option;
 
         public Color cor_frente_consulta => Color.Black;
         public Color cor_frente_edicao => Color.DarkGreen;
@@ -21,11 +21,11 @@ namespace BlueRocket
         public Color cor_fundo_erro => Color.LightYellow;
         public Color cor_fundo_destaque => Color.LightGray;
 
-        public ColorEditorCLI(EditorCLI prmEditor) : base(prmEditor)
+        public AppColor(AppCLI prmApp) : base(prmApp)
         {
 
-            Tag = new ColorTagCLI(prmEditor);
-            Option = new ColorOptionCLI(prmEditor);
+            Tag = new AppColorTag(prmApp);
+            Option = new AppColorOption(prmApp);
         }
 
         public myColor GetPadrao()
@@ -34,16 +34,16 @@ namespace BlueRocket
         }
     }
 
-    public class ColorBaseEditorCLI
+    public class AppColorBase
     {
 
-        public EditorCLI Editor;
+        public AppCLI App;
 
-        public ColorEditorCLI Padrao => Editor.Cor;
+        public AppColor Padrao => App.Cor;
 
-        public ColorBaseEditorCLI(EditorCLI prmEditor)
+        public AppColorBase(AppCLI prmApp)
         {
-            Editor = prmEditor;
+            App = prmApp;
         }
 
     }

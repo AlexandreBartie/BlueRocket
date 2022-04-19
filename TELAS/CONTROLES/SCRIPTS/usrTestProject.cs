@@ -26,7 +26,7 @@ namespace BlueRocket
         private void mnuRefresh_Click(object sender, EventArgs e)
         {
             if (Editor.IsFree)
-                Editor.OnProjectReset();
+                Editor.OnProjectRefresh();
         }
 
         private void trvProjeto_DoubleClick(object sender, EventArgs e)
@@ -96,7 +96,7 @@ namespace BlueRocket
         }
         public void MultiSelect(bool prmAtivar)
         { 
-            trvProjeto.CheckBoxes = Editor.Select.SetMultiSelection(prmAtivar);
+            //trvProjeto.CheckBoxes = Editor.Select.SetMultiSelection(prmAtivar);
 
             Root.Expand();
         }

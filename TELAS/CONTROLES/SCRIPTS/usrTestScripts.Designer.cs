@@ -28,20 +28,29 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.lstScripts = new System.Windows.Forms.ListView();
+            this.imgScripts = new System.Windows.Forms.ImageList(this.components);
             this.SuspendLayout();
             // 
             // lstScripts
             // 
             this.lstScripts.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lstScripts.HideSelection = false;
-            this.lstScripts.Location = new System.Drawing.Point(0, 40);
+            this.lstScripts.Location = new System.Drawing.Point(0, 0);
             this.lstScripts.Name = "lstScripts";
-            this.lstScripts.Size = new System.Drawing.Size(636, 524);
+            this.lstScripts.Size = new System.Drawing.Size(636, 564);
+            this.lstScripts.SmallImageList = this.imgScripts;
             this.lstScripts.TabIndex = 1;
             this.lstScripts.UseCompatibleStateImageBehavior = false;
             this.lstScripts.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.lstScripts_ItemSelectionChanged);
             this.lstScripts.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lstScripts_MouseDoubleClick);
+            // 
+            // imgScripts
+            // 
+            this.imgScripts.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.imgScripts.ImageSize = new System.Drawing.Size(16, 16);
+            this.imgScripts.TransparentColor = System.Drawing.Color.Transparent;
             // 
             // usrTestScripts
             // 
@@ -50,7 +59,6 @@
             this.Controls.Add(this.lstScripts);
             this.Name = "usrTestScripts";
             this.Size = new System.Drawing.Size(636, 564);
-            this.Controls.SetChildIndex(this.lstScripts, 0);
             this.ResumeLayout(false);
 
         }
@@ -58,5 +66,6 @@
         #endregion
 
         private System.Windows.Forms.ListView lstScripts;
+        private System.Windows.Forms.ImageList imgScripts;
     }
 }

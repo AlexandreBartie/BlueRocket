@@ -31,11 +31,11 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmSplash));
             this.alarme = new System.Windows.Forms.Timer(this.components);
-            this.lblAnoMainRelease = new System.Windows.Forms.Label();
+            this.lblYearRelease = new System.Windows.Forms.Label();
             this.lblFramework = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.logoPictureBox = new System.Windows.Forms.PictureBox();
-            this.lvlRelease = new System.Windows.Forms.Label();
+            this.lblRelease = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -43,18 +43,18 @@
             // 
             this.alarme.Tick += new System.EventHandler(this.alarme_Tick);
             // 
-            // lblAnoMainRelease
+            // lblYearRelease
             // 
-            this.lblAnoMainRelease.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblAnoMainRelease.AutoSize = true;
-            this.lblAnoMainRelease.Font = new System.Drawing.Font("Segoe UI", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblAnoMainRelease.Location = new System.Drawing.Point(646, 360);
-            this.lblAnoMainRelease.Name = "lblAnoMainRelease";
-            this.lblAnoMainRelease.Size = new System.Drawing.Size(132, 65);
-            this.lblAnoMainRelease.TabIndex = 0;
-            this.lblAnoMainRelease.Tag = "";
-            this.lblAnoMainRelease.Text = "2022";
-            this.lblAnoMainRelease.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblYearRelease.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblYearRelease.AutoSize = true;
+            this.lblYearRelease.Font = new System.Drawing.Font("Segoe UI", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblYearRelease.Location = new System.Drawing.Point(646, 360);
+            this.lblYearRelease.Name = "lblYearRelease";
+            this.lblYearRelease.Size = new System.Drawing.Size(132, 65);
+            this.lblYearRelease.TabIndex = 0;
+            this.lblYearRelease.Tag = "";
+            this.lblYearRelease.Text = "2022";
+            this.lblYearRelease.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblFramework
             // 
@@ -95,18 +95,18 @@
             this.logoPictureBox.TabIndex = 14;
             this.logoPictureBox.TabStop = false;
             // 
-            // lvlRelease
+            // lblRelease
             // 
-            this.lvlRelease.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.lvlRelease.AutoSize = true;
-            this.lvlRelease.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lvlRelease.Location = new System.Drawing.Point(26, 400);
-            this.lvlRelease.Name = "lvlRelease";
-            this.lvlRelease.Size = new System.Drawing.Size(49, 15);
-            this.lvlRelease.TabIndex = 15;
-            this.lvlRelease.Tag = "";
-            this.lvlRelease.Text = "Release:";
-            this.lvlRelease.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblRelease.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblRelease.AutoSize = true;
+            this.lblRelease.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblRelease.Location = new System.Drawing.Point(26, 400);
+            this.lblRelease.Name = "lblRelease";
+            this.lblRelease.Size = new System.Drawing.Size(49, 15);
+            this.lblRelease.TabIndex = 15;
+            this.lblRelease.Tag = "";
+            this.lblRelease.Text = "Release:";
+            this.lblRelease.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // frmSplash
             // 
@@ -114,11 +114,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.HighlightText;
             this.ClientSize = new System.Drawing.Size(816, 445);
-            this.Controls.Add(this.lvlRelease);
+            this.Controls.Add(this.lblRelease);
             this.Controls.Add(this.logoPictureBox);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lblFramework);
-            this.Controls.Add(this.lblAnoMainRelease);
+            this.Controls.Add(this.lblYearRelease);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmSplash";
@@ -133,10 +133,10 @@
         #endregion
 
         private System.Windows.Forms.Timer alarme;
-        private System.Windows.Forms.Label lblAnoMainRelease;
+        private System.Windows.Forms.Label lblYearRelease;
         private System.Windows.Forms.Label lblFramework;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox logoPictureBox;
-        private System.Windows.Forms.Label lvlRelease;
+        private System.Windows.Forms.Label lblRelease;
     }
 }

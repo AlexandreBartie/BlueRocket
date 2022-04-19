@@ -23,27 +23,18 @@ namespace BlueRocket
         private void frmMainCLI_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (e.CloseReason == CloseReason.UserClosing)
-            {
-                if (ToConfirm("Do you really want to close this application?", "Exit Application"))
-                    Editor.Load.Quit();
-                else
-                    e.Cancel = true;
-            }
+                e.Cancel = WindowClose();
         }
 
-        public frmMainCLI()
+        public bool IsMultiSelected => pagScripts.IsMultiSelected;
+
+        public void SetSelected() => pagScripts.SetSelected();
+
+        public frmMainCLI(EditorCLI prmEditor)
         {
-            InitializeComponent();
+            InitializeComponent(); Editor = prmEditor;
 
-            this.Text = String.Format("{0} ", myAssembly.AssemblyProduct);
-        }
-
-        public void Setup(EditorCLI prmEditor)
-        {
-
-            Editor = prmEditor;
-
-            Editor.MultiSelect += ProjectMultiSelect;
+            //Editor.MultiSelect += ProjectMultiSelect;
 
             Editor.SelectedLockedAll += SelectedLockedAll;
             Editor.SelectedUnlockedAll += SelectedUnlockedAll;
@@ -56,7 +47,7 @@ namespace BlueRocket
 
             Editor.ProjectOpen += ProjectOpen;
             Editor.ProjectClose += ProjectClose;
-            Editor.ProjectReset += ProjectReset;
+            Editor.ProjectRefresh += ProjectRefresh;
             Editor.ProjectExit += ProjectExit;
 
             Editor.ProjectDBConnect += ProjectDBConnect;
@@ -64,7 +55,7 @@ namespace BlueRocket
             //Editor.FilterTagChanged += FilterTagChanged;
             Editor.FilterTagChecked += FilterTagChecked;
 
-            Editor.ScriptCodeChecked += ScriptChecked;
+            //Editor.ScriptCodeChecked += ScriptChecked;
 
             Editor.ScriptCodeLocked += ScriptLocked;
             Editor.ScriptCodeSelect += ScriptView;
@@ -85,11 +76,12 @@ namespace BlueRocket
             usrStatus.Setup(prmEditor);
 
             ProjectSetup();
-
         }
 
         private void ProjectSetup()
         {
+
+            Text = Editor.App.Info.productName;
 
             pagScripts.Setup(Editor);
             pagEdition.Setup(Editor);
@@ -99,7 +91,7 @@ namespace BlueRocket
             MenuStatusView();
 
         }
-        private void ProjectMultiSelect(bool prmAtivar) { pagEdition.MultiSelect(prmAtivar); MenuStatusView(); }
+        //private void ProjectMultiSelect(bool prmAtivar) { pagEdition.MultiSelect(prmAtivar); MenuStatusView(); }
 
         private void ProjectDBConnect()
         {
@@ -109,29 +101,35 @@ namespace BlueRocket
         }
         private void ProjectOpen(string prmArquivoCFG)
         {
-            //Editor.PagePaintStart(); 
-            
             Editor.Setup(prmArquivoCFG);
 
             ProjectBuild();
-
-            //Editor.PagePaintEnd();
         }
         private void ProjectClose()
         {
 
-            if (ToConfirm("Do you want to close your current project ?", "Exit Application"))
+            if (myMessage.ToConfirm("Do you want to close your current project ?", "Exit Application"))
             {
                 Editor.Close();
 
-                ProjectReset();
+                ProjectRefresh();
 
                 MenuStatusView();
 
             }
         }
 
-        private void ProjectReset() => ProjectBuild();
+        private bool WindowClose()
+        {
+            if (Editor.TemProject)
+                if (myMessage.ToConfirm("Do you really want to close this application?", "Exit Application"))
+                    Editor.Exit();
+                else
+                    return true;
+            return false;
+        }
+
+        private void ProjectRefresh() => ProjectBuild();
 
         private void ProjectBuild()
         {
@@ -147,7 +145,7 @@ namespace BlueRocket
         private void ProjectExit() { Close(); }
 
         private void ScriptLocked() => Editor.CodeLocked();
-        private void ScriptChecked(string prmScript, bool prmChecked) { Editor.Select.SetScript(prmScript, prmChecked); MenuStatusView(); }
+        //private void ScriptChecked(string prmScript, bool prmChecked) { Editor.Select.SetScript(prmScript, prmChecked); MenuStatusView(); }
 
         private void FilterTagChecked(string prmTag, string prmOption, bool prmChecked) { Editor.Filter.SetTagOption(prmTag, prmOption, prmChecked); FiltroView(); }
 
@@ -181,7 +179,7 @@ namespace BlueRocket
 
             Editor.Batch.Start();
 
-            foreach (ScriptCLI Script in Editor.Select)
+            foreach (ScriptCLI Script in Editor.Batch.Select)
             {
 
                 if (pagScripts.FindScript(Script))
@@ -198,7 +196,7 @@ namespace BlueRocket
 
         }
         private void MenuStatusView() { usrStatus.View(); usrMenu.View(); }
-        private void BatchSet(ScriptCLI prmScript) => pagEdition.UncheckedNodeScript(prmScript);
+        private void BatchSet(ScriptCLI prmScript) => pagScripts.ViewScript(prmScript);
         private void BatchEnd() => usrMenu.Refresh();
         private void SelectedPlayAll() => SelectedPlaySaveAll(prmPlay: true, prmSave: false);
         private void SelectedSaveAll() => SelectedPlaySaveAll(prmPlay: false, prmSave: true);
@@ -208,10 +206,10 @@ namespace BlueRocket
 
             Editor.Batch.Start();
             
-            foreach (ScriptCLI Script in Editor.Select)
+            foreach (ScriptCLI Script in Editor.Batch.Select)
             {
 
-                if (pagEdition.FindNodeScript(Script))
+                if (pagScripts.FindScript(Script))
                 {
                     Editor.Batch.Set(Script);
 
@@ -285,13 +283,7 @@ namespace BlueRocket
 
         public void SetAction(string prmTexto) => usrStatus.SetAction(prmTexto);
 
-        public bool ToConfirm(string prmText, string prmLabel)
-        {
-            return MessageBox.Show(prmText, prmLabel, MessageBoxButtons.YesNo) == DialogResult.Yes;
-        }
-
         //MessageBox.Show("Do you really want to close ?", "Exit Application", MessageBoxButtons.YesNo) == DialogResult.No)
-        
 
     }
 

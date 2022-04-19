@@ -6,11 +6,11 @@ using System.Text;
 
 namespace BlueRocket
 {
-    public class ColorTagCLI : ColorBaseEditorCLI
+    public class AppColorTag : AppColorBase
     {
-        public ColorTagCLI(EditorCLI prmEditor) : base(prmEditor)
+        public AppColorTag(AppCLI prmApp) : base(prmApp)
         {
-            Editor = prmEditor;
+            App = prmApp;
         }
 
         public myColor GetCor(myTag prmTag)
@@ -29,11 +29,11 @@ namespace BlueRocket
             return Padrao.cor_fundo_padrao;
         }
     }
-    public class ColorOptionCLI : ColorBaseEditorCLI
+    public class AppColorOption : AppColorBase
     {
-        public ColorOptionCLI(EditorCLI prmEditor) : base(prmEditor)
+        public AppColorOption(AppCLI prmApp) : base(prmApp)
         {
-            Editor = prmEditor;
+            App = prmApp;
         }
 
         public myColor GetCor(myTagOption prmTagOption)

@@ -8,22 +8,22 @@ using System.Text;
 namespace BlueRocket
 {
 
-    public class ColorScriptCLI
+    public class AppColorScript
     {
         public ScriptCLI Script;
-        public ColorEditorCLI Padrao => Script.Editor.Cor.Padrao;
+        public AppColor Padrao => Script.Editor.Cor.Padrao;
 
-        private ColorCodeCLI Code;
-        public ColorLogCLI Log;
-        public ColorMsgCLI Msg;
+        private AppColorCode Code;
+        public AppColorLog Log;
+        public AppColorMsg Msg;
 
-        public ColorScriptCLI(ScriptCLI prmScript)
+        public AppColorScript(ScriptCLI prmScript)
         {
             Script = prmScript;
 
-            Code = new ColorCodeCLI(this);
-            Log = new ColorLogCLI(this);
-            Msg = new ColorMsgCLI(this);
+            Code = new AppColorCode(this);
+            Log = new AppColorLog(this);
+            Msg = new AppColorMsg(this);
         }
         public myColor GetCor() => Code.GetCor();
 
@@ -40,9 +40,9 @@ namespace BlueRocket
         }
 
     }
-    public class ColorCodeCLI : ColorBaseScriptCLI
+    public class AppColorCode : AppColorScriptBase
     {
-        public ColorCodeCLI(ColorScriptCLI prmCor) : base(prmCor)
+        public AppColorCode(AppColorScript prmCor) : base(prmCor)
         {
             Cor = prmCor;
         }
@@ -70,9 +70,9 @@ namespace BlueRocket
         }
 
     }
-    public class ColorLogCLI : ColorBaseScriptCLI
+    public class AppColorLog : AppColorScriptBase
     {
-        public ColorLogCLI(ColorScriptCLI prmCor) : base(prmCor)
+        public AppColorLog(AppColorScript prmCor) : base(prmCor)
         {
             Cor = prmCor;
         }
@@ -92,9 +92,9 @@ namespace BlueRocket
             return Padrao.cor_fundo_padrao;
         }
     }
-    public class ColorMsgCLI : ColorBaseScriptCLI
+    public class AppColorMsg : AppColorScriptBase
     {
-        public ColorMsgCLI(ColorScriptCLI prmCor) : base(prmCor)
+        public AppColorMsg(AppColorScript prmCor) : base(prmCor)
         {
             Cor = prmCor;
         }
@@ -107,15 +107,15 @@ namespace BlueRocket
             return Cor.GetCorFrente();
         }
     }
-    public class ColorBaseScriptCLI
+    public class AppColorScriptBase
     {
 
-        public ColorScriptCLI Cor;
+        public AppColorScript Cor;
 
         public ScriptCLI Script => Cor.Script;
-        public ColorEditorCLI Padrao => Cor.Padrao;
+        public AppColor Padrao => Cor.Padrao;
 
-        public ColorBaseScriptCLI(ColorScriptCLI prmCor)
+        public AppColorScriptBase(AppColorScript prmCor)
         {
             Cor = prmCor;
         }

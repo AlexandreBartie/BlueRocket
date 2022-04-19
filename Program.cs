@@ -13,7 +13,7 @@ namespace BlueRocket
         //static string arquivoCFG = @"C:\MassaTestes\VICTOR\victor.cfg";
         //static string arquivoCFG = @"C:\MassaTestes\POC\CLI\projeto-teste.cfg";
 
-        [STAThread]
+       [STAThread]
         static void Main(string[] args)
         {
 
@@ -44,8 +44,10 @@ namespace BlueRocket
         {
             try
             {
-                App.Start();
-                //App.Start(@"C:\MassaTestes\TesteQA.cfg");
+                if (false)
+                    App.Start();
+                else
+                    App.Open(@"C:\MassaTestes\TestQA.cfg");
             }
             catch (Exception e)
             { Console.WriteLine(e.Message); };
@@ -55,7 +57,7 @@ namespace BlueRocket
         {
             try
             {
-                App.Batch(prmArquivoCFG);
+                App.Play(prmArquivoCFG);
             }
             catch (Exception e)
             { Console.WriteLine(e.Message); };

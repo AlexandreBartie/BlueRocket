@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dooggy.LIBRARY;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -11,36 +12,42 @@ namespace BlueRocket
     public partial class frmStart : Form
     {
 
-        public EditorCLI Editor;
+        public AppCLI App;
+
+        private void frmStart_Activated(object sender, EventArgs e) => App.Action.OnProjectDirect();
 
         private void lstHistory_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             ListViewItem item = GetListItem(prmMouseX: e.X, prmMouseY: e.Y);
 
             if (item != null)
-                OpenProject(prmProject: item.Tag.ToString());
+                App.Action.OnProjectOpen(prmProject: item.Tag.ToString());
         }
-        private void cmdFindProject_Click(object sender, EventArgs e) => FindProject();
+        private void cmdFindProject_Click(object sender, EventArgs e) => App.Action.OnProjectFind();
+
+        private void frmStart_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (App.IsWorking)
+            { Hide(); e.Cancel = true; }
+            else
+                e.Cancel = false;
+        }
 
         private void cmdExit_Click(object sender, EventArgs e) => this.Close();
 
-        public frmStart()
+        public frmStart(AppCLI prmApp)
         {
-            InitializeComponent();
-        }
-        public void Setup(EditorCLI prmEditor)
-        {
-            Editor = prmEditor;
+            InitializeComponent(); App = prmApp;
 
-            Editor.Format.SetPadrao(lstHistory);
+            App.Format.SetPadrao(lstHistory);
             
-            View(); ShowDialog();
+            View();
         }
         private void View()
         {
             CreateHeader();
 
-            foreach (FileLoaded File in Editor.Load.History)
+            foreach (FileLoaded File in App.Load.History)
                 ViewDetails(File);
         }
 
@@ -55,31 +62,6 @@ namespace BlueRocket
             linha.SubItems.Add(prmFile.name);
             linha.SubItems.Add(prmFile.loaded_txt);
             linha.SubItems.Add(prmFile.path);
-        }
-        public void OpenProject(string prmProject)
-        {
-            Hide();
-
-            Editor.Load.OpenProject(prmProject);
-
-            Reset();
-        }
-        private void FindProject()
-        {
-            Hide();
-
-            Editor.Load.FindProject();
-
-            Reset();
-        }
-
-        private void Reset()
-        {
-            if (Editor.IsWorking)
-                Show();
-            else
-                Close();
-
         }
         private void CreateHeader()
         {
@@ -96,7 +78,6 @@ namespace BlueRocket
 
             return (item);
         }
-
 
     }
 }

@@ -9,36 +9,23 @@ namespace BlueRocket
     partial class frmAboutBox : Form
     {
 
-        private EditorCLI Editor;
+        private AppCLI App;
         private void cmdClose_Click(object sender, EventArgs e) => this.Close();
 
-        public frmAboutBox()
+        public frmAboutBox(AppCLI prmApp)
         {
-            InitializeComponent();
-
-            this.Text = String.Format("About: {0}", Application.ProductName);
-
-            lblVersion.Text = String.Format("Version: {0}", Application.ProductVersion);
-        }
-
-        public void Setup(EditorCLI prmEditor)
-        {
-
-            Editor = prmEditor;
+            InitializeComponent(); App = prmApp;
 
             View();
 
-            this.ShowDialog();
-
+            ShowDialog();
         }
 
-        public void View()
+        private void View()
         {
+            Text = App.Info.productAbout;
 
-            //usrTagName.SetText(prmLabel: "Product:", prmDescription: AssemblyProduct);
-            //usrTagVersion.SetText(prmLabel: "Version:", prmDescription: String.Format("Versão {0}", AssemblyVersion));
-            //usrTagCompany.SetText(prmLabel: "Company:", prmDescription:  AssemblyCompany);
-
+            lblVersion.Text = App.Info.productVersion;
         }
 
     }

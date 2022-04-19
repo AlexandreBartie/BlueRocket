@@ -12,7 +12,7 @@ namespace BlueRocket
 {
     public partial class usrTestScripts : UserControl
     {
-        private PageBuilder Builder;
+        internal PageBuilder Builder; 
 
         private void lstScripts_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
         {
@@ -21,19 +21,19 @@ namespace BlueRocket
 
         private void lstScripts_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-
             ListViewItem item = GetListItem(prmMouseX: e.X, prmMouseY: e.Y);
 
             if (item != null)
                 Builder.DoubleClick(prmScript: item.Tag.ToString());
         }
 
+        public bool IsMultiSelected => Builder.Structure.IsMultiSelected;
+
         public usrTestScripts()
         {
             InitializeComponent();
 
             Builder = new PageBuilder(prmPage: this, prmListView: lstScripts);
-
         }
 
         public void Setup(EditorCLI prmEditor) => Builder.Setup(prmEditor);
@@ -42,18 +42,25 @@ namespace BlueRocket
 
         public void ViewAll(bool prmCleanup) => Builder.ViewAll(prmCleanup);
 
+        public void ViewScript(ScriptCLI prmScript) => Builder.ViewScript(prmScript);
+
         public bool FindScript(ScriptCLI prmScript)
         {
             foreach (ListViewItem item in lstScripts.Items)
                 if (prmScript.IsMatch(item.Tag.ToString()))
-                { item.Selected = true; item.Focused = true; return true; }
+                    return true;
 
             return false;
         }
 
+        public void SetSelected()
+        {
+            foreach (ListViewItem item in lstScripts.SelectedItems)
+                Builder.Editor.Batch.Add(prmKey: item.Tag.ToString());
+        }
+
         private ListViewItem GetListItem(int prmMouseX, int prmMouseY)
         {
-
             ListViewHitTestInfo info = lstScripts.HitTest(prmMouseX, prmMouseY);
             ListViewItem item = info.Item;
 
@@ -70,7 +77,7 @@ namespace BlueRocket
 
         internal PageElements Elements;
 
-        private EditorCLI Editor => Resource.Editor;
+        internal EditorCLI Editor => Resource.Editor;
 
         internal PageBuilder(UserControl prmPage, Control prmListView)
         {
@@ -101,10 +108,17 @@ namespace BlueRocket
         {
             Reset(); ViewAll(prmCleanup: true);
         }
+
         internal void ViewAll(bool prmCleanup)
         {
             Elements.ViewAll(prmCleanup);
         }
+
+        internal void ViewScript(ScriptCLI prmScript)
+        {
+            Elements.ViewScript(prmScript);
+        }
+
         internal void DoubleClick(string prmScript)
         {
             SetFocus(prmScript);
@@ -113,7 +127,7 @@ namespace BlueRocket
                 Editor.OnScriptCodeLocked();
 
             if (Editor.Script.ICanPlay)
-            { Editor.OnScriptCodePlay(); Elements.View(prmScript: Editor.Script); }
+            { Editor.OnScriptCodePlay(); Elements.ViewScript(prmScript: Editor.Script); }
         }
 
         internal void SetFocus(string prmScript)
@@ -129,6 +143,8 @@ namespace BlueRocket
 
         private PageResource Resource => Builder.Resource;
         private PageElements Elements => Builder.Elements;
+
+        internal bool IsMultiSelected => (ListView.SelectedItems.Count > 1);
 
         internal PageStructure(PageBuilder prmBuilder)
         {
@@ -183,14 +199,6 @@ namespace BlueRocket
         {
             Builder = prmBuilder;
         }
-
-        internal void View(ScriptCLI prmScript)
-        {
-            ListViewItem linha = GetListItem();
-            
-            if (linha != null)
-                ViewScript(prmLinha: GetListItem(), prmScript);
-        }
         internal void ViewAll(bool prmCleanup) 
         {
             if (prmCleanup)
@@ -208,12 +216,10 @@ namespace BlueRocket
             foreach (ScriptCLI Script in Editor.Project.Scripts.Ativos)
             {
 
-                cont++;
-
                 if (prmCleanup)
                 {
 
-                    index = myFormat.GetKey(cont, 3);
+                    index = myFormat.GetKey(cont + 1, 3);
 
                     linha = ListView.Items.Add(index);
 
@@ -221,22 +227,31 @@ namespace BlueRocket
                         linha.SubItems.Add("");
                 }
 
-                linha = ViewScript(prmIndice: cont, Script);
+                linha = ListView.Items[cont];
+                
+                ViewScript(linha, Script);
 
                 ViewTAGS(Script, linha, prmCleanup);
+
+                cont++;
 
             }
 
         }
 
-        internal ListViewItem ViewScript(int prmIndice, ScriptCLI prmScript) => ViewScript(ListView.Items[prmIndice-1], prmScript);
-        internal ListViewItem ViewScript(ListViewItem prmLinha, ScriptCLI prmScript)
+        internal void ViewCurrent() => ViewScript(prmLinha: GetLineCurrent(), Editor.Script);
+        internal void ViewScript(ScriptCLI prmScript) => ViewScript(prmLinha: FindScript(prmScript), prmScript);
+        internal void ViewScript(ListViewItem prmLinha, ScriptCLI prmScript)
         {
-        
+
+            if (prmLinha != null)
+
             prmLinha.Tag = prmScript.name;
 
+            prmLinha.ImageIndex = (int)prmScript.Status.id;
+
             prmLinha.SubItems[1].Text = prmScript.name;
-            prmLinha.SubItems[2].Text = prmScript.status;
+            prmLinha.SubItems[2].Text = prmScript.Status.name;
             prmLinha.SubItems[3].Text = prmScript.filtro;
             prmLinha.SubItems[4].Text = prmScript.qtdTests;
             prmLinha.SubItems[5].Text = prmScript.timeBigger;
@@ -254,8 +269,6 @@ namespace BlueRocket
 
                 prmLinha.SubItems[x].BackColor = prmScript.Cor.GetCorFundo();
             }
-
-            return prmLinha;
 
         }
 
@@ -281,7 +294,20 @@ namespace BlueRocket
             }
 
         }
-        private ListViewItem GetListItem() => ListView.SelectedItems[0];
+
+        public ListViewItem FindScript(ScriptCLI prmScript)
+        {
+            foreach (ListViewItem item in ListView.Items)
+                if (prmScript.IsMatch(item.Tag.ToString()))
+                    return item;
+            //{ item.Selected = true; item.Focused = true; return true; }
+
+            return null;
+        }
+
+
+        private ListViewItem GetLineCurrent() => ListView.SelectedItems[0];
+
     }
 
     internal class PageBase
@@ -305,6 +331,8 @@ namespace BlueRocket
 
         internal ListView ListView;
 
+        internal ImageList ListImage;
+
         internal int qtde_colunas;
 
         internal PageResource(PageBuilder prmBuilder)
@@ -317,11 +345,24 @@ namespace BlueRocket
             Page = (usrTestScripts)prmPage;
 
             ListView = (ListView)prmListView;
+
         }
 
         internal void Setup(EditorCLI prmEditor)
         {
             Editor = prmEditor;
+
+            ListImage = new ImageList();
+
+            ListView.SmallImageList = ListImage;
+        }
+
+        private void LoadViewImages()
+        {
+            ListImage.Images.Add(Properties.Resources.menu);
+            ListImage.Images.Add(Properties.Resources.play);
+            ListImage.Images.Add(Properties.Resources.confirm);
+            ListImage.Images.Add(Properties.Resources.cancel);
         }
 
     }

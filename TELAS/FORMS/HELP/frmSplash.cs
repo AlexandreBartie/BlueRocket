@@ -10,17 +10,30 @@ namespace BlueRocket
 {
     public partial class frmSplash : Form
     {
+        private AppCLI App;
+
         private void alarme_Tick(object sender, EventArgs e) => Finished();
         private void frmSplash_Click(object sender, EventArgs e) => Finished();
 
-        public frmSplash()
+        public frmSplash(AppCLI prmApp)
         {
-            InitializeComponent(); Start();
+            InitializeComponent(); App = prmApp;
+
+            View();  Start(); ShowDialog();
+        }
+
+        private void View()
+        {
+            lblFramework.Text = App.Info.productSplash;
+
+            lblRelease.Text = App.Info.productRelease;
+
+            lblYearRelease.Text = App.Info.productYearRelease;
         }
 
         private void Start()
         {
-            alarme.Interval = 5000;
+            alarme.Interval = 6000;
 
             alarme.Start();
         }
@@ -32,5 +45,5 @@ namespace BlueRocket
             Close();
         }
 
-    }
+     }
 }
