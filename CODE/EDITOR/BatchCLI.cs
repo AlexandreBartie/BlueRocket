@@ -10,12 +10,11 @@ namespace BlueRocket
 
         public SelectCLI Select;
 
-        public ScriptCLI Script;
-
         public bool IsRunning;
 
         public int cont;
         public int qtde => Select.Count;
+
         private string txt_progresso => String.Format("{0} de {1}", cont, qtde);
 
         public BatchCLI(EditorCLI prmEditor)
@@ -33,16 +32,26 @@ namespace BlueRocket
 
             Select.Setup();
 
+            Editor.OnBatchStart();
+
             Editor.SetAction("Batch started ...");
 
         }
-        public void Set(ScriptCLI prmScript)
+        public bool Set(ScriptCLI prmScript)
         {
-            cont += 1; Script = prmScript;
 
-            Editor.OnScriptCodeSelect();
+            if (Editor.Painel.SetScript(prmScript))
+            {
+                Editor.SetScript(prmScript); cont += 1;
 
-            Editor.OnBatchSet(prmScript);
+                Editor.OnScriptCodeSelect();
+
+                Editor.OnBatchSet(prmScript);
+
+                return true;
+            }
+
+            return false;
         }
         public void End()
         {

@@ -27,11 +27,18 @@ namespace BlueRocket
         }
         public myColor GetCor() => Code.GetCor();
 
+        public Color GetCorFundo() => Code.GetCorFundo();
         public Color GetCorFrente() => Code.GetCorFrente();
 
-        public Color GetCorFundo() => Code.GetCorFundo();
+        public Color GetCorFrente(bool prmIsTimeColor)
+        {
+            if (prmIsTimeColor)
+                return GetCorSlowSQL();
 
-        public Color GetCorSlowSQL()
+            return GetCorFrente();
+        }
+
+        private Color GetCorSlowSQL()
         {
             if (Script.IsSlow)
                 return Padrao.cor_frente_erro;

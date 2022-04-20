@@ -16,7 +16,7 @@ namespace BlueRocket
 
         private void lstScripts_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
         {
-            Builder.SetFocus(prmScript: e.Item.Tag.ToString());
+            Builder.SetFocus(prmScript: GetTag(e.Item));
         }
 
         private void lstScripts_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -24,7 +24,7 @@ namespace BlueRocket
             ListViewItem item = GetListItem(prmMouseX: e.X, prmMouseY: e.Y);
 
             if (item != null)
-                Builder.DoubleClick(prmScript: item.Tag.ToString());
+                Builder.DoubleClick(prmScript: GetTag(item));
         }
 
         public bool IsMultiSelected => Builder.Structure.IsMultiSelected;
@@ -40,14 +40,23 @@ namespace BlueRocket
 
         public void Build() => Builder.Build();
 
-        public void ViewAll(bool prmCleanup) => Builder.ViewAll(prmCleanup);
+        public void ViewAll(bool prmSetup) => Builder.ViewAll(prmSetup);
 
         public void ViewScript(ScriptCLI prmScript) => Builder.ViewScript(prmScript);
+
+        public bool SetScript(ScriptCLI prmScript)
+        {
+            foreach (ListViewItem item in lstScripts.Items)
+                if (prmScript.IsMatch(GetTag(item)))
+                    { item.Focused = true; item.Selected = true; ; return true; }
+
+            return false;
+        }
 
         public bool FindScript(ScriptCLI prmScript)
         {
             foreach (ListViewItem item in lstScripts.Items)
-                if (prmScript.IsMatch(item.Tag.ToString()))
+                if (prmScript.IsMatch(GetTag(item)))
                     return true;
 
             return false;
@@ -56,7 +65,15 @@ namespace BlueRocket
         public void SetSelected()
         {
             foreach (ListViewItem item in lstScripts.SelectedItems)
-                Builder.Editor.Batch.Add(prmKey: item.Tag.ToString());
+                Builder.Editor.Batch.Add(prmKey: GetTag(item));
+
+            lstScripts.SelectedItems.Clear();
+        }
+
+        public void ViewSelections()
+        {
+            foreach (ScriptCLI Script in Builder.Editor.Batch.Select)
+                Builder.ViewScript(Script);
         }
 
         private ListViewItem GetListItem(int prmMouseX, int prmMouseY)
@@ -66,6 +83,8 @@ namespace BlueRocket
 
             return (item);
         }
+
+        private string GetTag(ListViewItem prmItem) => prmItem.Tag.ToString();
 
     }
 
@@ -96,7 +115,7 @@ namespace BlueRocket
 
             Structure.Setup();
 
-            Elements.ViewAll(prmCleanup: true);
+            ViewAll(prmSetup: true);
         }
 
         internal void Reset()
@@ -106,14 +125,14 @@ namespace BlueRocket
         
         internal void Build()
         {
-            Reset(); ViewAll(prmCleanup: true);
+            Reset(); ViewAll(prmSetup: true);
         }
 
-        internal void ViewAll(bool prmCleanup)
+        internal void ViewAll(bool prmSetup)
         {
-            Elements.ViewAll(prmCleanup);
+            Elements.ViewAll(prmSetup);
         }
-
+       
         internal void ViewScript(ScriptCLI prmScript)
         {
             Elements.ViewScript(prmScript);
@@ -167,14 +186,13 @@ namespace BlueRocket
 
             ListView.Columns.Clear();
 
-            ListView.Columns.Add("", 40, textAlign: HorizontalAlignment.Center);
+            ListView.Columns.Add("", 20, textAlign: HorizontalAlignment.Center);
+            ListView.Columns.Add("#", 40, textAlign: HorizontalAlignment.Center);
             ListView.Columns.Add("Script", 400);
-            ListView.Columns.Add("Status", 80, textAlign: HorizontalAlignment.Center);
-            ListView.Columns.Add("Filtro", 80, textAlign: HorizontalAlignment.Center);
-            ListView.Columns.Add("Testes", 80, textAlign: HorizontalAlignment.Center);
-            ListView.Columns.Add("Maior", 80, textAlign: HorizontalAlignment.Right);
-            ListView.Columns.Add("Média", 80, textAlign: HorizontalAlignment.Right);
-            ListView.Columns.Add("Total", 80, textAlign: HorizontalAlignment.Right);
+            ListView.Columns.Add("Tests", 80, textAlign: HorizontalAlignment.Center);
+            ListView.Columns.Add("Max", 80, textAlign: HorizontalAlignment.Center);
+            ListView.Columns.Add("Avg", 80, textAlign: HorizontalAlignment.Center);
+            ListView.Columns.Add("Sum", 80, textAlign: HorizontalAlignment.Center);
 
             Resource.qtde_colunas = ListView.Columns.Count;
 
@@ -199,29 +217,28 @@ namespace BlueRocket
         {
             Builder = prmBuilder;
         }
-        internal void ViewAll(bool prmCleanup) 
+
+        internal void ViewAll(bool prmSetup) 
         {
-            if (prmCleanup)
+            if (prmSetup)
                 ListView.Items.Clear();
 
             if (Editor.TemAtivos)
-                ViewScripts(prmCleanup);
+                ViewScripts(prmSetup);
         }
 
-        private void ViewScripts(bool prmCleanup)
+        private void ViewScripts(bool prmSetup)
         {
 
-            ListViewItem linha; int cont = 0; string index;
+            ListViewItem linha; int cont = 0;
 
             foreach (ScriptCLI Script in Editor.Project.Scripts.Ativos)
             {
 
-                if (prmCleanup)
+                if (prmSetup)
                 {
 
-                    index = myFormat.GetKey(cont + 1, 3);
-
-                    linha = ListView.Items.Add(index);
+                    linha = ListView.Items.Add("");
 
                     for (int x = 1; x < qtde_colunas; x++)
                         linha.SubItems.Add("");
@@ -231,55 +248,55 @@ namespace BlueRocket
                 
                 ViewScript(linha, Script);
 
-                ViewTAGS(Script, linha, prmCleanup);
+                ViewTAGS(Script, linha, prmSetup);
 
                 cont++;
 
             }
 
         }
-
         internal void ViewCurrent() => ViewScript(prmLinha: GetLineCurrent(), Editor.Script);
         internal void ViewScript(ScriptCLI prmScript) => ViewScript(prmLinha: FindScript(prmScript), prmScript);
         internal void ViewScript(ListViewItem prmLinha, ScriptCLI prmScript)
         {
+            if (prmLinha == null) return;
 
-            if (prmLinha != null)
+            string index; bool IsTimeColumn;
+
+            index = myFormat.GetKey(prmLinha.Index + 1, 3);
 
             prmLinha.Tag = prmScript.name;
 
+            prmLinha.ToolTipText = prmScript.status;
+
             prmLinha.ImageIndex = (int)prmScript.Status.id;
 
-            prmLinha.SubItems[1].Text = prmScript.name;
-            prmLinha.SubItems[2].Text = prmScript.Status.name;
-            prmLinha.SubItems[3].Text = prmScript.filtro;
-            prmLinha.SubItems[4].Text = prmScript.qtdTests;
-            prmLinha.SubItems[5].Text = prmScript.timeBigger;
-            prmLinha.SubItems[6].Text = prmScript.timeAverage;
-            prmLinha.SubItems[7].Text = prmScript.timeSeconds;
+            prmLinha.SubItems[1].Text = index;
+            prmLinha.SubItems[2].Text = prmScript.name;
+            prmLinha.SubItems[3].Text = prmScript.qtdTests;
+            prmLinha.SubItems[4].Text = prmScript.timeBigger;
+            prmLinha.SubItems[5].Text = prmScript.timeAverage;
+            prmLinha.SubItems[6].Text = prmScript.timeSeconds;
 
             prmLinha.UseItemStyleForSubItems = false;
 
             for (int x = 1; x < qtde_colunas; x++)
             {
-                if (x < 5)
-                    prmLinha.SubItems[x].ForeColor = prmScript.Cor.GetCorFrente();
-                else
-                    prmLinha.SubItems[x].ForeColor = prmScript.Cor.GetCorSlowSQL();
+                IsTimeColumn = (x >= qtde_colunas-3);  // Time: Bigger + Average + Seconds
 
+                prmLinha.SubItems[x].ForeColor = prmScript.Cor.GetCorFrente(IsTimeColumn);
                 prmLinha.SubItems[x].BackColor = prmScript.Cor.GetCorFundo();
             }
-
         }
 
-        private void ViewTAGS(ScriptCLI prmScript, ListViewItem prmLinha, bool prmCleanup)
+        private void ViewTAGS(ScriptCLI prmScript, ListViewItem prmLinha, bool prmSetup)
         {
 
             ListViewItem.ListViewSubItem celula; int cont = qtde_colunas;
 
             foreach (myTag Tag in prmScript.Tags)
             {
-                if (prmCleanup)
+                if (prmSetup)
                     prmLinha.SubItems.Add("");
 
                 celula = prmLinha.SubItems[cont];
@@ -295,16 +312,18 @@ namespace BlueRocket
 
         }
 
-        public ListViewItem FindScript(ScriptCLI prmScript)
+        private ListViewItem FindScript(ScriptCLI prmScript)
         {
             foreach (ListViewItem item in ListView.Items)
                 if (prmScript.IsMatch(item.Tag.ToString()))
                     return item;
-            //{ item.Selected = true; item.Focused = true; return true; }
 
             return null;
         }
-
+        private ScriptCLI FindScript(ListViewItem prmItem)
+        {
+            return Editor.Project.GetScript(prmName: prmItem.Tag.ToString());
+        }
 
         private ListViewItem GetLineCurrent() => ListView.SelectedItems[0];
 
@@ -331,8 +350,6 @@ namespace BlueRocket
 
         internal ListView ListView;
 
-        internal ImageList ListImage;
-
         internal int qtde_colunas;
 
         internal PageResource(PageBuilder prmBuilder)
@@ -352,17 +369,18 @@ namespace BlueRocket
         {
             Editor = prmEditor;
 
-            ListImage = new ImageList();
-
-            ListView.SmallImageList = ListImage;
+            ListView.SmallImageList = GetViewImages(new ImageList());
         }
 
-        private void LoadViewImages()
+        private ImageList GetViewImages(ImageList prmListImage)
         {
-            ListImage.Images.Add(Properties.Resources.menu);
-            ListImage.Images.Add(Properties.Resources.play);
-            ListImage.Images.Add(Properties.Resources.confirm);
-            ListImage.Images.Add(Properties.Resources.cancel);
+            prmListImage.Images.Add(Properties.Resources.menu);
+            prmListImage.Images.Add(Properties.Resources.play);
+            prmListImage.Images.Add(Properties.Resources.confirm);
+            prmListImage.Images.Add(Properties.Resources.cancel);
+
+            return prmListImage;
+
         }
 
     }

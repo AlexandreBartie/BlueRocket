@@ -43,6 +43,7 @@ namespace BlueRocket
         public event Notify_SelectedPlayAll SelectedPlayAll;
         public event Notify_SelectedSaveAll SelectedSaveAll;
 
+        public event Notify_BatchStart BatchStart;
         public event Notify_BatchSet BatchSet;
         public event Notify_BatchEnd BatchEnd;
 
@@ -128,6 +129,11 @@ namespace BlueRocket
         {
             SelectedSaveAll?.Invoke();
         }
+        public void OnBatchStart()
+        {
+            BatchStart?.Invoke();
+        }
+
         public void OnBatchSet(ScriptCLI prmScript)
         {
             BatchSet?.Invoke(prmScript);
@@ -252,11 +258,6 @@ namespace BlueRocket
         }
         
         public void Build() { Project.Setup(); Filter.Setup(); }
-
-        //public void PagePaintStart() => Page.Start();
-        //public void PagePaintEnd() => Page.End();
-
-        //public void SelScript(string prmName, bool prmChecked) => Batch.SetScript(prmName, prmChecked);
 
         public bool SetScript(ScriptCLI prmScript) => Project.SetScript(prmScript);
         public bool SetScript(string prmName) => Project.SetScript(prmName);

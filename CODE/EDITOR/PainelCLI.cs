@@ -38,6 +38,10 @@ namespace BlueRocket
         public void Show() => View.Show();
         public void Hide() => View.Hide();
 
+
+        public bool SetScript(ScriptCLI prmScript) => View.SetScript(prmScript);
+        public bool FindScript(ScriptCLI prmScript) => View.FindScript(prmScript);
+
         public void SetAction(string prmTexto) => View.SetAction(prmTexto);
 
     }
@@ -79,9 +83,12 @@ namespace BlueRocket
                 FormMain.Hide();
         }
 
-        public void SetSelected() => FormMain.SetSelected();
-
         public void SetAction(string prmTexto) => FormMain.SetAction(prmTexto);
+
+        public bool SetScript(ScriptCLI prmScript) => FormMain.SetScript(prmScript);
+        public bool FindScript(ScriptCLI prmScript) => FormMain.FindScript(prmScript);
+
+        public void SetSelected() => FormMain.SetSelected();
 
         private void CreateFormMain() => FormMain = new frmMainCLI(Editor);
 

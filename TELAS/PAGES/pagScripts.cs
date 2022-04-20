@@ -54,10 +54,14 @@ namespace BlueRocket
             usrTestTags.Build();
         }
 
+        public void ViewSelections() => usrTestScripts.ViewSelections();
+
+        public void ViewAll(bool prmSetup) => usrTestScripts.ViewAll(prmSetup);
+
+        public void ViewScript() => ViewScript(Editor.Project.Script);
         public void ViewScript(ScriptCLI prmScript) => usrTestScripts.ViewScript(prmScript);
 
-        public void ViewAll(bool prmCleanup) => usrTestScripts.ViewAll(prmCleanup);
-
+        public bool SetScript(ScriptCLI prmScript) => usrTestScripts.SetScript(prmScript);
         public bool FindScript(ScriptCLI prmScript) => usrTestScripts.FindScript(prmScript);
 
     }

@@ -34,7 +34,7 @@ namespace BlueRocket
 
         public void Setup()
         {
-            Scripts = new ScriptsCLI(Editor);
+            Scripts = new ScriptsCLI(Editor).Setup();
         }
 
         public bool SetScript(ScriptCLI prmScript) => Scripts.SetScript(prmScript);
@@ -71,6 +71,7 @@ namespace BlueRocket
         public DataTags Tags => Script.Tags;
 
         public string name => Result.name_INI;
+        public string status => Status.name;
         public int qtdSql => Result.SQL.qtde;
 
         public string qtdTests => Result.SQL.qtdTestsTXT;
@@ -86,7 +87,7 @@ namespace BlueRocket
 
         public bool IsMatch(string prmTexto) => myString.IsMatch(name, prmTexto);
 
-        public bool IsAtived => GetActived();
+        public bool IsAtived => true; // GetActived();
         public bool IsSelected => Editor.Batch.Select.IsSelected(this);
 
         public bool IsPlaying = false;
@@ -164,6 +165,8 @@ namespace BlueRocket
     {
         private ScriptCLI Script;
 
+        private EditorCLI Editor => Script.Editor;
+
         public string name => GetStatus();
         public eScriptStatus id => GetIdStatus();
 
@@ -194,13 +197,17 @@ namespace BlueRocket
 
         private eScriptStatus GetIdStatus()
         {
-            if (Script.IsAtived)
+            
+            if (Editor.IsRunning)
+                if (Script.IsSelected)
+                    return eScriptStatus.Selected;
+
+            if (Script.IsResult)
 
                 if (Script.IsLogError)
-                return eScriptStatus.Error;
-
-            else if (Script.IsResult)
-                return eScriptStatus.Ok;
+                    return eScriptStatus.Error;
+                else
+                    return eScriptStatus.Ok;
 
             return eScriptStatus.Nothing;
         }
@@ -218,7 +225,6 @@ namespace BlueRocket
         public ScriptCLI Corrente;
 
         public bool TemScripts => (Count > 0);
-
         public bool TemAtivos => Ativos.TemScripts;
 
         public ScriptsCLI Ativos => GetAtivos();
@@ -226,14 +232,14 @@ namespace BlueRocket
         public ScriptsCLI(EditorCLI prmEditor)
         {
             Editor = prmEditor;
-
-            Popular();
         }
 
-        private void Popular()
+        public ScriptsCLI Setup()
         {
             foreach (TestScript Script in Console.Scripts)
                 Add(Script);
+            
+            return this;
         }
 
         private void Add(TestScript prmScript) => base.Add(new ScriptCLI(prmScript, Editor));

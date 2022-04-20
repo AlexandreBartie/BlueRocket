@@ -156,9 +156,7 @@ namespace BlueRocket
             Remove(Current);
 
             if (Count != 0)
-                Current = this[Count - 1];
-
-        
+                Current = this[Count - 1];      
         }
 
         public void OnProjectOpen(string prmArquivoCFG)
