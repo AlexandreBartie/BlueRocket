@@ -31,12 +31,12 @@ namespace BlueRocket
         public void View()
         {
 
-            rodMultiSelect.Visible = Editor.TemScript;
+            rodMultiSelect.Visible = Editor.HasScript;
 
             rodSeparator.Visible = Editor.IsRunning;
             rodProgressBar.Visible = Editor.IsRunning;
 
-            rodStatusDB.Visible = Editor.TemProject;
+            rodStatusDB.Visible = Editor.HasScript;
 
             Editor.Format.SetTurnOnOff(prmON: Editor.IsDbOK, rodDBStatusOnLine, rodDBStatusOffLine, rodStatusDB);
 

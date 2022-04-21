@@ -45,9 +45,9 @@ namespace BlueRocket
 
         public new void Refresh()
         {
-            rodStatus.Visible = Editor.TemScript;
+            rodStatus.Visible = Editor.HasScript;
 
-            if (Editor.TemScript)
+            if (Editor.HasScript)
             {
                 Editor.Format.SetTurnOnOff(prmON: Editor.Script.ICanEdit, rodCodeEditionON, rodCodeEditionOFF);
 

@@ -36,10 +36,9 @@ namespace BlueRocket
 
         public bool IsMultiSelected => pagScripts.IsMultiSelected;
 
-        public bool SetScript(ScriptCLI prmScript) => pagScripts.SetScript(prmScript);
         public bool FindScript(ScriptCLI prmScript) => pagScripts.FindScript(prmScript);
 
-        public void SetSelected() => pagScripts.SetSelected();
+        public void GetSelected() => pagScripts.GetSelected();
 
         public frmMainCLI(EditorCLI prmEditor)
         {
@@ -105,7 +104,7 @@ namespace BlueRocket
         internal void OnScriptLocked() => Editor.CodeLocked();
         private void OnFilterTagChecked(string prmTag, string prmOption, bool prmChecked) => Project.SetFilter(prmTag, prmOption, prmChecked);
 
-        internal void OnScriptView() { pagScripts.ViewScript(); pagEdition.View(); MenuStatusView(); }
+        internal void OnScriptView() { pagScripts.ViewCurrent(); pagEdition.View(); MenuStatusView(); }
 
         internal void OnScriptLogOK() => pagEdition.ViewResult(prmPage: ePageResult.ePageMassaDados);
         internal void OnScriptLogError() => pagEdition.ViewResult(prmPage: ePageResult.ePageLogErrors);
@@ -125,7 +124,8 @@ namespace BlueRocket
         private void OnSelectedSaveAll() => Process.SelectedPlaySaveAll(prmPlay: false, prmSave: true);
 
         private void OnBatchStart() => pagScripts.ViewSelections();
-        private void OnBatchSet(ScriptCLI prmScript) => pagScripts.ViewScript(prmScript);
+        private void OnBatchSet() => pagScripts.ViewCurrent();  
+
         private void OnBatchEnd() => usrMenu.Refresh();
 
         internal void MenuStatusView() { usrStatus.View(); usrMenu.View(); }
@@ -167,7 +167,6 @@ namespace BlueRocket
             Build();
         }
 
-
         internal void Build()
         {
             Editor.Build();
@@ -200,7 +199,7 @@ namespace BlueRocket
 
         internal bool AskForExit()
         {
-            if (Editor.TemProject)
+            if (Editor.HasProject)
                 if (myMessage.ToConfirm("Do you really want to close this application?", "Exit Application"))
                     Editor.Exit();
                 else
@@ -237,8 +236,6 @@ namespace BlueRocket
 
                     if (prmSave)
                         Main.OnScriptSave();
-
-                    Main.OnScriptView();
 
                     Main.OnScriptView();
 

@@ -16,6 +16,8 @@ namespace BlueRocket
 
         private void frmStart_Activated(object sender, EventArgs e) => App.Action.OnProjectDirect();
 
+        private void chkLoadAutomatic_CheckedChanged(object sender, EventArgs e) => App.Load.History.SetAutoProjectLoad(chkAutoLoad.Checked);
+
         private void lstHistory_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             ListViewItem item = GetListItem(prmMouseX: e.X, prmMouseY: e.Y);
@@ -28,7 +30,7 @@ namespace BlueRocket
         private void frmStart_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (App.IsWorking)
-            { Hide(); e.Cancel = true; }
+                { Hide(); e.Cancel = true; }
             else
                 e.Cancel = false;
         }
@@ -49,6 +51,10 @@ namespace BlueRocket
 
             foreach (FileLoaded File in App.Load.History)
                 ViewDetails(File);
+
+            chkAutoLoad.Visible = App.Load.HasHistory;
+
+            chkAutoLoad.Checked = App.Load.History.IsAutoLoad;
         }
 
         private void ViewDetails(FileLoaded prmFile)

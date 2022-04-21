@@ -81,7 +81,7 @@ namespace BlueRocket
 
         public void View()
         {
-            if (Editor.TemScript)
+            if (Editor.HasScript)
                 if (trvProjeto.SelectedNode != null)
                     SetNodeColor(prmNode: trvProjeto.SelectedNode, prmCor: Editor.Script.Cor.GetCor());
         }

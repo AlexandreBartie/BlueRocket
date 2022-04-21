@@ -17,13 +17,11 @@ namespace BlueRocket
         private void txtCode_TextChanged(object sender, EventArgs e)
         {
 
-            if (Editor.TemScript)
+            if (Editor.HasScript)
             {
-
                 Editor.Console.SetCode(txtCode.Text);
 
                 Editor.OnScriptCodeChanged();
-
             }
 
         }
@@ -52,7 +50,7 @@ namespace BlueRocket
         public void View()
         {
 
-            if (Editor.TemScript)
+            if (Editor.HasScript)
             {
 
                 SetTitle(prmText: Editor.Script.title);

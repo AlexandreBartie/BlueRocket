@@ -29,7 +29,7 @@ namespace BlueRocket
 
         public bool IsMultiSelected => usrTestScripts.IsMultiSelected;
 
-        public void SetSelected() => usrTestScripts.SetSelected();
+        public void GetSelected() => usrTestScripts.GetSelected();
 
         public pagScripts()
         {
@@ -58,10 +58,9 @@ namespace BlueRocket
 
         public void ViewAll(bool prmSetup) => usrTestScripts.ViewAll(prmSetup);
 
-        public void ViewScript() => ViewScript(Editor.Project.Script);
         public void ViewScript(ScriptCLI prmScript) => usrTestScripts.ViewScript(prmScript);
+        public void ViewCurrent() => usrTestScripts.ViewCurrent();
 
-        public bool SetScript(ScriptCLI prmScript) => usrTestScripts.SetScript(prmScript);
         public bool FindScript(ScriptCLI prmScript) => usrTestScripts.FindScript(prmScript);
 
     }

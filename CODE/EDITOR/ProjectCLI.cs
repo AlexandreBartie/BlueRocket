@@ -13,11 +13,11 @@ namespace BlueRocket
 
         public DataTags Tags => Editor.Config.Global.Tags;
 
-        public ScriptCLI Script => Scripts.Corrente;
+        public ScriptCLI Script => Scripts.Current;
 
-        public bool TemScript => (Script != null);
-        public bool TemScripts => (Scripts.TemScripts);
-        public bool TemAtivos => (IsLoad && Scripts.TemAtivos);
+        public bool HasScript => (Script != null);
+        public bool HasScripts => (Scripts.HasScripts);
+        public bool HasAtivos => (IsLoad && Scripts.HasAtivos);
 
         public TestConsole Console => Editor.Console;
         public TestConsoleConfig Config => Editor.Config;
@@ -37,8 +37,8 @@ namespace BlueRocket
             Scripts = new ScriptsCLI(Editor).Setup();
         }
 
-        public bool SetScript(ScriptCLI prmScript) => Scripts.SetScript(prmScript);
         public bool SetScript(string prmName) => Scripts.SetScript(GetScript(prmName));
+        public bool SetScript(ScriptCLI prmScript) => Scripts.SetScript(prmScript);
 
         public ScriptCLI GetScript(string prmName) => Scripts.GetScript(prmName);
 
@@ -87,12 +87,14 @@ namespace BlueRocket
 
         public bool IsMatch(string prmTexto) => myString.IsMatch(name, prmTexto);
 
-        public bool IsAtived => true; // GetActived();
+        public bool IsAtived => GetActived();
         public bool IsSelected => Editor.Batch.Select.IsSelected(this);
 
         public bool IsPlaying = false;
 
         public bool IsLocked = true;
+
+        public bool IsOutdated=> (Result.IsOutdated);
         public bool IsChanged => (Result.IsChanged);
         public bool IsResult => (Result.IsData);
 
@@ -147,73 +149,12 @@ namespace BlueRocket
         {
             foreach (myTag Tag in Script.Tags)
                 if (!Editor.Filter.IsMatch(Tag.name, Tag.value))
-                    return false;
+                    return true;
 
             return true;
         }
 
     }
-
-    public enum eScriptStatus
-    {
-        Nothing = 0,
-        Selected = 1,
-        Ok = 2,
-        Error = 3
-    };
-    public class ScriptStatusCLI
-    {
-        private ScriptCLI Script;
-
-        private EditorCLI Editor => Script.Editor;
-
-        public string name => GetStatus();
-        public eScriptStatus id => GetIdStatus();
-
-        public ScriptStatusCLI(ScriptCLI prmScript)
-        {
-            Script = prmScript;
-        }
-
-        private string GetStatus()
-        {
-            switch (id)
-            {
-                case eScriptStatus.Nothing:
-                    return "-";
-
-                case eScriptStatus.Selected:
-                    return "*";
-
-                case eScriptStatus.Ok:
-                    return "Ok";
-
-                case eScriptStatus.Error:
-                    return "Error";
-            }
-
-            return "X";
-        }
-
-        private eScriptStatus GetIdStatus()
-        {
-            
-            if (Editor.IsRunning)
-                if (Script.IsSelected)
-                    return eScriptStatus.Selected;
-
-            if (Script.IsResult)
-
-                if (Script.IsLogError)
-                    return eScriptStatus.Error;
-                else
-                    return eScriptStatus.Ok;
-
-            return eScriptStatus.Nothing;
-        }
-
-    }
-
 
     public class ScriptsCLI : List<ScriptCLI>
     {
@@ -222,10 +163,10 @@ namespace BlueRocket
 
         private TestConsole Console => Editor.Console;
 
-        public ScriptCLI Corrente;
+        public ScriptCLI Current;
 
-        public bool TemScripts => (Count > 0);
-        public bool TemAtivos => Ativos.TemScripts;
+        public bool HasScripts => (Count > 0);
+        public bool HasAtivos => Ativos.HasScripts;
 
         public ScriptsCLI Ativos => GetAtivos();
 
@@ -248,7 +189,7 @@ namespace BlueRocket
         {
             if (prmScript != null)
             {
-                Corrente = prmScript;
+                Current = prmScript;
 
                 return Sincronizar();
             }
@@ -266,7 +207,7 @@ namespace BlueRocket
             return null;
         }
 
-        private bool Sincronizar() => Console.SetScript(prmKey: Corrente.name);
+        private bool Sincronizar() => Console.SetScript(prmKey: Current.name);
 
         private ScriptsCLI GetAtivos()
         {

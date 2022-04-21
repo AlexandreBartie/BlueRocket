@@ -15,17 +15,22 @@ namespace BlueRocket
 
         public myColor GetCor(myTag prmTag)
         {
-            return new myColor(GetCorFrente(prmTag), GetCorFundo(prmTag));
+            return new myColor(GetCorFrente(prmTag, prmDestacar: false), GetCorFundo(prmTag));
         }
-        public Color GetCorFrente(myTag prmTag)
+        public Color GetCorFrente(myTag prmTag) => GetCorFrente(prmTag, prmDestacar: true);
+        private Color GetCorFrente(myTag prmTag, bool prmDestacar)
         {
+            if (prmTag.IsPadrao && prmDestacar)
+                return Padrao.cor_frente_destaque;
+
             return Padrao.cor_frente_consulta;
         }
+
         public Color GetCorFundo(myTag prmTag)
         {
             if (prmTag.IsPadrao)
-                return Color.Blue;
-            
+                return Padrao.cor_fundo_destaque;
+
             return Padrao.cor_fundo_padrao;
         }
     }
@@ -42,6 +47,9 @@ namespace BlueRocket
         }
         public Color GetCorFrente(myTagOption prmTagOption)
         {
+            if (prmTagOption.IsPadrao)
+                return Padrao.cor_frente_destaque;
+
             return Padrao.cor_frente_consulta;
         }
         public Color GetCorFundo(myTagOption prmTagOption)

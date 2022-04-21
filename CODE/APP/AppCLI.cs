@@ -138,9 +138,9 @@ namespace BlueRocket
 
         public void Start()
         {
-            //if (App.Load.TemHistory)
-              //  Open(prmArquivoCFG: App.Load.project_lastAcess);
-            //else
+            if (App.Load.IsAutoLoad)
+                Open(prmArquivoCFG: App.Load.History.lastAccess);
+            else
                 Current.Show();
         }
         public void Open(string prmArquivoCFG) => Current.Open(prmArquivoCFG);

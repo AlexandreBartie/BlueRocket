@@ -34,7 +34,7 @@
             this.lblHistorico = new System.Windows.Forms.Label();
             this.cmdExit = new System.Windows.Forms.Button();
             this.lblFramework = new System.Windows.Forms.Label();
-            this.chkLoadAutomatic = new System.Windows.Forms.CheckBox();
+            this.chkAutoLoad = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // cmdOpenProject
@@ -97,22 +97,23 @@
             this.lblFramework.Text = "blue rocket 2022";
             this.lblFramework.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // chkLoadAutomatic
+            // chkAutoLoad
             // 
-            this.chkLoadAutomatic.AutoSize = true;
-            this.chkLoadAutomatic.BackColor = System.Drawing.SystemColors.Info;
-            this.chkLoadAutomatic.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.chkLoadAutomatic.FlatAppearance.BorderSize = 4;
-            this.chkLoadAutomatic.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.chkLoadAutomatic.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.chkLoadAutomatic.Location = new System.Drawing.Point(376, 73);
-            this.chkLoadAutomatic.Name = "chkLoadAutomatic";
-            this.chkLoadAutomatic.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.chkLoadAutomatic.Size = new System.Drawing.Size(211, 22);
-            this.chkLoadAutomatic.TabIndex = 5;
-            this.chkLoadAutomatic.Text = "Load last project automatically";
-            this.chkLoadAutomatic.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.chkLoadAutomatic.UseVisualStyleBackColor = false;
+            this.chkAutoLoad.AutoSize = true;
+            this.chkAutoLoad.BackColor = System.Drawing.SystemColors.Info;
+            this.chkAutoLoad.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.chkAutoLoad.FlatAppearance.BorderSize = 4;
+            this.chkAutoLoad.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.chkAutoLoad.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.chkAutoLoad.Location = new System.Drawing.Point(404, 73);
+            this.chkAutoLoad.Name = "chkAutoLoad";
+            this.chkAutoLoad.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.chkAutoLoad.Size = new System.Drawing.Size(183, 22);
+            this.chkAutoLoad.TabIndex = 5;
+            this.chkAutoLoad.Text = "Auto-Loading Last Project";
+            this.chkAutoLoad.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.chkAutoLoad.UseVisualStyleBackColor = false;
+            this.chkAutoLoad.CheckedChanged += new System.EventHandler(this.chkLoadAutomatic_CheckedChanged);
             // 
             // frmStart
             // 
@@ -122,7 +123,7 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(800, 469);
             this.Controls.Add(this.lstHistory);
-            this.Controls.Add(this.chkLoadAutomatic);
+            this.Controls.Add(this.chkAutoLoad);
             this.Controls.Add(this.lblFramework);
             this.Controls.Add(this.cmdExit);
             this.Controls.Add(this.cmdOpenProject);
@@ -146,6 +147,6 @@
         private System.Windows.Forms.Label lblHistorico;
         private System.Windows.Forms.Button cmdExit;
         private System.Windows.Forms.Label lblFramework;
-        private System.Windows.Forms.CheckBox chkLoadAutomatic;
+        private System.Windows.Forms.CheckBox chkAutoLoad;
     }
 }

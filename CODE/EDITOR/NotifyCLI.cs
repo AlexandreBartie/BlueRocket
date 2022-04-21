@@ -23,7 +23,7 @@ namespace BlueRocket
     public delegate void Notify_MultiSelect(bool prmAtivar);
 
     public delegate void Notify_BatchStart();
-    public delegate void Notify_BatchSet(ScriptCLI prmScript);
+    public delegate void Notify_BatchSet();
     public delegate void Notify_BatchEnd();
 
     public delegate void Notify_SelectedPlayAll();

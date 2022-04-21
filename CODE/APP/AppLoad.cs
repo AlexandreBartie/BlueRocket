@@ -15,14 +15,13 @@ namespace BlueRocket
 
         public LoadHistory History;
 
+        public bool HasHistory => History.IsFull;
+
+        public bool IsAutoLoad => History.IsAutoLoad;
         public bool IsDirect => Direct.IsFull;
-        public bool TemHistory => History.IsFull;
-
         public bool IsWorking => Direct.IsWorking;
-        public string project_name => History.name;
 
-        public string project_lastAcess => History.lastAcess;
-
+        public string project_name => History.actualAccess;
 
         public AppLoad(AppCLI prmApp)
         {
@@ -109,9 +108,11 @@ namespace BlueRocket
 
         private FileLoaded Current;
 
-        public string name => Current.name;
         public bool IsFull => (this.Count > 0);
-        public string lastAcess => GetLastAcess();
+        public bool IsAutoLoad { get { if (IsFull) return Register.Start.IsAutoLoad; return false; } }
+
+        public string actualAccess => Current.name;
+        public string lastAccess => GetLastAcess();
 
         public LoadHistory(AppLoad prmLoad)
         {
@@ -126,19 +127,21 @@ namespace BlueRocket
                 AddItem(new FileLoaded(prmFile: name, prmLoaded: Register.History.GetDateTimeLoaded(name)));              
         }
 
-        private void AddItem(FileLoaded prmFile)
-        {
-            if (prmFile.IsExists())
-                Add(prmFile);
-        }
-
         public void NewFile(string prmFileCFG)
         {
             Current = new FileLoaded(prmFileCFG);
 
             Check();
 
-            Save();          
+            Save();
+        }
+
+        public void SetAutoProjectLoad(bool prmAtivar) => Register.Start.IsAutoLoad = prmAtivar;
+
+        private void AddItem(FileLoaded prmFile)
+        {
+            if (prmFile.IsExists())
+                Add(prmFile);
         }
 
         private void Check()

@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using Dooggy.LIBRARY;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -16,72 +17,57 @@ namespace BlueRocket
             root = new myRegisterKey(GetTypeRoot()).Node(prmRoot);
         }
 
+        public myRegisterKey Get() => root;
+
         public myRegisterKey Node(string prmKey) => root.Node(prmKey);
 
-        public void Clear(string prmKey)
-        {
-            root.Clear(prmKey);
-        }
+        public void Clear(string prmKey) => root.Clear(prmKey);
 
         private RegistryKey GetTypeRoot() => Registry.CurrentUser;
 
     }
-    public class myRegisterKey
+    public class myRegisterKey : myRegisterKeyFormats
     {
-
-        internal RegistryKey key;
 
         public string name => key.Name;
 
-        public string[] SubKeys => key.GetSubKeyNames();
-        public string[] SubNames => key.GetValueNames();
-
-        public myRegisterKey(RegistryKey prmKey)
-        {
-            key = prmKey;
-        }
+        public myRegisterKey(RegistryKey prmKey) : base(prmKey) { }
 
         public myRegisterKey Node(string prmKey)
         {
             return new myRegisterKey(GetSubKey(prmKey));
         }
 
-        public void Data(string prmName, object prmValue)
+        public void SetData(string prmName, object prmValue)
         {
             key.SetValue(prmName, prmValue);
         }
 
-        public object GetValue(string prmName) => key.GetValue(prmName);
-
         public RegistryKey GetSubKey(string prmName) => key.CreateSubKey(prmName);
+
+        public object GetValue(string prmName) => key.GetValue(prmName);
 
         public void Clear(string prmSubKey)
         {
-            key.DeleteSubKey(prmSubKey);
-            
-            
-            //ClearValues();
+            if (key.OpenSubKey(prmSubKey) != null)
+                key.DeleteSubKeyTree(prmSubKey);
         }
-
-        private void ClearKeys()
-        {
-            //foreach (string name in SubKeys)
-                //key.DeleteSubKey(name);
-        }
-
-        private void ClearValues()
-        {
-            //foreach (string name in SubNames)
-                //key.DeleteValue(name);
-        }
-
     }
 
-    public class myRegisterClear
+    public class myRegisterKeyFormats
     {
+        internal RegistryKey key;
 
+        public string[] SubKeys => key.GetSubKeyNames();
+        public string[] SubNames => key.GetValueNames();
 
+        public myRegisterKeyFormats(RegistryKey prmKey)
+        {
+            key = prmKey;
+        }
 
+        public string GetString(string prmName) => (string)key.GetValue(prmName);
+        public bool GetBoolean(string prmName) => myString.IsMatch(GetString(prmName), "sim");
 
     }
 

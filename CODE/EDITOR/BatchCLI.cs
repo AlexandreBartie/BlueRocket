@@ -40,13 +40,11 @@ namespace BlueRocket
         public bool Set(ScriptCLI prmScript)
         {
 
-            if (Editor.Painel.SetScript(prmScript))
+            if (Editor.FindScript(prmScript))
             {
                 Editor.SetScript(prmScript); cont += 1;
 
-                Editor.OnScriptCodeSelect();
-
-                Editor.OnBatchSet(prmScript);
+                Editor.OnBatchSet();
 
                 return true;
             }
@@ -77,7 +75,7 @@ namespace BlueRocket
         }
         public void Reset() => Clear();
 
-        public void Setup() => Editor.View.SetSelected();
+        public void Setup() => Editor.View.GetSelected();
 
         public void AddScript(string prmKey)
         {

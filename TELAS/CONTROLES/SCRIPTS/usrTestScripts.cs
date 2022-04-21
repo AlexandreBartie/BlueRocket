@@ -27,7 +27,7 @@ namespace BlueRocket
                 Builder.DoubleClick(prmScript: GetTag(item));
         }
 
-        public bool IsMultiSelected => Builder.Structure.IsMultiSelected;
+        public bool IsMultiSelected => Builder.Resource.IsMultiSelected;
 
         public usrTestScripts()
         {
@@ -40,31 +40,25 @@ namespace BlueRocket
 
         public void Build() => Builder.Build();
 
-        public void ViewAll(bool prmSetup) => Builder.ViewAll(prmSetup);
+        public void SetFocus(ScriptCLI prmScript) => Builder.SetFocus(prmScript);
 
+        public void ViewAll(bool prmSetup) => Builder.ViewAll(prmSetup);
         public void ViewScript(ScriptCLI prmScript) => Builder.ViewScript(prmScript);
 
-        public bool SetScript(ScriptCLI prmScript)
-        {
-            foreach (ListViewItem item in lstScripts.Items)
-                if (prmScript.IsMatch(GetTag(item)))
-                    { item.Focused = true; item.Selected = true; ; return true; }
-
-            return false;
-        }
+        public void ViewCurrent() { Builder.ViewCurrent(); }
 
         public bool FindScript(ScriptCLI prmScript)
         {
-            foreach (ListViewItem item in lstScripts.Items)
+            foreach (ListViewItem item in Builder.Resource.Itens)
                 if (prmScript.IsMatch(GetTag(item)))
-                    return true;
+                    { item.Focused = true; item.Selected = true; return true; }
 
             return false;
         }
 
-        public void SetSelected()
+        public void GetSelected()
         {
-            foreach (ListViewItem item in lstScripts.SelectedItems)
+            foreach (ListViewItem item in Builder.Resource.Selecionados)
                 Builder.Editor.Batch.Add(prmKey: GetTag(item));
 
             lstScripts.SelectedItems.Clear();
@@ -132,10 +126,14 @@ namespace BlueRocket
         {
             Elements.ViewAll(prmSetup);
         }
-       
+
+        internal void ViewCurrent()
+        {
+            Elements.ViewScript(Editor.Script); //Resource.SetFocus();
+        }
         internal void ViewScript(ScriptCLI prmScript)
         {
-            Elements.ViewScript(prmScript);
+            Elements.ViewScript(prmScript); 
         }
 
         internal void DoubleClick(string prmScript)
@@ -146,24 +144,22 @@ namespace BlueRocket
                 Editor.OnScriptCodeLocked();
 
             if (Editor.Script.ICanPlay)
-            { Editor.OnScriptCodePlay(); Elements.ViewScript(prmScript: Editor.Script); }
+            { Editor.OnScriptCodePlay(); ViewCurrent(); }
         }
 
-        internal void SetFocus(string prmScript)
+        internal void SetFocus(string prmScript) => SetFocus(Editor.Project.GetScript(prmScript));
+        internal void SetFocus(ScriptCLI prmScript)
         {
-            Editor.SetScript(prmName: prmScript);
+            Editor.SetScript(prmScript);
 
             Editor.OnScriptCodeSelect();
         }
-
     }
     internal class PageStructure : PageBase
     {
 
         private PageResource Resource => Builder.Resource;
         private PageElements Elements => Builder.Elements;
-
-        internal bool IsMultiSelected => (ListView.SelectedItems.Count > 1);
 
         internal PageStructure(PageBuilder prmBuilder)
         {
@@ -202,7 +198,7 @@ namespace BlueRocket
 
         private void CabecalhoTags()
         {
-            if (Editor.TemProject)
+            if (Editor.HasProject)
             {
                 foreach (myTag Tag in Editor.Project.Tags)
                     ListView.Columns.Add(Tag.name, -2, textAlign: HorizontalAlignment.Center);
@@ -223,7 +219,7 @@ namespace BlueRocket
             if (prmSetup)
                 ListView.Items.Clear();
 
-            if (Editor.TemAtivos)
+            if (Editor.HasAtivos)
                 ViewScripts(prmSetup);
         }
 
@@ -255,7 +251,6 @@ namespace BlueRocket
             }
 
         }
-        internal void ViewCurrent() => ViewScript(prmLinha: GetLineCurrent(), Editor.Script);
         internal void ViewScript(ScriptCLI prmScript) => ViewScript(prmLinha: FindScript(prmScript), prmScript);
         internal void ViewScript(ListViewItem prmLinha, ScriptCLI prmScript)
         {
@@ -268,8 +263,6 @@ namespace BlueRocket
             prmLinha.Tag = prmScript.name;
 
             prmLinha.ToolTipText = prmScript.status;
-
-            prmLinha.ImageIndex = (int)prmScript.Status.id;
 
             prmLinha.SubItems[1].Text = index;
             prmLinha.SubItems[2].Text = prmScript.name;
@@ -287,8 +280,12 @@ namespace BlueRocket
                 prmLinha.SubItems[x].ForeColor = prmScript.Cor.GetCorFrente(IsTimeColumn);
                 prmLinha.SubItems[x].BackColor = prmScript.Cor.GetCorFundo();
             }
+
+            ViewIcon(prmScript, prmLinha);
+
         }
 
+        private void ViewIcon(ScriptCLI prmScript, ListViewItem prmLinha) => prmLinha.ImageIndex = (int) prmScript.Status.id;
         private void ViewTAGS(ScriptCLI prmScript, ListViewItem prmLinha, bool prmSetup)
         {
 
@@ -304,7 +301,7 @@ namespace BlueRocket
                 celula.Text = Tag.value;
 
                 celula.ForeColor = Editor.Cor.Tag.GetCorFrente(Tag);
-                celula.ForeColor = Editor.Cor.Tag.GetCorFundo(Tag);
+                celula.BackColor = Editor.Cor.Tag.GetCorFundo(Tag);
 
                 cont++;
 
@@ -324,8 +321,6 @@ namespace BlueRocket
         {
             return Editor.Project.GetScript(prmName: prmItem.Tag.ToString());
         }
-
-        private ListViewItem GetLineCurrent() => ListView.SelectedItems[0];
 
     }
 
@@ -350,6 +345,12 @@ namespace BlueRocket
 
         internal ListView ListView;
 
+        internal bool IsMultiSelected => (ListView.SelectedItems.Count > 1);
+
+        internal ListView.ListViewItemCollection Itens => ListView.Items;
+        internal ListView.SelectedListViewItemCollection Selecionados => ListView.SelectedItems;
+
+
         internal int qtde_colunas;
 
         internal PageResource(PageBuilder prmBuilder)
@@ -357,6 +358,11 @@ namespace BlueRocket
             Builder = prmBuilder;
         }
 
+        internal void SetFocus()
+        {
+            ListView.Refresh();
+        }
+        
         internal void SetPage(UserControl prmPage, Control prmListView)
         {
             Page = (usrTestScripts)prmPage;
@@ -374,8 +380,11 @@ namespace BlueRocket
 
         private ImageList GetViewImages(ImageList prmListImage)
         {
-            prmListImage.Images.Add(Properties.Resources.menu);
+            prmListImage.Images.Add(Properties.Resources.locked);
+            prmListImage.Images.Add(Properties.Resources.edit);
+            prmListImage.Images.Add(Properties.Resources.save);
             prmListImage.Images.Add(Properties.Resources.play);
+            prmListImage.Images.Add(Properties.Resources.waiting);
             prmListImage.Images.Add(Properties.Resources.confirm);
             prmListImage.Images.Add(Properties.Resources.cancel);
 

@@ -14,12 +14,16 @@ namespace BlueRocket
         public Color cor_frente_consulta => Color.Black;
         public Color cor_frente_edicao => Color.DarkGreen;
         public Color cor_frente_modificado => Color.DarkBlue;
-        public Color cor_frente_erro => Color.DarkRed;
 
         public Color cor_fundo_padrao => Color.White;
         public Color cor_fundo_empty => Color.SeaShell;
+
+
+        public Color cor_frente_erro => Color.DarkRed;
         public Color cor_fundo_erro => Color.LightYellow;
-        public Color cor_fundo_destaque => Color.LightGray;
+
+        public Color cor_frente_destaque => Color.DarkSalmon;
+        public Color cor_fundo_destaque => Color.GhostWhite;
 
         public AppColor(AppCLI prmApp) : base(prmApp)
         {

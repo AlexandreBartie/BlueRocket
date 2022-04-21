@@ -44,10 +44,7 @@ namespace BlueRocket
         {
             try
             {
-                if (false)
-                    App.Start();
-                else
-                    App.Open(@"C:\MassaTestes\TestQA.cfg");
+                App.Start();
             }
             catch (Exception e)
             { Console.WriteLine(e.Message); };

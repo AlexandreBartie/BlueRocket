@@ -134,9 +134,9 @@ namespace BlueRocket
             BatchStart?.Invoke();
         }
 
-        public void OnBatchSet(ScriptCLI prmScript)
+        public void OnBatchSet()
         {
-            BatchSet?.Invoke(prmScript);
+            BatchSet?.Invoke();
         }
         public void OnBatchEnd()
         {
@@ -187,7 +187,7 @@ namespace BlueRocket
         }
         public void OnScriptPlaySave()
         {
-            OnScriptCodePlay(); ScriptCodeSave?.Invoke();
+            OnScriptCodeSave(); OnScriptCodePlay();
         }
         public void OnScriptCodeUndo()
         {
@@ -259,8 +259,13 @@ namespace BlueRocket
         
         public void Build() { Project.Setup(); Filter.Setup(); }
 
-        public bool SetScript(ScriptCLI prmScript) => Project.SetScript(prmScript);
+        public bool FindScript(ScriptCLI prmScript) => Painel.FindScript(prmScript);
+
+
         public bool SetScript(string prmName) => Project.SetScript(prmName);
+        public bool SetScript(ScriptCLI prmScript) => Project.SetScript(prmScript);
+
+        public bool SetFocus(ScriptCLI prmScript) => Project.SetScript(prmScript);
 
         public void CodeLocked(bool prmLocked) { Script.SetLocked(prmLocked); OnScriptCodeChanged(); }
         public void CodeLocked() { Script.SetLocked(); OnScriptCodeChanged(); }
@@ -296,28 +301,28 @@ namespace BlueRocket
 
         public bool IsDbOK => Console.IsDbOK;
 
-        public bool TemProject => Project.IsLoad;
-        public bool TemScript => Project.TemScript;
+        public bool HasProject => Project.IsLoad;
+        public bool HasScript => Project.HasScript;
 
-        public bool TemAtivos => Project.TemAtivos;
+        public bool HasAtivos => Project.HasAtivos;
 
-        public bool IsMassaDados => TemScript && ICanPlay;
+        public bool IsMassaDados => HasScript && ICanPlay;
 
         public bool IsFree => !(IsRunning);
         public bool IsRunning => Batch.IsRunning;
         public bool IsWorking => Load.IsWorking;
-        public bool IsPlaying { get { if (TemScript) return Script.IsPlaying; return false; } }
+        public bool IsPlaying { get { if (HasScript) return Script.IsPlaying; return false; } }
 
         public bool ICanExit => !IsPlaying;
 
         public bool ICanBatch => View.ICanBatch;
 
-        public bool ICanOpen => !TemProject && ICanExit;
-        public bool ICanClose => TemProject && ICanExit;
+        public bool ICanOpen => !HasProject && ICanExit;
+        public bool ICanClose => HasProject && ICanExit;
         public bool ICanRefresh => ICanClose;
 
         public bool ICanMultiSelect => ICanClose;
-        public bool ICanPlay => IsDbOK && Project.TemAtivos;
+        public bool ICanPlay => IsDbOK && Project.HasAtivos;
 
         public bool ICanPlayAll => ICanPlay && ICanBatch;
         public bool ICanSaveAll => ICanPlayAll;

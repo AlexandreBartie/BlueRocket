@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dooggy.LIBRARY;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -8,9 +9,10 @@ namespace BlueRocket
     {
         private AppCLI App;
 
-        public AppRegisterHistory History;
-
         internal myRegisterRoot root;
+
+        public AppRegisterStart Start;
+        public AppRegisterHistory History => Start.History;
 
         public AppRegister(AppCLI prmApp)
         {
@@ -18,29 +20,55 @@ namespace BlueRocket
 
             root = new myRegisterRoot(prmRoot: "BlueRocket");
 
-            History = new AppRegisterHistory(this);
+            Start = new AppRegisterStart(root.Get());
         }
 
     }
 
-    public class AppRegisterHistory
+    public class AppRegisterStart : AppRegisterBase
     {
-        private AppRegister Register;
 
-        private myRegisterKey History => Register.root.Node("History");
+        public AppRegisterHistory History;
 
-        public AppRegisterHistory(AppRegister prmRegister)
+        public bool IsAutoLoad
         {
-            Register = prmRegister;
+            get { return Local.GetBoolean("AutoLoad"); }
+
+            set { Local.SetData("AutoLoad", myBool.GetYesNo(value)); }
         }
 
-        public void Clear() => Register.root.Clear("History");
+        public AppRegisterStart(myRegisterKey prmNode) : base(prmKey: "Start", prmNode)
+        {
+            History = new AppRegisterHistory(Local);
+        }
+    }
 
-        public void Add(string prmName, object prmValue) => History.Data(prmName, prmValue);
+    public class AppRegisterHistory : AppRegisterBase
+    {
+    
+        public AppRegisterHistory(myRegisterKey prmParent) : base(prmKey: "History", prmParent) { }
 
-        public string[] LastOpenedProject => History.SubNames;
+        public string[] LastOpenedProject => Local.SubNames;
 
-        public DateTime GetDateTimeLoaded(string prmName) => DateTime.Parse(History.GetValue(prmName).ToString());
+        public DateTime GetDateTimeLoaded(string prmName) => DateTime.Parse(Local.GetString(prmName));
+
+    }
+
+    public class AppRegisterBase
+    {
+        public myRegisterKey Parent;
+
+        public myRegisterKey Local => Parent.Node(key);
+
+        private string key;
+
+        public AppRegisterBase(string prmKey, myRegisterKey prmParent)
+        {
+            Parent = prmParent; key = prmKey;
+        }
+        public void Clear() => Local.Clear(key);
+
+        public void Add(string prmName, object prmValue) => Local.SetData(prmName, prmValue);
 
     }
 
