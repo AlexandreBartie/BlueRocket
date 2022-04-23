@@ -30,23 +30,33 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(usrActionMenu));
             this.mnuMain = new System.Windows.Forms.MenuStrip();
-            this.mnuProject = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuProjectOpen = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuProjectClose = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuFileOpen = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuFileClose = new System.Windows.Forms.ToolStripMenuItem();
             this.SeparatorAction = new System.Windows.Forms.ToolStripSeparator();
-            this.mnuProjectRefresh = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuFileRefresh = new System.Windows.Forms.ToolStripMenuItem();
             this.SeparatorNew = new System.Windows.Forms.ToolStripSeparator();
             this.mnuNewWindow = new System.Windows.Forms.ToolStripMenuItem();
             this.SeparatorExit = new System.Windows.Forms.ToolStripSeparator();
-            this.mnuProjectExit = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuFileExit = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuProject = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuAutoLoad = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuDebugMode = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuScripts = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuLockedAll = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuUnlockedAll = new System.Windows.Forms.ToolStripMenuItem();
             this.Separator = new System.Windows.Forms.ToolStripSeparator();
             this.mnuPlayAll = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuSaveAll = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuView = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuViewScript = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuViewScriptCount = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuViewScriptTime = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuViewScriptTags = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuAbout = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuAutoSave = new System.Windows.Forms.ToolStripMenuItem();
+            this.SeparatorMode = new System.Windows.Forms.ToolStripSeparator();
             this.mnuMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -55,8 +65,10 @@
             this.mnuMain.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.mnuMain.GripStyle = System.Windows.Forms.ToolStripGripStyle.Visible;
             this.mnuMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuFile,
             this.mnuProject,
             this.mnuScripts,
+            this.mnuView,
             this.mnuHelp});
             this.mnuMain.Location = new System.Drawing.Point(0, 0);
             this.mnuMain.Name = "mnuMain";
@@ -64,71 +76,96 @@
             this.mnuMain.TabIndex = 0;
             this.mnuMain.Text = "Select actions to improving your job ...";
             // 
-            // mnuProject
+            // mnuFile
             // 
-            this.mnuProject.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuProjectOpen,
-            this.mnuProjectClose,
+            this.mnuFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuFileOpen,
+            this.mnuFileClose,
             this.SeparatorAction,
-            this.mnuProjectRefresh,
+            this.mnuFileRefresh,
             this.SeparatorNew,
             this.mnuNewWindow,
             this.SeparatorExit,
-            this.mnuProjectExit});
-            this.mnuProject.Name = "mnuProject";
-            this.mnuProject.Size = new System.Drawing.Size(56, 20);
-            this.mnuProject.Text = "Project";
+            this.mnuFileExit});
+            this.mnuFile.Name = "mnuFile";
+            this.mnuFile.Size = new System.Drawing.Size(37, 20);
+            this.mnuFile.Text = "File";
             // 
-            // mnuProjectOpen
+            // mnuFileOpen
             // 
-            this.mnuProjectOpen.Name = "mnuProjectOpen";
-            this.mnuProjectOpen.Size = new System.Drawing.Size(180, 22);
-            this.mnuProjectOpen.Text = "Open";
-            this.mnuProjectOpen.Click += new System.EventHandler(this.mnuProjectOpen_Click);
+            this.mnuFileOpen.Name = "mnuFileOpen";
+            this.mnuFileOpen.Size = new System.Drawing.Size(145, 22);
+            this.mnuFileOpen.Text = "Open";
+            this.mnuFileOpen.Click += new System.EventHandler(this.mnuFileOpen_Click);
             // 
-            // mnuProjectClose
+            // mnuFileClose
             // 
-            this.mnuProjectClose.Name = "mnuProjectClose";
-            this.mnuProjectClose.Size = new System.Drawing.Size(180, 22);
-            this.mnuProjectClose.Text = "Close";
-            this.mnuProjectClose.Click += new System.EventHandler(this.mnuProjectClose_Click);
+            this.mnuFileClose.Name = "mnuFileClose";
+            this.mnuFileClose.Size = new System.Drawing.Size(145, 22);
+            this.mnuFileClose.Text = "Close";
+            this.mnuFileClose.Click += new System.EventHandler(this.mnuFileClose_Click);
             // 
             // SeparatorAction
             // 
             this.SeparatorAction.Name = "SeparatorAction";
-            this.SeparatorAction.Size = new System.Drawing.Size(177, 6);
+            this.SeparatorAction.Size = new System.Drawing.Size(142, 6);
             // 
-            // mnuProjectRefresh
+            // mnuFileRefresh
             // 
-            this.mnuProjectRefresh.Image = global::BlueRocket.Properties.Resources.refresh;
-            this.mnuProjectRefresh.Name = "mnuProjectRefresh";
-            this.mnuProjectRefresh.Size = new System.Drawing.Size(180, 22);
-            this.mnuProjectRefresh.Text = "Refresh";
-            this.mnuProjectRefresh.Click += new System.EventHandler(this.mnuProjectRefresh_Click);
+            this.mnuFileRefresh.Image = global::BlueRocket.Properties.Resources.refresh;
+            this.mnuFileRefresh.Name = "mnuFileRefresh";
+            this.mnuFileRefresh.Size = new System.Drawing.Size(145, 22);
+            this.mnuFileRefresh.Text = "Refresh";
+            this.mnuFileRefresh.Click += new System.EventHandler(this.mnuFileRefresh_Click);
             // 
             // SeparatorNew
             // 
             this.SeparatorNew.Name = "SeparatorNew";
-            this.SeparatorNew.Size = new System.Drawing.Size(177, 6);
+            this.SeparatorNew.Size = new System.Drawing.Size(142, 6);
             // 
             // mnuNewWindow
             // 
             this.mnuNewWindow.Name = "mnuNewWindow";
-            this.mnuNewWindow.Size = new System.Drawing.Size(180, 22);
+            this.mnuNewWindow.Size = new System.Drawing.Size(145, 22);
             this.mnuNewWindow.Text = "New Window";
             this.mnuNewWindow.Click += new System.EventHandler(this.mnuNewWindow_Click);
             // 
             // SeparatorExit
             // 
             this.SeparatorExit.Name = "SeparatorExit";
-            this.SeparatorExit.Size = new System.Drawing.Size(177, 6);
+            this.SeparatorExit.Size = new System.Drawing.Size(142, 6);
             // 
-            // mnuProjectExit
+            // mnuFileExit
             // 
-            this.mnuProjectExit.Name = "mnuProjectExit";
-            this.mnuProjectExit.Size = new System.Drawing.Size(180, 22);
-            this.mnuProjectExit.Text = "Exit";
-            this.mnuProjectExit.Click += new System.EventHandler(this.mnuProjectExit_Click);
+            this.mnuFileExit.Name = "mnuFileExit";
+            this.mnuFileExit.Size = new System.Drawing.Size(145, 22);
+            this.mnuFileExit.Text = "Exit";
+            this.mnuFileExit.Click += new System.EventHandler(this.mnuFileExit_Click);
+            // 
+            // mnuProject
+            // 
+            this.mnuProject.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuAutoLoad,
+            this.mnuAutoSave,
+            this.SeparatorMode,
+            this.mnuDebugMode});
+            this.mnuProject.Name = "mnuProject";
+            this.mnuProject.Size = new System.Drawing.Size(56, 20);
+            this.mnuProject.Text = "Project";
+            // 
+            // mnuAutoLoad
+            // 
+            this.mnuAutoLoad.Name = "mnuAutoLoad";
+            this.mnuAutoLoad.Size = new System.Drawing.Size(180, 22);
+            this.mnuAutoLoad.Text = "Auto-Loading";
+            this.mnuAutoLoad.Click += new System.EventHandler(this.mnuAutoLoad_Click);
+            // 
+            // mnuDebugMode
+            // 
+            this.mnuDebugMode.Name = "mnuDebugMode";
+            this.mnuDebugMode.Size = new System.Drawing.Size(180, 22);
+            this.mnuDebugMode.Text = "Debug Mode";
+            this.mnuDebugMode.Click += new System.EventHandler(this.mnuDebugMode_Click);
             // 
             // mnuScripts
             // 
@@ -179,6 +216,45 @@
             this.mnuSaveAll.Text = "Save All";
             this.mnuSaveAll.Click += new System.EventHandler(this.mnuSaveAll_Click);
             // 
+            // mnuView
+            // 
+            this.mnuView.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuViewScript});
+            this.mnuView.Name = "mnuView";
+            this.mnuView.Size = new System.Drawing.Size(44, 20);
+            this.mnuView.Text = "View";
+            // 
+            // mnuViewScript
+            // 
+            this.mnuViewScript.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuViewScriptCount,
+            this.mnuViewScriptTime,
+            this.mnuViewScriptTags});
+            this.mnuViewScript.Name = "mnuViewScript";
+            this.mnuViewScript.Size = new System.Drawing.Size(180, 22);
+            this.mnuViewScript.Text = "Script";
+            // 
+            // mnuViewScriptCount
+            // 
+            this.mnuViewScriptCount.Name = "mnuViewScriptCount";
+            this.mnuViewScriptCount.Size = new System.Drawing.Size(180, 22);
+            this.mnuViewScriptCount.Text = "Data Count";
+            this.mnuViewScriptCount.Click += new System.EventHandler(this.mnuViewScriptCount_Click);
+            // 
+            // mnuViewScriptTime
+            // 
+            this.mnuViewScriptTime.Name = "mnuViewScriptTime";
+            this.mnuViewScriptTime.Size = new System.Drawing.Size(180, 22);
+            this.mnuViewScriptTime.Text = "Time Analisys";
+            this.mnuViewScriptTime.Click += new System.EventHandler(this.mnuViewScriptTime_Click);
+            // 
+            // mnuViewScriptTags
+            // 
+            this.mnuViewScriptTags.Name = "mnuViewScriptTags";
+            this.mnuViewScriptTags.Size = new System.Drawing.Size(180, 22);
+            this.mnuViewScriptTags.Text = "Associated Tags";
+            this.mnuViewScriptTags.Click += new System.EventHandler(this.mnuViewScriptTags_Click);
+            // 
             // mnuHelp
             // 
             this.mnuHelp.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
@@ -197,6 +273,18 @@
             this.mnuAbout.Text = "About";
             this.mnuAbout.Click += new System.EventHandler(this.mnuAbout_Click);
             // 
+            // mnuAutoSave
+            // 
+            this.mnuAutoSave.Name = "mnuAutoSave";
+            this.mnuAutoSave.Size = new System.Drawing.Size(180, 22);
+            this.mnuAutoSave.Text = "Auto-Saving";
+            this.mnuAutoSave.Click += new System.EventHandler(this.mnuAutoSave_Click);
+            // 
+            // SeparatorMode
+            // 
+            this.SeparatorMode.Name = "SeparatorMode";
+            this.SeparatorMode.Size = new System.Drawing.Size(177, 6);
+            // 
             // usrActionMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -214,13 +302,13 @@
         #endregion
 
         private System.Windows.Forms.MenuStrip mnuMain;
-        private System.Windows.Forms.ToolStripMenuItem mnuProject;
-        private System.Windows.Forms.ToolStripMenuItem mnuProjectOpen;
-        private System.Windows.Forms.ToolStripMenuItem mnuProjectClose;
+        private System.Windows.Forms.ToolStripMenuItem mnuFile;
+        private System.Windows.Forms.ToolStripMenuItem mnuFileOpen;
+        private System.Windows.Forms.ToolStripMenuItem mnuFileClose;
         private System.Windows.Forms.ToolStripSeparator SeparatorAction;
-        private System.Windows.Forms.ToolStripMenuItem mnuProjectRefresh;
+        private System.Windows.Forms.ToolStripMenuItem mnuFileRefresh;
         private System.Windows.Forms.ToolStripSeparator SeparatorExit;
-        private System.Windows.Forms.ToolStripMenuItem mnuProjectExit;
+        private System.Windows.Forms.ToolStripMenuItem mnuFileExit;
         private System.Windows.Forms.ToolStripMenuItem mnuScripts;
         private System.Windows.Forms.ToolStripMenuItem mnuPlayAll;
         private System.Windows.Forms.ToolStripMenuItem mnuHelp;
@@ -231,5 +319,15 @@
         private System.Windows.Forms.ToolStripMenuItem mnuNewWindow;
         private System.Windows.Forms.ToolStripMenuItem mnuLockedAll;
         private System.Windows.Forms.ToolStripMenuItem mnuUnlockedAll;
+        private System.Windows.Forms.ToolStripMenuItem mnuView;
+        private System.Windows.Forms.ToolStripMenuItem mnuViewScript;
+        private System.Windows.Forms.ToolStripMenuItem mnuViewScriptCount;
+        private System.Windows.Forms.ToolStripMenuItem mnuViewScriptTime;
+        private System.Windows.Forms.ToolStripMenuItem mnuViewScriptTags;
+        private System.Windows.Forms.ToolStripMenuItem mnuAutoLoad;
+        private System.Windows.Forms.ToolStripMenuItem mnuDebugMode;
+        private System.Windows.Forms.ToolStripMenuItem mnuProject;
+        private System.Windows.Forms.ToolStripMenuItem mnuAutoSave;
+        private System.Windows.Forms.ToolStripSeparator SeparatorMode;
     }
 }

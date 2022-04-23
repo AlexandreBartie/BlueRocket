@@ -14,18 +14,18 @@ namespace BlueRocket
 
         public AppCLI App;
 
-        private void frmStart_Activated(object sender, EventArgs e) => App.Action.OnProjectDirect();
+        private void frmStart_Activated(object sender, EventArgs e) => App.Action.OnFileDirect();
 
-        private void chkLoadAutomatic_CheckedChanged(object sender, EventArgs e) => App.Load.History.SetAutoProjectLoad(chkAutoLoad.Checked);
+        private void chkLoadAutomatic_CheckedChanged(object sender, EventArgs e) => App.Load.History.SetAutoLoad(chkAutoLoad.Checked);
 
         private void lstHistory_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             ListViewItem item = GetListItem(prmMouseX: e.X, prmMouseY: e.Y);
 
             if (item != null)
-                App.Action.OnProjectOpen(prmProject: item.Tag.ToString());
+                App.Action.OnFileOpen(prmProject: item.Tag.ToString());
         }
-        private void cmdFindProject_Click(object sender, EventArgs e) => App.Action.OnProjectFind();
+        private void cmdFindProject_Click(object sender, EventArgs e) => App.Action.OnFileFind();
 
         private void frmStart_FormClosing(object sender, FormClosingEventArgs e)
         {

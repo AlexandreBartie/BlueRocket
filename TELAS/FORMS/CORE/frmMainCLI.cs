@@ -25,7 +25,7 @@ namespace BlueRocket
 
         private MainThread Thread;
 
-        internal pagScripts PageScripts => this.pagScripts;
+        internal pagProject PageScripts => this.pagScripts;
         internal pagEdition PageEdition => this.pagEdition;
 
         private void frmMainCLI_FormClosing(object sender, FormClosingEventArgs e)
@@ -60,10 +60,10 @@ namespace BlueRocket
             Editor.BatchSet += OnBatchSet;
             Editor.BatchEnd += OnBatchEnd;
 
-            Editor.ProjectOpen += OnProjectOpen;
-            Editor.ProjectClose += OnProjectClose;
-            Editor.ProjectRefresh += OnProjectRefresh;
-            Editor.ProjectExit += OnProjectExit;
+            Editor.FileOpen += OnFileOpen;
+            Editor.FileClose += OnFileClose;
+            Editor.FileRefresh += OnFileRefresh;
+            //Editor.FileExit += OnFileExit;
 
             Editor.ProjectDBConnect += OnProjectDBConnect;
 
@@ -95,11 +95,11 @@ namespace BlueRocket
         }
 
         private void OnProjectDBConnect() => Project.DBConnect();
-        private void OnProjectOpen(string prmArquivoCFG) => Project.Open(prmArquivoCFG);
+        private void OnFileOpen(string prmArquivoCFG) => Project.Open(prmArquivoCFG);
 
-        internal void OnProjectClose() => Project.Close();
-        internal void OnProjectRefresh() { Project.Build(); MenuStatusView(); }
-        internal void OnProjectExit() { Close(); }
+        internal void OnFileClose() => Project.Close();
+        internal void OnFileRefresh() { Project.Build(); MenuStatusView(); }
+        internal void OnFileExit() { Close(); }
 
         internal void OnScriptLocked() => Editor.CodeLocked();
         private void OnFilterTagChecked(string prmTag, string prmOption, bool prmChecked) => Project.SetFilter(prmTag, prmOption, prmChecked);
@@ -193,7 +193,7 @@ namespace BlueRocket
             {
                 Editor.Close();
 
-                Main.OnProjectRefresh();
+                Main.OnFileRefresh();
             }
         }
 
@@ -201,7 +201,7 @@ namespace BlueRocket
         {
             if (Editor.HasProject)
                 if (myMessage.ToConfirm("Do you really want to close this application?", "Exit Application"))
-                    Editor.Exit();
+                    App.Action.OnFileExit();
                 else
                     return true;
             return false;
@@ -316,6 +316,8 @@ namespace BlueRocket
     {
         internal frmMainCLI Main;
         internal EditorCLI Editor => Main.Editor;
+
+        internal AppCLI App => Editor.App;
 
         internal MainBase(frmMainCLI prmMain)
         {

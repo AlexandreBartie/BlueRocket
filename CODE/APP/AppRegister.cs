@@ -11,8 +11,10 @@ namespace BlueRocket
 
         internal myRegisterRoot root;
 
-        public AppRegisterStart Start;
-        public AppRegisterHistory History => Start.History;
+        public AppRegisterProject Project;
+
+        public AppRegisterScript Script;
+        public AppRegisterHistory History => Project.History;
 
         public AppRegister(AppCLI prmApp)
         {
@@ -20,12 +22,15 @@ namespace BlueRocket
 
             root = new myRegisterRoot(prmRoot: "BlueRocket");
 
-            Start = new AppRegisterStart(root.Get());
+            Project = new AppRegisterProject(root.Get());
+
+            Script = new AppRegisterScript(root.Get());
+
         }
 
     }
 
-    public class AppRegisterStart : AppRegisterBase
+    public class AppRegisterProject : myRegisterBag
     {
 
         public AppRegisterHistory History;
@@ -36,14 +41,26 @@ namespace BlueRocket
 
             set { Local.SetData("AutoLoad", myBool.GetYesNo(value)); }
         }
+        public bool IsAutoSave
+        {
+            get { return Local.GetBoolean("AutoSave"); }
 
-        public AppRegisterStart(myRegisterKey prmNode) : base(prmKey: "Start", prmNode)
+            set { Local.SetData("AutoSave", myBool.GetYesNo(value)); }
+        }
+        public bool IsDebugMode
+        {
+            get { return Local.GetBoolean("DebugMode"); }
+
+            set { Local.SetData("DebugMode", myBool.GetYesNo(value)); }
+        }
+
+        public AppRegisterProject(myRegisterKey prmNode) : base(prmKey: "Project", prmNode)
         {
             History = new AppRegisterHistory(Local);
         }
     }
 
-    public class AppRegisterHistory : AppRegisterBase
+    public class AppRegisterHistory : myRegisterBag
     {
     
         public AppRegisterHistory(myRegisterKey prmParent) : base(prmKey: "History", prmParent) { }
@@ -54,22 +71,17 @@ namespace BlueRocket
 
     }
 
-    public class AppRegisterBase
+    public class AppRegisterScript : myRegisterBag
     {
-        public myRegisterKey Parent;
 
-        public myRegisterKey Local => Parent.Node(key);
+        public myRegisterCheck IsDataCount => Checks.Item("DataCount");
+        public myRegisterCheck IsTimeAnalisys => Checks.Item("TimeAnalisys");
+        public myRegisterCheck IsAssociatedTags => Checks.Item("AssociatedTags");
 
-        private string key;
-
-        public AppRegisterBase(string prmKey, myRegisterKey prmParent)
+        public AppRegisterScript(myRegisterKey prmNode) : base(prmKey: "Script", prmNode)
         {
-            Parent = prmParent; key = prmKey;
+            Checks.Add("DataCount,TimeAnalisys,AssociatedTags");
         }
-        public void Clear() => Local.Clear(key);
-
-        public void Add(string prmName, object prmValue) => Local.SetData(prmName, prmValue);
-
     }
 
 }

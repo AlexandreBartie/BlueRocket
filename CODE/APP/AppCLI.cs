@@ -59,11 +59,13 @@ namespace BlueRocket
 
         private AppCLI App;
 
+        private EditorCLI Editor => App.Session.Current;
+
         public AppAction(AppCLI prmApp)
         {
             App = prmApp;
         }
-        public void OnProjectStart()
+        public void OnFileStart()
         {
             App.Page.PainelHide();
 
@@ -71,41 +73,47 @@ namespace BlueRocket
 
         }
 
-        public void OnProjectFind()
+        public void OnFileFind()
         {
             App.Page.StartHide();
 
-            App.Load.ProjectFind();
+            App.Load.FileFind();
 
             Reset();
         }
-        public void OnProjectDirect()
+        public void OnFileDirect()
         {
             if (App.Load.IsDirect)
-                OnProjectOpen(App.Load.Direct.project_file);
+                OnFileOpen(App.Load.Direct.project_file);
         }
-        public void OnProjectOpen(string prmProject)
+        public void OnFileOpen(string prmProject)
         {
             App.Page.StartHide();
 
-            App.Load.ProjectOpen(prmProject);
+            App.Load.FileOpen(prmProject);
 
         }
-        public void OnProjectClose()
+        public void OnFileClose()
         {
-            App.Load.ProjectClose();
+            App.Load.FileClose();
         }
+        public void OnFileRefresh()
+        {
+            Editor.OnFileRefresh();
+        }    
 
-        public void OnProjectNew()
+        public void OnFileNewSession()
         {
             App.Session.NewSession();
         }
 
-        public void OnProjectExit()
+        public void OnFileExit()
         {
-            App.Load.ProjectExit();
+            App.Load.FileExit();
             
             App.Page.StartClose();
+
+            //Editor.OnFileExit();
         }
 
         private void Reset()
@@ -159,14 +167,14 @@ namespace BlueRocket
                 Current = this[Count - 1];      
         }
 
-        public void OnProjectOpen(string prmArquivoCFG)
+        public void OnFileOpen(string prmArquivoCFG)
         {
-            Current.OnProjectOpen(prmArquivoCFG);
+            Current.OnFileOpen(prmArquivoCFG);
         }
 
-        public void OnProjectClose()
+        public void OnFileClose()
         {
-            Current.OnProjectClose();
+            Current.OnFileClose();
         }
 
     }

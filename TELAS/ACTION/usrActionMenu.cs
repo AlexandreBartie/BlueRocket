@@ -18,21 +18,41 @@ namespace BlueRocket
         {
             InitializeComponent();
         }
-        private void mnuProjectOpen_Click(object sender, EventArgs e) => App.Action.OnProjectStart();
-        private void mnuProjectClose_Click(object sender, EventArgs e) => App.Action.OnProjectClose();
-        private void mnuProjectRefresh_Click(object sender, EventArgs e) => Editor.OnProjectRefresh();
 
-        private void mnuNewWindow_Click(object sender, EventArgs e) => App.Action.OnProjectNew();
+        //
+        // File
+        //
+        private void mnuFileOpen_Click(object sender, EventArgs e) => App.Action.OnFileStart();
+        private void mnuFileClose_Click(object sender, EventArgs e) => App.Action.OnFileClose();
+        private void mnuFileRefresh_Click(object sender, EventArgs e) => App.Action.OnFileRefresh();
+        private void mnuNewWindow_Click(object sender, EventArgs e) => App.Action.OnFileNewSession();
+        private void mnuFileExit_Click(object sender, EventArgs e) => App.Action.OnFileExit();
 
-        private void mnuProjectExit_Click(object sender, EventArgs e) => Editor.OnProjectExit();
+        //
+        // Project
+        //
+        private void mnuAutoLoad_Click(object sender, EventArgs e) => App.Register.Project.IsAutoLoad = myMenu.InvertCheck(mnuAutoLoad);
+        private void mnuAutoSave_Click(object sender, EventArgs e) => App.Register.Project.IsAutoSave = myMenu.InvertCheck(mnuAutoSave);
+        private void mnuDebugMode_Click(object sender, EventArgs e) => App.Register.Project.IsDebugMode = myMenu.InvertCheck(mnuDebugMode);
 
+        //
+        // Script
+        //
         private void mnuLockedAll_Click(object sender, EventArgs e) => Editor.OnSelectedLockedAll();
         private void mnuUnlockedAll_Click(object sender, EventArgs e) => Editor.OnSelectedUnlockedAll();
-
         private void mnuPlayAll_Click(object sender, EventArgs e) => Editor.OnSelectedPlayAll();
         private void mnuSaveAll_Click(object sender, EventArgs e) => Editor.OnSelectedSaveAll();
 
+        //
+        // View
+        //
+        private void mnuViewScriptCount_Click(object sender, EventArgs e) => App.Register.Script.IsDataCount.Check();
+        private void mnuViewScriptTime_Click(object sender, EventArgs e) => App.Register.Script.IsTimeAnalisys.Check();
+        private void mnuViewScriptTags_Click(object sender, EventArgs e) => App.Register.Script.IsAssociatedTags.Check();
 
+        //
+        // Script About
+        //
         private void mnuAbout_Click(object sender, EventArgs e) => Editor.Page.AboutShow();
 
         public void Setup(EditorCLI prmEditor)
@@ -40,6 +60,13 @@ namespace BlueRocket
             Editor = prmEditor;
 
             Editor.Format.SetPadrao(mnuMain);
+
+            mnuAutoLoad.Checked = App.Register.Project.IsAutoLoad;
+            mnuDebugMode.Checked = App.Register.Project.IsDebugMode;
+
+            App.Register.Script.IsDataCount.Link(mnuViewScriptCount);
+            App.Register.Script.IsTimeAnalisys.Link(mnuViewScriptTime);
+            App.Register.Script.IsAssociatedTags.Link(mnuViewScriptTags);
 
             SeparatorNew.Visible = false;
             mnuNewWindow.Visible = false;
@@ -53,10 +80,10 @@ namespace BlueRocket
         public void View()
         {
         
-            mnuProjectOpen.Enabled = Editor.ICanOpen;
-            mnuProjectClose.Enabled = Editor.ICanClose;
+            mnuFileOpen.Enabled = Editor.ICanOpen;
+            mnuFileClose.Enabled = Editor.ICanClose;
 
-            mnuProjectRefresh.Enabled = Editor.ICanRefresh;
+            mnuFileRefresh.Enabled = Editor.ICanRefresh;
 
             mnuScripts.Enabled = Editor.ICanBatch;
 

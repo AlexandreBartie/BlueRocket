@@ -31,7 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMainCLI));
             this.usrMenu = new BlueRocket.usrActionMenu();
             this.usrStatus = new BlueRocket.usrActionStatus();
-            this.pagScripts = new BlueRocket.pagScripts();
+            this.pagScripts = new BlueRocket.pagProject();
             this.separadorV = new System.Windows.Forms.Splitter();
             this.pagEdition = new BlueRocket.pagEdition();
             this.SuspendLayout();
@@ -100,7 +100,7 @@
         #endregion
         private usrActionMenu usrMenu;
         private usrActionStatus usrStatus;
-        private pagScripts pagScripts;
+        private pagProject pagScripts;
         private System.Windows.Forms.Splitter separadorV;
         private pagEdition pagEdition;
     }

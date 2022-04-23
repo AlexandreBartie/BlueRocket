@@ -16,7 +16,7 @@ namespace BlueRocket
         ePageEstrutura = 2,
     }
 
-    public partial class pagScripts : usrMoldura
+    public partial class pagProject : usrMoldura
     {
 
         private EditorCLI Editor;
@@ -31,7 +31,7 @@ namespace BlueRocket
 
         public void GetSelected() => usrTestScripts.GetSelected();
 
-        public pagScripts()
+        public pagProject()
         {
             InitializeComponent();
 

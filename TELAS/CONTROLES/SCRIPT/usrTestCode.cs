@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace BlueRocket
 {
-    public partial class usrTestCode : usrMoldura
+    public partial class usrTestCode : UserControl
     {
 
         private EditorCLI Editor;
@@ -29,11 +29,7 @@ namespace BlueRocket
 
         public usrTestCode()
         {
-         
             InitializeComponent();
-
-            SetTitle(prmText: "Script INI");
-
         }
 
         public void Setup(EditorCLI prmEditor)
@@ -53,8 +49,6 @@ namespace BlueRocket
             if (Editor.HasScript)
             {
 
-                SetTitle(prmText: Editor.Script.title);
-
                 txtCode.Enabled = true;
                 txtCode.ReadOnly = Editor.Script.IsLocked;
 
@@ -64,8 +58,6 @@ namespace BlueRocket
             }
             else
             {
-
-                SetTitle(prmText: "SCRIPT INI");
 
                 txtCode.Enabled = false;
 

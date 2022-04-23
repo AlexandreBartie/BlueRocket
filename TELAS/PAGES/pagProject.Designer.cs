@@ -1,6 +1,6 @@
 ﻿namespace BlueRocket
 {
-    partial class pagScripts
+    partial class pagProject
     {
         /// <summary> 
         /// Variável de designer necessária.
@@ -31,18 +31,18 @@
             this.tabPage = new System.Windows.Forms.TabControl();
             this.tabScripts = new System.Windows.Forms.TabPage();
             this.usrTestScripts = new BlueRocket.usrTestScripts();
-            this.tabFiltro = new System.Windows.Forms.TabPage();
+            this.tabFilter = new System.Windows.Forms.TabPage();
             this.usrTestTags = new BlueRocket.usrTestTags();
             this.tabPage.SuspendLayout();
             this.tabScripts.SuspendLayout();
-            this.tabFiltro.SuspendLayout();
+            this.tabFilter.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabPage
             // 
             this.tabPage.Alignment = System.Windows.Forms.TabAlignment.Bottom;
             this.tabPage.Controls.Add(this.tabScripts);
-            this.tabPage.Controls.Add(this.tabFiltro);
+            this.tabPage.Controls.Add(this.tabFilter);
             this.tabPage.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabPage.Location = new System.Drawing.Point(0, 40);
             this.tabPage.Name = "tabPage";
@@ -71,16 +71,16 @@
             this.usrTestScripts.Size = new System.Drawing.Size(707, 585);
             this.usrTestScripts.TabIndex = 1;
             // 
-            // tabFiltro
+            // tabFilter
             // 
-            this.tabFiltro.Controls.Add(this.usrTestTags);
-            this.tabFiltro.Location = new System.Drawing.Point(4, 4);
-            this.tabFiltro.Name = "tabFiltro";
-            this.tabFiltro.Padding = new System.Windows.Forms.Padding(3);
-            this.tabFiltro.Size = new System.Drawing.Size(713, 591);
-            this.tabFiltro.TabIndex = 1;
-            this.tabFiltro.Text = "Filtro";
-            this.tabFiltro.UseVisualStyleBackColor = true;
+            this.tabFilter.Controls.Add(this.usrTestTags);
+            this.tabFilter.Location = new System.Drawing.Point(4, 4);
+            this.tabFilter.Name = "tabFilter";
+            this.tabFilter.Padding = new System.Windows.Forms.Padding(3);
+            this.tabFilter.Size = new System.Drawing.Size(713, 591);
+            this.tabFilter.TabIndex = 1;
+            this.tabFilter.Text = "Filter";
+            this.tabFilter.UseVisualStyleBackColor = true;
             // 
             // usrTestTags
             // 
@@ -91,17 +91,17 @@
             this.usrTestTags.Size = new System.Drawing.Size(707, 585);
             this.usrTestTags.TabIndex = 2;
             // 
-            // pagScripts
+            // pagProject
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tabPage);
-            this.Name = "pagScripts";
+            this.Name = "pagProject";
             this.Size = new System.Drawing.Size(721, 659);
             this.Controls.SetChildIndex(this.tabPage, 0);
             this.tabPage.ResumeLayout(false);
             this.tabScripts.ResumeLayout(false);
-            this.tabFiltro.ResumeLayout(false);
+            this.tabFilter.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -110,7 +110,7 @@
         private System.Windows.Forms.TabControl tabPage;
         private System.Windows.Forms.TabPage tabScripts;
         private usrTestScripts usrTestScripts;
-        private System.Windows.Forms.TabPage tabFiltro;
+        private System.Windows.Forms.TabPage tabFilter;
         private usrTestTags usrTestTags;
     }
 }

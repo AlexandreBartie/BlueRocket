@@ -32,30 +32,30 @@ namespace BlueRocket
             History = new LoadHistory(this);
         }
 
-        public void ProjectFind()
+        public void FileFind()
         {
             if (Direct.FileCFG())
-                ProjectOpen(Direct.project_file);
+                FileOpen(Direct.project_file);
         }
 
-        public void ProjectOpen(string prmFileCFG)
+        public void FileOpen(string prmFileCFG)
         {
             History.NewFile(prmFileCFG);
 
-            App.Session.OnProjectOpen(prmFileCFG);
+            App.Session.OnFileOpen(prmFileCFG);
 
             Direct.Start();
 
         }
 
-        public void ProjectClose()
+        public void FileClose()
         {
-            App.Session.OnProjectClose();
+            App.Session.OnFileClose();
         }
 
-        public void ProjectExit()
+        public void FileExit()
         {
-            Direct.End();
+            Direct.Exit();
         }
 
     }
@@ -77,7 +77,7 @@ namespace BlueRocket
 
         public void Start() { project_file = ""; IsWorking = true; }
 
-        public void End() { IsWorking = false; }
+        public void Exit() { IsWorking = false; }
 
         public void SetFileCFG(string prmFileCFG) => project_file = prmFileCFG;
 
@@ -109,7 +109,7 @@ namespace BlueRocket
         private FileLoaded Current;
 
         public bool IsFull => (this.Count > 0);
-        public bool IsAutoLoad { get { if (IsFull) return Register.Start.IsAutoLoad; return false; } }
+        public bool IsAutoLoad { get { if (IsFull) return Register.Project.IsAutoLoad; return false; } }
 
         public string actualAccess => Current.name;
         public string lastAccess => GetLastAcess();
@@ -136,7 +136,7 @@ namespace BlueRocket
             Save();
         }
 
-        public void SetAutoProjectLoad(bool prmAtivar) => Register.Start.IsAutoLoad = prmAtivar;
+        public void SetAutoLoad(bool prmAtivar) => Register.Project.IsAutoLoad = prmAtivar;
 
         private void AddItem(FileLoaded prmFile)
         {

@@ -50,6 +50,16 @@ namespace BlueRocket
 
         private frmMainCLI FormMain;
 
+        public string script_name => GetScriptName();
+
+        private string GetScriptName()
+        {
+            if (Editor.HasScript)
+                return Editor.Script.title;
+
+            return "Script INI";
+        }
+
         private bool IsFormNull => (FormMain == null);
 
         public bool ICanBatch

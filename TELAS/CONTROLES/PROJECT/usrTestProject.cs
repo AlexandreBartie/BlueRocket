@@ -26,7 +26,7 @@ namespace BlueRocket
         private void mnuRefresh_Click(object sender, EventArgs e)
         {
             if (Editor.IsFree)
-                Editor.OnProjectRefresh();
+                Editor.OnFileRefresh();
         }
 
         private void trvProjeto_DoubleClick(object sender, EventArgs e)

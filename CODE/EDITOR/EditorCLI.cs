@@ -25,12 +25,12 @@ namespace BlueRocket
     {
         public event Notify_MultiSelect MultiSelect;
 
-        public event Notify_NewWindow NewWindow;
+        public event Notify_FileNewWindow FileNewWindow;
 
-        public event Notify_ProjectOpen ProjectOpen;
-        public event Notify_ProjectClose ProjectClose;
-        public event Notify_ProjectRefresh ProjectRefresh;
-        public event Notify_ProjectExit ProjectExit;
+        public event Notify_FileOpen FileOpen;
+        public event Notify_FileClose FileClose;
+        public event Notify_FileRefresh FileRefresh;
+       // public event Notify_FileExit FileExit;
 
         public event Notify_ProjectDBConnect ProjectDBConnect;
 
@@ -73,14 +73,14 @@ namespace BlueRocket
             MultiSelect?.Invoke(prmAtivar);
         }
         
-        public void OnProjectOpen(string prmFileCFG)
+        public void OnFileOpen(string prmFileCFG)
         {
 
             Painel.Hide();
 
             SetAction(String.Format("Project loading: {0} ...", Load.project_name));
 
-            ProjectOpen?.Invoke(prmFileCFG);
+            FileOpen?.Invoke(prmFileCFG);
 
             SetAction(String.Format("Project loaded: {0} ...", Load.project_name));
 
@@ -89,26 +89,26 @@ namespace BlueRocket
             Painel.Show();
 
         }
-        public void OnProjectClose()
+        public void OnFileClose()
         {
-            ProjectClose?.Invoke();
+            FileClose?.Invoke();
 
             SetAction(String.Format("Project closed: {0} ...", Load.project_name));
         }
-        public void OnProjectRefresh()
+        public void OnFileRefresh()
         {
-            ProjectRefresh?.Invoke();
+            FileRefresh?.Invoke();
 
             SetAction(String.Format("Project refresh: {0} ...", Load.project_name));
         }
-        public void OneNewWindow()
+        public void OnFileNewWindow()
         {
-            NewWindow?.Invoke();
+            FileNewWindow?.Invoke();
         }
-        public void OnProjectExit()
-        {
-            ProjectExit?.Invoke();
-        }
+        //public void OnFileExit()
+        //{
+        //    FileExit?.Invoke();
+        //}
         public void OnProjectDBConnect()
         {
             ProjectDBConnect?.Invoke();
@@ -236,9 +236,8 @@ namespace BlueRocket
             SetAction(String.Format("Project closed: {0} ...", Load.project_name));
         }
 
-        public void Exit() => App.Action.OnProjectExit();
-
         public void New() => Setup();
+        //public void Exit() => App.Action.OnFileExit();
 
         public void DoConnect()
         {
@@ -284,6 +283,7 @@ namespace BlueRocket
         public DataTagOption GetTagOption(string prmTag, string prmOption) => Project.GetTagOption(prmTag, prmOption);
 
     }
+      
     public class EditorMode : EditorBase
     {
         public ScriptCLI Script => Project.Script;

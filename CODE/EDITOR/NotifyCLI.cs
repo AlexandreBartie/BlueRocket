@@ -7,15 +7,15 @@ namespace BlueRocket
 
     public delegate void Notify_ProjectDBConnect();
 
-    public delegate void Notify_NewWindow();
+    public delegate void Notify_FileNewWindow();
 
-    public delegate void Notify_ProjectSelect();
+    public delegate void Notify_FileSelect();
 
-    public delegate void Notify_ProjectOpen(string prmArquivoCFG);
-    public delegate void Notify_ProjectClose();
-    public delegate void Notify_ProjectRefresh();
+    public delegate void Notify_FileOpen(string prmArquivoCFG);
+    public delegate void Notify_FileClose();
+    public delegate void Notify_FileRefresh();
 
-    public delegate void Notify_ProjectExit();
+    public delegate void Notify_FileExit();
 
     public delegate void Notify_FilterTagChanged();
     public delegate void Notify_FilterTagChecked(string prmTag, string prmOption, bool prmChecked);

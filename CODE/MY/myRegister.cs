@@ -53,7 +53,6 @@ namespace BlueRocket
                 key.DeleteSubKeyTree(prmSubKey);
         }
     }
-
     public class myRegisterKeyFormats
     {
         internal RegistryKey key;
@@ -66,14 +65,24 @@ namespace BlueRocket
             key = prmKey;
         }
 
-        public string GetString(string prmName) => (string)key.GetValue(prmName);
-        public bool GetBoolean(string prmName) => myString.IsMatch(GetString(prmName), "sim");
+        public string GetString(string prmName) => GetString(prmName, prmDefault: "");
+        public string GetString(string prmName, string prmDefault)
+        {
+            string ret = (string)key.GetValue(prmName);
+
+            ret = myString.GetFull(ret, prmDefault);
+                
+            if  (!myString.IsFull(ret))
+                ret = prmDefault;
+
+            return ret;
+
+        }
+
+        public bool GetBooleanYes(string prmName) => GetBoolean(prmName, "sim");
+        public bool GetBoolean(string prmName) => GetBoolean(prmName, "no");
+        public bool GetBoolean(string prmName, string prmDefault) => myString.IsMatch(GetString(prmName,prmDefault), "sim");
 
     }
 
-    public class myRegisterValue
-    {
-        public string prmName;
-        public object prmValue;
-    }
 }

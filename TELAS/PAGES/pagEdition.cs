@@ -8,10 +8,9 @@ using System.Windows.Forms;
 
 namespace BlueRocket
 {
-    public partial class pagEdition : UserControl
+    public partial class pagEdition : usrMoldura
     {
-
-        private EditorCLI Editor;
+        private EditorCLI Editor; private AppCLI App => Editor.App;
 
         public pagEdition()
         {
@@ -24,8 +23,6 @@ namespace BlueRocket
 
             Editor.Format.SetPadrao(splSeparadorV);
 
-           // usrProjetoTeste.Setup(Editor);
-
             usrTestCode.Setup(Editor);
 
             usrTestResult.Setup(Editor);
@@ -33,7 +30,8 @@ namespace BlueRocket
         }
         public void View()
         {
-            //usrProjetoTeste.View();
+
+            SetTitle(Editor.View.script_name);
 
             usrTestCode.View();
 
