@@ -1,5 +1,5 @@
-﻿using Dooggy.CORE;
-using Dooggy.LIBRARY;
+﻿using Dooggy;
+using Katty;
 using System.Collections.Generic;
 
 namespace BlueRocket

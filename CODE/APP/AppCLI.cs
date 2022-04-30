@@ -14,6 +14,8 @@ namespace BlueRocket
 
         public AppRegister Register;
 
+        public AppEvents Events;
+
         public AppAction Action;
 
         public AppLoad Load;
@@ -27,6 +29,8 @@ namespace BlueRocket
         public AppInfo Info;
         public AppCLI()
         {
+   
+            Events = new AppEvents(this);
 
             Register = new AppRegister(this);
 
@@ -112,8 +116,37 @@ namespace BlueRocket
             App.Load.FileExit();
             
             App.Page.StartClose();
+        }
+        public void OnViewProjectAutoLoad()
+        {
+            App.Register.Project.AutoLoad.Check();
+        }
+        public void OnViewProjectAutoSave()
+        {
+            App.Register.Project.AutoSave.Check();
+        }
+        public void OnViewProjectDebugMode()
+        {
+            App.Register.Project.DebugMode.Check();
+        }
 
-            //Editor.OnFileExit();
+        public void OnViewScriptDataCount()
+        {
+            App.Register.Script.DataCount.Check();
+
+            App.Events.OnViewScriptChanged();
+        }
+        public void OnViewScriptTimeAnalisys()
+        {
+            App.Register.Script.TimeAnalisys.Check();
+
+            App.Events.OnViewScriptChanged();
+        }
+        public void OnViewScriptAssociatedTags()
+        {
+            App.Register.Script.AssociatedTags.Check();
+
+            App.Events.OnViewScriptChanged();
         }
 
         private void Reset()

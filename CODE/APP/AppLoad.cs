@@ -1,4 +1,4 @@
-﻿using Dooggy.LIBRARY;
+﻿using Katty;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -109,7 +109,7 @@ namespace BlueRocket
         private FileLoaded Current;
 
         public bool IsFull => (this.Count > 0);
-        public bool IsAutoLoad { get { if (IsFull) return Register.Project.IsAutoLoad; return false; } }
+        public bool IsAutoLoad { get { if (IsFull) return Register.Project.AutoLoad.IsChecked; return false; } }
 
         public string actualAccess => Current.name;
         public string lastAccess => GetLastAcess();
@@ -136,7 +136,7 @@ namespace BlueRocket
             Save();
         }
 
-        public void SetAutoLoad(bool prmAtivar) => Register.Project.IsAutoLoad = prmAtivar;
+        public void SetAutoLoad(bool prmChecked) => Register.Project.AutoLoad.Set(prmChecked);
 
         private void AddItem(FileLoaded prmFile)
         {

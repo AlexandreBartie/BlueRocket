@@ -1,4 +1,4 @@
-﻿using Dooggy.LIBRARY;
+﻿using Katty;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -25,7 +25,6 @@ namespace BlueRocket
             Project = new AppRegisterProject(root.Get());
 
             Script = new AppRegisterScript(root.Get());
-
         }
 
     }
@@ -33,29 +32,18 @@ namespace BlueRocket
     public class AppRegisterProject : myRegisterBag
     {
 
+        public myRegisterCheck AutoLoad => Checks.Get("AutoLoad");
+        public myRegisterCheck AutoSave => Checks.Get("AutoSave");
+        public myRegisterCheck DebugMode => Checks.Get("DebugMode");
+
         public AppRegisterHistory History;
-
-        public bool IsAutoLoad
-        {
-            get { return Local.GetBoolean("AutoLoad"); }
-
-            set { Local.SetData("AutoLoad", myBool.GetYesNo(value)); }
-        }
-        public bool IsAutoSave
-        {
-            get { return Local.GetBoolean("AutoSave"); }
-
-            set { Local.SetData("AutoSave", myBool.GetYesNo(value)); }
-        }
-        public bool IsDebugMode
-        {
-            get { return Local.GetBoolean("DebugMode"); }
-
-            set { Local.SetData("DebugMode", myBool.GetYesNo(value)); }
-        }
 
         public AppRegisterProject(myRegisterKey prmNode) : base(prmKey: "Project", prmNode)
         {
+            Checks.Add(AutoLoad);
+            Checks.Add(AutoSave);
+            Checks.Add(DebugMode);
+
             History = new AppRegisterHistory(Local);
         }
     }
@@ -74,13 +62,15 @@ namespace BlueRocket
     public class AppRegisterScript : myRegisterBag
     {
 
-        public myRegisterCheck IsDataCount => Checks.Item("DataCount");
-        public myRegisterCheck IsTimeAnalisys => Checks.Item("TimeAnalisys");
-        public myRegisterCheck IsAssociatedTags => Checks.Item("AssociatedTags");
+        public myRegisterCheck DataCount => Checks.Get("DataCount");
+        public myRegisterCheck TimeAnalisys => Checks.Get("TimeAnalisys");
+        public myRegisterCheck AssociatedTags => Checks.Get("AssociatedTags");
 
         public AppRegisterScript(myRegisterKey prmNode) : base(prmKey: "Script", prmNode)
         {
-            Checks.Add("DataCount,TimeAnalisys,AssociatedTags");
+            Checks.Add(DataCount);
+            Checks.Add(TimeAnalisys);
+            Checks.Add(AssociatedTags);
         }
     }
 

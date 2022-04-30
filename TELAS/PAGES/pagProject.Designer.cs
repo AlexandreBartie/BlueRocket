@@ -44,6 +44,7 @@
             this.tabPage.Controls.Add(this.tabScripts);
             this.tabPage.Controls.Add(this.tabFilter);
             this.tabPage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabPage.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.tabPage.Location = new System.Drawing.Point(0, 40);
             this.tabPage.Name = "tabPage";
             this.tabPage.SelectedIndex = 0;
@@ -57,7 +58,7 @@
             this.tabScripts.Location = new System.Drawing.Point(4, 4);
             this.tabScripts.Name = "tabScripts";
             this.tabScripts.Padding = new System.Windows.Forms.Padding(3);
-            this.tabScripts.Size = new System.Drawing.Size(713, 591);
+            this.tabScripts.Size = new System.Drawing.Size(713, 592);
             this.tabScripts.TabIndex = 0;
             this.tabScripts.Text = "Scripts";
             this.tabScripts.UseVisualStyleBackColor = true;
@@ -68,7 +69,7 @@
             this.usrTestScripts.Dock = System.Windows.Forms.DockStyle.Fill;
             this.usrTestScripts.Location = new System.Drawing.Point(3, 3);
             this.usrTestScripts.Name = "usrTestScripts";
-            this.usrTestScripts.Size = new System.Drawing.Size(707, 585);
+            this.usrTestScripts.Size = new System.Drawing.Size(707, 586);
             this.usrTestScripts.TabIndex = 1;
             // 
             // tabFilter

@@ -1,5 +1,5 @@
-﻿using Dooggy.CORE;
-using Dooggy.LIBRARY;
+﻿using Katty;
+using Dooggy;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -36,7 +36,6 @@ namespace BlueRocket
 
         public void Show() => View.Show();
         public void Hide() => View.Hide();
-
 
         public bool FindScript(ScriptCLI prmScript) => View.FindScript(prmScript);
 

@@ -1,5 +1,5 @@
 ﻿using BlueRocket;
-using Dooggy.LIBRARY;
+using Katty;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -189,7 +189,7 @@ namespace BlueRocket
         internal void Close()
         {
 
-            if (myMessage.ToConfirm("Do you want to close your current project ?", "Close Project"))
+            if (Message.ToConfirm("Do you want to close your current project ?", "Close Project"))
             {
                 Editor.Close();
 
@@ -200,7 +200,7 @@ namespace BlueRocket
         internal bool AskForExit()
         {
             if (Editor.HasProject)
-                if (myMessage.ToConfirm("Do you really want to close this application?", "Exit Application"))
+                if (Message.ToConfirm("Do you really want to close this application?", "Exit Application"))
                     App.Action.OnFileExit();
                 else
                     return true;

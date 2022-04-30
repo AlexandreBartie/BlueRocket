@@ -36,7 +36,6 @@ namespace BlueRocket
 
         public void PainelHide() => Painel.Hide();
 
-
     }
     public class AppPageStart : AppPageBase
     {

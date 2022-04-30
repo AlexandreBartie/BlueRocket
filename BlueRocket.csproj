@@ -19,7 +19,7 @@
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/AlexandreBartie/BlueRocket</RepositoryUrl>
     <Description>BlueRocket-CONSOLE é um desktop solution (Windows based) que permite criar e manter scripts do Framework de Automação de Testes Web (DOOGGY based), reduzindo a complexidade dos projetos de automação de testes web.</Description>
-    <Product>$(AssemblyName) FRAMEWORK</Product>
+    <Product>$(AssemblyName) no-code Testing Framework</Product>
     <UseWPF>False</UseWPF>
   </PropertyGroup>
 
@@ -28,7 +28,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Dooggy.CORE" Version="1.0.7.4" />
+    <PackageReference Include="Dooggy" Version="1.0.7.5" />
+    <PackageReference Include="KATTY" Version="1.0.7.12" />
   </ItemGroup>
 
   <ItemGroup>

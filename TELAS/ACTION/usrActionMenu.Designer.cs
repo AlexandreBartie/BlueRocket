@@ -50,9 +50,9 @@
             this.mnuSaveAll = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuView = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuViewScript = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuViewScriptCount = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuViewScriptTime = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuViewScriptTags = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuDataCount = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuTimeAnalisys = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuAssociatedTags = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuAutoSave = new System.Windows.Forms.ToolStripMenuItem();
@@ -174,7 +174,10 @@
             this.mnuUnlockedAll,
             this.Separator,
             this.mnuPlayAll,
-            this.mnuSaveAll});
+            this.mnuSaveAll,
+            this.mnuDataCount,
+            this.mnuTimeAnalisys,
+            this.mnuAssociatedTags});
             this.mnuScripts.Name = "mnuScripts";
             this.mnuScripts.Size = new System.Drawing.Size(54, 20);
             this.mnuScripts.Text = "Scripts";
@@ -227,33 +230,33 @@
             // mnuViewScript
             // 
             this.mnuViewScript.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuViewScriptCount,
-            this.mnuViewScriptTime,
-            this.mnuViewScriptTags});
+            this.mnuDataCount,
+            this.mnuTimeAnalisys,
+            this.mnuAssociatedTags});
             this.mnuViewScript.Name = "mnuViewScript";
             this.mnuViewScript.Size = new System.Drawing.Size(180, 22);
             this.mnuViewScript.Text = "Script";
             // 
             // mnuViewScriptCount
             // 
-            this.mnuViewScriptCount.Name = "mnuViewScriptCount";
-            this.mnuViewScriptCount.Size = new System.Drawing.Size(180, 22);
-            this.mnuViewScriptCount.Text = "Data Count";
-            this.mnuViewScriptCount.Click += new System.EventHandler(this.mnuViewScriptCount_Click);
+            this.mnuDataCount.Name = "mnuViewScriptCount";
+            this.mnuDataCount.Size = new System.Drawing.Size(180, 22);
+            this.mnuDataCount.Text = "Data Count";
+            this.mnuDataCount.Click += new System.EventHandler(this.mnuViewScriptCount_Click);
             // 
             // mnuViewScriptTime
             // 
-            this.mnuViewScriptTime.Name = "mnuViewScriptTime";
-            this.mnuViewScriptTime.Size = new System.Drawing.Size(180, 22);
-            this.mnuViewScriptTime.Text = "Time Analisys";
-            this.mnuViewScriptTime.Click += new System.EventHandler(this.mnuViewScriptTime_Click);
+            this.mnuTimeAnalisys.Name = "mnuViewScriptTime";
+            this.mnuTimeAnalisys.Size = new System.Drawing.Size(180, 22);
+            this.mnuTimeAnalisys.Text = "Time Analisys";
+            this.mnuTimeAnalisys.Click += new System.EventHandler(this.mnuViewScriptTime_Click);
             // 
             // mnuViewScriptTags
             // 
-            this.mnuViewScriptTags.Name = "mnuViewScriptTags";
-            this.mnuViewScriptTags.Size = new System.Drawing.Size(180, 22);
-            this.mnuViewScriptTags.Text = "Associated Tags";
-            this.mnuViewScriptTags.Click += new System.EventHandler(this.mnuViewScriptTags_Click);
+            this.mnuAssociatedTags.Name = "mnuViewScriptTags";
+            this.mnuAssociatedTags.Size = new System.Drawing.Size(180, 22);
+            this.mnuAssociatedTags.Text = "Associated Tags";
+            this.mnuAssociatedTags.Click += new System.EventHandler(this.mnuViewScriptTags_Click);
             // 
             // mnuHelp
             // 
@@ -321,9 +324,9 @@
         private System.Windows.Forms.ToolStripMenuItem mnuUnlockedAll;
         private System.Windows.Forms.ToolStripMenuItem mnuView;
         private System.Windows.Forms.ToolStripMenuItem mnuViewScript;
-        private System.Windows.Forms.ToolStripMenuItem mnuViewScriptCount;
-        private System.Windows.Forms.ToolStripMenuItem mnuViewScriptTime;
-        private System.Windows.Forms.ToolStripMenuItem mnuViewScriptTags;
+        private System.Windows.Forms.ToolStripMenuItem mnuDataCount;
+        private System.Windows.Forms.ToolStripMenuItem mnuTimeAnalisys;
+        private System.Windows.Forms.ToolStripMenuItem mnuAssociatedTags;
         private System.Windows.Forms.ToolStripMenuItem mnuAutoLoad;
         private System.Windows.Forms.ToolStripMenuItem mnuDebugMode;
         private System.Windows.Forms.ToolStripMenuItem mnuProject;

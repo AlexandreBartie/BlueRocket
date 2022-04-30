@@ -29,13 +29,6 @@ namespace BlueRocket
         private void mnuFileExit_Click(object sender, EventArgs e) => App.Action.OnFileExit();
 
         //
-        // Project
-        //
-        private void mnuAutoLoad_Click(object sender, EventArgs e) => App.Register.Project.IsAutoLoad = myMenu.InvertCheck(mnuAutoLoad);
-        private void mnuAutoSave_Click(object sender, EventArgs e) => App.Register.Project.IsAutoSave = myMenu.InvertCheck(mnuAutoSave);
-        private void mnuDebugMode_Click(object sender, EventArgs e) => App.Register.Project.IsDebugMode = myMenu.InvertCheck(mnuDebugMode);
-
-        //
         // Script
         //
         private void mnuLockedAll_Click(object sender, EventArgs e) => Editor.OnSelectedLockedAll();
@@ -44,11 +37,18 @@ namespace BlueRocket
         private void mnuSaveAll_Click(object sender, EventArgs e) => Editor.OnSelectedSaveAll();
 
         //
-        // View
+        // View Project
         //
-        private void mnuViewScriptCount_Click(object sender, EventArgs e) => App.Register.Script.IsDataCount.Check();
-        private void mnuViewScriptTime_Click(object sender, EventArgs e) => App.Register.Script.IsTimeAnalisys.Check();
-        private void mnuViewScriptTags_Click(object sender, EventArgs e) => App.Register.Script.IsAssociatedTags.Check();
+        private void mnuAutoLoad_Click(object sender, EventArgs e) => App.Action.OnViewProjectAutoLoad();
+        private void mnuAutoSave_Click(object sender, EventArgs e) => App.Action.OnViewProjectAutoSave();
+        private void mnuDebugMode_Click(object sender, EventArgs e) => App.Action.OnViewProjectDebugMode();
+        
+        //
+        // View Script
+        //
+        private void mnuViewScriptCount_Click(object sender, EventArgs e) => App.Action.OnViewScriptDataCount();
+        private void mnuViewScriptTime_Click(object sender, EventArgs e) => App.Action.OnViewScriptTimeAnalisys();
+        private void mnuViewScriptTags_Click(object sender, EventArgs e) => App.Action.OnViewScriptAssociatedTags();
 
         //
         // Script About
@@ -61,12 +61,13 @@ namespace BlueRocket
 
             Editor.Format.SetPadrao(mnuMain);
 
-            mnuAutoLoad.Checked = App.Register.Project.IsAutoLoad;
-            mnuDebugMode.Checked = App.Register.Project.IsDebugMode;
+            App.Register.Project.AutoLoad.Link(mnuAutoLoad);
+            App.Register.Project.AutoSave.Link(mnuAutoSave);
+            App.Register.Project.DebugMode.Link(mnuDebugMode);
 
-            App.Register.Script.IsDataCount.Link(mnuViewScriptCount);
-            App.Register.Script.IsTimeAnalisys.Link(mnuViewScriptTime);
-            App.Register.Script.IsAssociatedTags.Link(mnuViewScriptTags);
+            App.Register.Script.DataCount.Link(mnuDataCount);
+            App.Register.Script.TimeAnalisys.Link(mnuTimeAnalisys);
+            App.Register.Script.AssociatedTags.Link(mnuAssociatedTags);
 
             SeparatorNew.Visible = false;
             mnuNewWindow.Visible = false;
