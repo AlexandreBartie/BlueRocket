@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Katty;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,43 +11,61 @@ namespace BlueRocket
 {
     public partial class pagEdition : usrMoldura
     {
-        private EditorCLI Editor; private AppCLI App => Editor.App;
+        
+        private PageBuilder Builder;
+
+        private usrViewCode pagViewCode => (usrViewCode)Builder.GetElement("Code"); 
+        private usrViewData pagViewData => (usrViewData)Builder.GetElement("Data");
+        private usrViewResult pagViewResult => (usrViewResult)Builder.GetElement("Result");
 
         public pagEdition()
         {
+            
             InitializeComponent();
+
+            Builder = new PageBuilder(this);
+
+            Builder.AddElement("Code", new usrViewCode());
+            Builder.AddElement("Data", new usrViewData());
+            Builder.AddElement("Result", new usrViewResult(), DockStyle.Bottom);
+
+            Builder.AddSplitter(DockStyle.Bottom);
+
+            Builder.AddTab(prmPages: "Code,Data", prmAligment: TabAlignment.Top);  ;
+
         }
 
-        public void Setup(EditorCLI prmEditor)
+        public new void Setup(EditorCLI prmEditor)
         {
-            Editor = prmEditor;
+            Builder.Setup(prmEditor);
 
-            Editor.Format.SetPadrao(splSeparadorV);
-
-            usrTestCode.Setup(Editor);
-
-            usrTestResult.Setup(Editor);
-
+            pagViewCode.Setup(prmEditor);
+            pagViewData.Setup(prmEditor);
+            pagViewResult.Setup(prmEditor);
         }
         public void View()
         {
 
             SetTitle(Editor.View.script_name);
 
-            usrTestCode.View();
+            pagViewCode.View();
 
-            usrTestResult.View();
+            pagViewResult.View();
 
         }
 
+        public void ViewResult(ePageResult prmPage) => pagViewResult.ViewPage(prmPage);
+
+
         //public void MultiSelect(bool prmAtivar) { } // => usrProjetoTeste.MultiSelect(prmAtivar);
 
-        public void ViewResult(ePageResult prmPage) => usrTestResult.ViewPage(prmPage);
+
 
         //public bool FindNodeScript(ScriptCLI prmScript) => false;// usrProjetoTeste.FindNodeScript(prmScript);
 
         //public void UncheckedNodeScript(ScriptCLI prmScript) { }// => usrProjetoTeste.UncheckedNodeScript(prmScript);
 
-   }
+    }
 
 }
+

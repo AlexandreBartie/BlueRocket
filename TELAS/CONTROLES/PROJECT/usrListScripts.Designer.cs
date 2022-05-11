@@ -1,6 +1,6 @@
 ﻿namespace BlueRocket
 {
-    partial class usrTestScripts
+    partial class usrListScripts
     {
         /// <summary> 
         /// Variável de designer necessária.

@@ -8,10 +8,8 @@ using System.Windows.Forms;
 
 namespace BlueRocket
 {
-    public partial class usrTestCode : UserControl
+    public partial class usrViewCode : PageControl
     {
-
-        private EditorCLI Editor;
 
         private void txtCode_KeyPress(object sender, KeyPressEventArgs e) => Editor.OnScriptCodeEditing();
         private void txtCode_TextChanged(object sender, EventArgs e)
@@ -24,18 +22,17 @@ namespace BlueRocket
                 Editor.OnScriptCodeChanged();
             }
 
-        }
-   
+        }  
 
-        public usrTestCode()
+        public usrViewCode()
         {
             InitializeComponent();
         }
 
-        public void Setup(EditorCLI prmEditor)
+        public new void Setup(EditorCLI prmEditor)
         {
 
-            Editor = prmEditor;
+            base.Setup(prmEditor);
 
             Editor.Format.SetMemo(txtCode);
 

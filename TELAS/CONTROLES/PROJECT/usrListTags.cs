@@ -10,9 +10,8 @@ using System.Windows.Forms;
 
 namespace BlueRocket
 {
-    public partial class usrTestTags : UserControl
+    public partial class usrListTags : PageControl
     {
-        private EditorCLI Editor;
 
         private TreeNode Root;
 
@@ -27,16 +26,16 @@ namespace BlueRocket
             }
         }
 
-        public usrTestTags()
+        public usrListTags()
         {
             InitializeComponent();
 
             //SetTitle(prmText: "Filtragem por TAGS");
         }
 
-        public void Setup(EditorCLI prmEditor)
+        public new void Setup(EditorCLI prmEditor)
         {
-            Editor = prmEditor;
+            base.Setup(prmEditor);
 
             Editor.Format.SetPadrao(trvTags, prmCheckBoxes: true);
         }

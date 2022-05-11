@@ -8,11 +8,8 @@ using System.Windows.Forms;
 
 namespace BlueRocket
 {
-    public partial class usrActionCode : UserControl
+    public partial class usrActionCode : PageControl
     {
-        
-        private EditorCLI Editor;
-
         private void rodCodeEditionON_Click(object sender, EventArgs e) => Editor.OnScriptCodeLocked();
         private void rodCodeEditionOFF_Click(object sender, EventArgs e) => Editor.OnScriptCodeLocked();
 
@@ -36,9 +33,9 @@ namespace BlueRocket
         {
             this.Size = rodStatus.Size;
         }
-        public void Setup(EditorCLI prmEditor)
+        public new void Setup(EditorCLI prmEditor)
         {
-            Editor = prmEditor;
+            base.Setup(prmEditor);
 
             Editor.Format.SetPadrao(rodStatus, prmVisible: false);
         }

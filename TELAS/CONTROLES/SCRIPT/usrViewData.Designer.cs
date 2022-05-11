@@ -1,6 +1,6 @@
 ﻿namespace BlueRocket
 {
-    partial class usrTestProject
+    partial class usrViewData
     {
         /// <summary> 
         /// Variável de designer necessária.
@@ -28,34 +28,36 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.trvProjeto = new System.Windows.Forms.TreeView();
+            this.grdDataFeed = new System.Windows.Forms.DataGridView();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            ((System.ComponentModel.ISupportInitialize)(this.grdDataFeed)).BeginInit();
             this.SuspendLayout();
             // 
-            // trvProjeto
+            // grdDataFeed
             // 
-            this.trvProjeto.BackColor = System.Drawing.SystemColors.Info;
-            this.trvProjeto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.trvProjeto.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.trvProjeto.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.trvProjeto.Location = new System.Drawing.Point(0, 40);
-            this.trvProjeto.Name = "trvProjeto";
-            this.trvProjeto.Size = new System.Drawing.Size(794, 520);
-            this.trvProjeto.TabIndex = 12;
+            this.grdDataFeed.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grdDataFeed.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdDataFeed.Location = new System.Drawing.Point(0, 0);
+            this.grdDataFeed.Name = "grdDataFeed";
+            this.grdDataFeed.RowTemplate.Height = 25;
+            this.grdDataFeed.Size = new System.Drawing.Size(610, 468);
+            this.grdDataFeed.TabIndex = 0;
             // 
-            // usrTestProject
+            // usrTestData
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.trvProjeto);
-            this.Name = "usrTestProject";
-            this.Size = new System.Drawing.Size(794, 560);
-            this.Controls.SetChildIndex(this.trvProjeto, 0);
+            this.Controls.Add(this.grdDataFeed);
+            this.Name = "usrTestData";
+            this.Size = new System.Drawing.Size(610, 468);
+            ((System.ComponentModel.ISupportInitialize)(this.grdDataFeed)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.TreeView trvProjeto;
+        private System.Windows.Forms.DataGridView grdDataFeed;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }

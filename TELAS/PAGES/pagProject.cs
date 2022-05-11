@@ -19,49 +19,59 @@ namespace BlueRocket
     public partial class pagProject : usrMoldura
     {
 
-        private EditorCLI Editor;
+        private PageBuilder Builder;
 
-        private void tabPage_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (tabPage.SelectedIndex == (int)ePageScripts.ePageLista)
-                Editor.OnFilterTagChanged();
-        }
+        private usrListScripts pagListScripts => (usrListScripts)Builder.GetElement("Scripts");
+        private usrListTags pagListTags => (usrListTags)Builder.GetElement("Filter");
 
-        public bool IsMultiSelected => usrTestScripts.IsMultiSelected;
 
-        public void GetSelected() => usrTestScripts.GetSelected();
+        //private void tabPage_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    if (tabPage.SelectedIndex == (int)ePageScripts.ePageLista)
+        //        Editor.OnFilterTagChanged();
+        //}
+
+        public bool IsMultiSelected => pagListScripts.IsMultiSelected;
+
+        public void GetSelected() => pagListScripts.GetSelected();
 
         public pagProject()
         {
             InitializeComponent();
 
+            Builder = new PageBuilder(this);
+
+            Builder.AddElement("Scripts", new usrListScripts());
+            Builder.AddElement("Filter", new usrListTags());
+
+            Builder.AddTab(prmPages: "Scripts,Filter", prmAligment: TabAlignment.Bottom);
+
         }
 
-        public void Setup(EditorCLI prmEditor)
+        public new void Setup(EditorCLI prmEditor)
         {
-            Editor = prmEditor;
+            base.Setup(prmEditor);
 
-            usrTestScripts.Setup(Editor);
-            usrTestTags.Setup(Editor);
+            pagListScripts.Setup(Editor);
+            pagListTags.Setup(Editor);
         }
 
         public void Build()
         {
             SetTitle(prmText: Editor.Project.GetConsoleTitle());
 
-            usrTestScripts.Build();
+            pagListScripts.Build();
 
-            usrTestTags.Build();
+            pagListTags.Build();
         }
 
-        public void ViewSelections() => usrTestScripts.ViewSelections();
+        public void ViewSelections() => pagListScripts.ViewSelections();
 
-        public void ViewAll(bool prmSetup) => usrTestScripts.ViewAll(prmSetup);
+        public void ViewAll(bool prmSetup) => pagListScripts.ViewAll(prmSetup);
+        public void ViewScript(ScriptCLI prmScript) => pagListScripts.ViewScript(prmScript);
+        public void ViewCurrent() => pagListScripts.ViewCurrent();
 
-        public void ViewScript(ScriptCLI prmScript) => usrTestScripts.ViewScript(prmScript);
-        public void ViewCurrent() => usrTestScripts.ViewCurrent();
-
-        public bool FindScript(ScriptCLI prmScript) => usrTestScripts.FindScript(prmScript);
+        public bool FindScript(ScriptCLI prmScript) => pagListScripts.FindScript(prmScript);
 
     }
 }

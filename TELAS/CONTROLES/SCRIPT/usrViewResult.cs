@@ -26,25 +26,23 @@ namespace BlueRocket
         eLogDescription = 2,
     }
 
-    public partial class usrTestResult : usrMoldura
+    public partial class usrViewResult : usrMoldura
     {
-
-        private EditorCLI Editor;
 
         private void tabControl_Click(object sender, EventArgs e) => Editor.OnScriptCodeChanged();
 
         private void lstSqlCommands_DoubleClick(object sender, EventArgs e) => Editor.OnScriptLogClipBoard(prmLog: GetSqlSelected(prmColumn: eLogColumn.eLogDescription));
         
-        public usrTestResult()
+        public usrViewResult()
         {
             InitializeComponent();
 
             SetTitle(prmText: "Resultado Gerado");
         }
 
-        public void Setup(EditorCLI prmEditor)
+        public new void Setup(EditorCLI prmEditor)
         {
-            Editor = prmEditor;
+            base.Setup(prmEditor);
 
             Editor.Format.SetMemo(txtMassaDados);
 

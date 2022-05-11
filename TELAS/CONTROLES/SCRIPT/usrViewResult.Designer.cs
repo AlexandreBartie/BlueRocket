@@ -1,6 +1,6 @@
 ﻿namespace BlueRocket
 {
-    partial class usrTestResult
+    partial class usrViewResult
     {
         /// <summary> 
         /// Variável de designer necessária.

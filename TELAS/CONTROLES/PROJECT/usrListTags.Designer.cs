@@ -1,6 +1,6 @@
 ﻿namespace BlueRocket
 {
-    partial class pagEdition
+    partial class usrListTags
     {
         /// <summary> 
         /// Variável de designer necessária.
@@ -28,19 +28,35 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.trvTags = new System.Windows.Forms.TreeView();
             this.SuspendLayout();
             // 
-            // pagEdition
+            // trvTags
+            // 
+            this.trvTags.BackColor = System.Drawing.SystemColors.Info;
+            this.trvTags.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.trvTags.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.trvTags.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.trvTags.Location = new System.Drawing.Point(0, 40);
+            this.trvTags.Name = "trvTags";
+            this.trvTags.Size = new System.Drawing.Size(446, 520);
+            this.trvTags.TabIndex = 9;
+            this.trvTags.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.trvTags_AfterCheck);
+            // 
+            // usrFilterTags
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Name = "pagEdition";
-            this.Size = new System.Drawing.Size(899, 805);
+            this.Controls.Add(this.trvTags);
+            this.Name = "usrFilterTags";
+            this.Size = new System.Drawing.Size(446, 560);
+            this.Controls.SetChildIndex(this.trvTags, 0);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
+        private System.Windows.Forms.TreeView trvTags;
     }
 }

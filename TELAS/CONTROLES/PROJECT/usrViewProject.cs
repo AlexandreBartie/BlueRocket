@@ -5,10 +5,8 @@ using System.Windows.Forms;
 
 namespace BlueRocket
 {
-    public partial class usrTestProject : usrMoldura
+    public partial class usrViewProject : usrMoldura
     {
-
-        private EditorCLI Editor;
 
         private TreeNode Root;
 
@@ -16,7 +14,7 @@ namespace BlueRocket
         private bool IsRootSelected => (IsNodeSelected && (trvProjeto.SelectedNode.Parent == null));
         private bool IsItemSelected => (IsNodeSelected && !IsRootSelected);
 
-        public usrTestProject()
+        public usrViewProject()
         {
             InitializeComponent();
 
@@ -53,9 +51,9 @@ namespace BlueRocket
             }
         }
 
-        public void Setup(EditorCLI prmEditor)
+        public new void Setup(EditorCLI prmEditor)
         {
-            Editor = prmEditor;
+            base.Setup(prmEditor);
 
             Editor.Format.SetPadrao(trvProjeto);
          }

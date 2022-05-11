@@ -273,6 +273,22 @@ namespace BlueRocket
 
         }
 
+        public void SetPadrao(DataGridView prmDataGrid)
+        {
+            SetControl(prmDataGrid);
+
+            //prmListView.LabelEdit = false;
+
+            //prmListView.View = View.Details;
+
+            //prmListView.HideSelection = false;
+
+            //prmListView.FullRowSelect = true;
+
+            //prmListView.Scrollable = true;
+
+        }
+
         public void SetPadrao(TreeView prmTreeView) => SetPadrao(prmTreeView, prmCheckBoxes: false);
         public void SetPadrao(TreeView prmTreeView, bool prmCheckBoxes)
         {

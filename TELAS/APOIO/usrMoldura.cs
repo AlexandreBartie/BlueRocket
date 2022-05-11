@@ -11,7 +11,7 @@ namespace BlueRocket
     
     public delegate void Notify_PageTituloClick();
     
-    public partial class usrMoldura : UserControl
+    public partial class usrMoldura : PageControl
     {
 
         public event Notify_PageTituloClick PageTituloClick;

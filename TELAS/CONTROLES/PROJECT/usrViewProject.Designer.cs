@@ -1,6 +1,6 @@
 ﻿namespace BlueRocket
 {
-    partial class usrTestTags
+    partial class usrViewProject
     {
         /// <summary> 
         /// Variável de designer necessária.
@@ -28,35 +28,34 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.trvTags = new System.Windows.Forms.TreeView();
+            this.trvProjeto = new System.Windows.Forms.TreeView();
             this.SuspendLayout();
             // 
-            // trvTags
+            // trvProjeto
             // 
-            this.trvTags.BackColor = System.Drawing.SystemColors.Info;
-            this.trvTags.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.trvTags.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.trvTags.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.trvTags.Location = new System.Drawing.Point(0, 40);
-            this.trvTags.Name = "trvTags";
-            this.trvTags.Size = new System.Drawing.Size(446, 520);
-            this.trvTags.TabIndex = 9;
-            this.trvTags.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.trvTags_AfterCheck);
+            this.trvProjeto.BackColor = System.Drawing.SystemColors.Info;
+            this.trvProjeto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.trvProjeto.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.trvProjeto.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.trvProjeto.Location = new System.Drawing.Point(0, 40);
+            this.trvProjeto.Name = "trvProjeto";
+            this.trvProjeto.Size = new System.Drawing.Size(794, 520);
+            this.trvProjeto.TabIndex = 12;
             // 
-            // usrFilterTags
+            // usrTestProject
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.trvTags);
-            this.Name = "usrFilterTags";
-            this.Size = new System.Drawing.Size(446, 560);
-            this.Controls.SetChildIndex(this.trvTags, 0);
+            this.Controls.Add(this.trvProjeto);
+            this.Name = "usrTestProject";
+            this.Size = new System.Drawing.Size(794, 560);
+            this.Controls.SetChildIndex(this.trvProjeto, 0);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.TreeView trvTags;
+        private System.Windows.Forms.TreeView trvProjeto;
     }
 }
