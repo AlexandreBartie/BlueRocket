@@ -22,10 +22,7 @@ namespace BlueRocket
 
         private void lstScripts_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            ListViewItem item = Page.Actions.GetListItem(prmMouseX: e.X, prmMouseY: e.Y);
-
-            if (item != null)
-                Page.Actions.DoubleClick(prmScript: Page.Actions.GetTag(item));
+            Page.Actions.DoubleClick(prmMouseX: e.X, prmMouseY: e.Y);
         }
 
         public bool IsMultiSelected => Page.Resources.IsMultiSelected;

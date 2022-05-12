@@ -18,7 +18,7 @@ namespace BlueRocket
         {
             InitializeComponent();
 
-            SetTitle(prmText: "Lista de Arquivos INI");
+            SetText(prmText: "Lista de Arquivos INI");
         }
 
         private void mnuRefresh_Click(object sender, EventArgs e)
@@ -60,7 +60,7 @@ namespace BlueRocket
     
         public new void Refresh()
         {
-            SetTitle(prmText: GetProjectTitle());
+            SetText(prmText: GetProjectTitle());
 
             Popular();
         }      

@@ -4,64 +4,54 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
 
-namespace BlueRocket
+namespace BlueRocket.UX
 {
-    public class PageControl : UserControl
-    {
-
-        private EditorCLI _Editor;
-
-        public EditorCLI Editor { get => _Editor; }
-
-        public AppCLI App => Editor.App;
-
-        public void Setup(EditorCLI prmEditor)
-        {
-            _Editor = prmEditor;
-        }
-    }
-
-    public class PageBuilder : BaseBuilder
+    public class BaseBuilder
     {
         public PageElements Elements;
 
-        public TabBuilder Tab;
+        public PageTab Tab;
 
-        public PageControl GetParent() => Page;
-        public PageControl GetElement(string prmKey) => Elements.FindKey(prmKey);
+        public PageTitle Title;
 
-        public PageBuilder(PageControl prmPage)
+        public Control Parent;
+
+        public BaseControl Base;
+
+        internal PageControl GetElement(string prmKey) => Elements.FindKey(prmKey);
+
+        public BaseBuilder()
         {
 
-            Page = prmPage;
+            Tab = new PageTab(this);
 
-            Tab = new TabBuilder(this);
+            Title = new PageTitle(this);
 
             Elements = new PageElements();
         }
-        public void Setup(EditorCLI prmEditor)
-        {
-            Page.Setup(prmEditor);
-        }
 
         public void AddElement(string prmKey, PageControl prmElement) => AddElement(prmKey, prmElement, prmDockStyle: DockStyle.Fill);
-        public void AddElement(string prmKey, PageControl prmElement, DockStyle prmDockStyle)
+        public void AddElement(string prmKey, PageControl prmElement, DockStyle prmDockStyle) => AddElement(prmKey, prmElement, prmDockStyle, prmSplitter: false);
+        public void AddElement(string prmKey, PageControl prmElement, DockStyle prmDockStyle, bool prmSplitter)
         {
-            prmElement.Parent = Page;
+            prmElement.Parent = Parent;
 
             prmElement.BringToFront();
 
             prmElement.Dock = prmDockStyle;
 
             Elements.Add(prmKey, prmElement);
-        }
 
-        public void AddSplitter(DockStyle prmDockStyle)
+            if (prmSplitter)
+                AddSplitter(prmDockStyle);
+
+        }
+        private void AddSplitter(DockStyle prmDockStyle)
         {
 
             Splitter Separator = new Splitter();
 
-            Separator.Parent = Page;
+            Separator.Parent = Parent;
 
             Separator.BringToFront();
 
@@ -77,10 +67,11 @@ namespace BlueRocket
                 AddControl(key);
         }
 
-        private void AddControl(string prmKey)
-        {
-            Tab.AddControl(prmKey, prmControl: GetElement(prmKey));
-        }
+        public void AddCaption() { Title.Show(); AddSplitter(prmDockStyle: DockStyle.Top ); }
+
+        public void SetText(string prmText) => Title.SetText(prmText);
+
+        private void AddControl(string prmKey) => Tab.AddControl(prmKey, prmControl: GetElement(prmKey));
 
     }
     public class PageElements : List<PageElement>
@@ -113,20 +104,47 @@ namespace BlueRocket
         }
 
     }
-    public class TabBuilder
+    public class PageTitle
     {
-        private PageBuilder Builder;
+        private BaseBuilder Builder;
+
+        private usrTitle Title;
+
+        public PageTitle(BaseBuilder prmBuilder)
+        {
+            Builder = prmBuilder; 
+        }
+
+        public void Show()
+        {
+            Title = new usrTitle();
+
+            Title.Parent = Builder.Parent;
+
+            Title.BringToFront();
+
+            //Moldura.SendToBack();
+
+            Title.Dock = DockStyle.Top;
+        }
+
+        public void SetText(string prmText) => Title.SetText(prmText);
+
+    }
+    public class PageTab
+    {
+        private BaseBuilder Builder;
 
         private TabControl Tab;
 
-        public TabBuilder(PageBuilder prmBuilder)
+        public PageTab(BaseBuilder prmBuilder)
         {
             Builder = prmBuilder; Tab = new TabControl();
         }
 
         public void Create(TabAlignment prmAligment, DockStyle prmDockStyle)
         {
-            Tab.Parent = Builder.GetParent();
+            Tab.Parent = Builder.Parent;
 
             Tab.Alignment = prmAligment;
 
@@ -144,15 +162,6 @@ namespace BlueRocket
             Tab.TabPages.Add(Item);
         }
 
-
-    }
-
-    public class BaseBuilder
-    {
-        public AppCLI App => Page.App;
-        public EditorCLI Editor => Page.Editor;
-
-        internal PageControl Page;
 
     }
 }

@@ -147,7 +147,15 @@ namespace BlueRocket.PAGES.ListScripts
             App.Events.ViewScriptChanged += ViewScriptChanged;
         }
 
-        internal void DoubleClick(string prmScript)
+        internal void DoubleClick(int prmMouseX, int prmMouseY)
+        {
+            ListViewItem item = GetListItem(prmMouseX, prmMouseY);
+
+            if (item != null)
+                SelectScript(prmScript: GetTag(item));
+        }
+
+        private void SelectScript(string prmScript)
         {
             SetFocus(prmScript);
 
@@ -193,15 +201,15 @@ namespace BlueRocket.PAGES.ListScripts
             foreach (ScriptCLI Script in Editor.Batch.Select)
                 Builder.ViewScript(Script);
         }
-        internal ListViewItem GetListItem(int prmMouseX, int prmMouseY)
+        internal string GetTag(ListViewItem prmItem) => prmItem.Tag.ToString();
+
+        private ListViewItem GetListItem(int prmMouseX, int prmMouseY)
         {
             ListViewHitTestInfo info = Resources.ListView.HitTest(prmMouseX, prmMouseY);
             ListViewItem item = info.Item;
 
             return (item);
         }
-
-        internal string GetTag(ListViewItem prmItem) => prmItem.Tag.ToString();
 
     }
     internal class PageStructure : PageBase

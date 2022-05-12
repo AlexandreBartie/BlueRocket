@@ -23,7 +23,7 @@ namespace BlueRocket
 
         private void usrTitulo_TituloClick() => PageTituloClick?.Invoke();
 
-        public void SetTitle(string prmText) => usrTitulo.SetTitle(prmText);
+        public void SetText(string prmText) => usrTitle.SetText(prmText);
 
     }
 }

@@ -1,25 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-namespace BlueRocket
+namespace BlueRocket.UX
 {
+    //public enum ePageScripts : int
+    //{
+    //    ePageLista = 0,
+    //    ePageFiltro = 1,
+    //    ePageEstrutura = 2,
+    //}
 
-    public enum ePageScripts : int
+    public class PanelProject : PageControl
     {
-        ePageLista = 0,
-        ePageFiltro = 1,
-        ePageEstrutura = 2,
-    }
 
-    public partial class pagProject : usrMoldura
-    {
-
-        private PageBuilder Builder;
+        private UXBuilder Builder;
 
         private usrListScripts pagListScripts => (usrListScripts)Builder.GetElement("Scripts");
         private usrListTags pagListTags => (usrListTags)Builder.GetElement("Filter");
@@ -35,17 +31,14 @@ namespace BlueRocket
 
         public void GetSelected() => pagListScripts.GetSelected();
 
-        public pagProject()
+        public PanelProject()
         {
-            InitializeComponent();
-
-            Builder = new PageBuilder(this);
+            Builder = new UXBuilder(this, prmTitle: true);
 
             Builder.AddElement("Scripts", new usrListScripts());
             Builder.AddElement("Filter", new usrListTags());
 
             Builder.AddTab(prmPages: "Scripts,Filter", prmAligment: TabAlignment.Bottom);
-
         }
 
         public new void Setup(EditorCLI prmEditor)
@@ -58,7 +51,7 @@ namespace BlueRocket
 
         public void Build()
         {
-            SetTitle(prmText: Editor.Project.GetConsoleTitle());
+            Builder.SetText(prmText: Editor.Project.GetConsoleTitle());
 
             pagListScripts.Build();
 

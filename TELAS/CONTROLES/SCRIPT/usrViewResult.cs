@@ -37,7 +37,7 @@ namespace BlueRocket
         {
             InitializeComponent();
 
-            SetTitle(prmText: "Resultado Gerado");
+            SetText(prmText: "Resultado Gerado");
         }
 
         public new void Setup(EditorCLI prmEditor)

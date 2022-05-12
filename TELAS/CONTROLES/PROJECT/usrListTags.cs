@@ -29,8 +29,6 @@ namespace BlueRocket
         public usrListTags()
         {
             InitializeComponent();
-
-            //SetTitle(prmText: "Filtragem por TAGS");
         }
 
         public new void Setup(EditorCLI prmEditor)

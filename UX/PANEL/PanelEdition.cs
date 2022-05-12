@@ -1,42 +1,35 @@
-﻿using Katty;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-namespace BlueRocket
+namespace BlueRocket.UX
 {
-    public partial class pagEdition : usrMoldura
+    public class PanelEdition : PageControl
     {
-        
-        private PageBuilder Builder;
 
-        private usrViewCode pagViewCode => (usrViewCode)Builder.GetElement("Code"); 
+        private UXBuilder Builder;
+
+        private usrViewCode pagViewCode => (usrViewCode)Builder.GetElement("Code");
         private usrViewData pagViewData => (usrViewData)Builder.GetElement("Data");
         private usrViewResult pagViewResult => (usrViewResult)Builder.GetElement("Result");
 
-        public pagEdition()
+        public PanelEdition()
         {
-            
-            InitializeComponent();
-
-            Builder = new PageBuilder(this);
+            Builder = new UXBuilder(this, prmTitle: true);
 
             Builder.AddElement("Code", new usrViewCode());
             Builder.AddElement("Data", new usrViewData());
-            Builder.AddElement("Result", new usrViewResult(), DockStyle.Bottom);
 
-            Builder.AddSplitter(DockStyle.Bottom);
+            Builder.AddElement("Result", new usrViewResult(), DockStyle.Bottom, prmSplitter: true);
 
-            Builder.AddTab(prmPages: "Code,Data", prmAligment: TabAlignment.Top);  ;
-
+            Builder.AddTab(prmPages: "Code,Data", prmAligment: TabAlignment.Top); ;
         }
 
         public new void Setup(EditorCLI prmEditor)
         {
+            base.Setup(prmEditor);
+            
             Builder.Setup(prmEditor);
 
             pagViewCode.Setup(prmEditor);
@@ -45,13 +38,11 @@ namespace BlueRocket
         }
         public void View()
         {
-
-            SetTitle(Editor.View.script_name);
+            Builder.SetText(Editor.View.script_name);
 
             pagViewCode.View();
 
             pagViewResult.View();
-
         }
 
         public void ViewResult(ePageResult prmPage) => pagViewResult.ViewPage(prmPage);
@@ -66,6 +57,4 @@ namespace BlueRocket
         //public void UncheckedNodeScript(ScriptCLI prmScript) { }// => usrProjetoTeste.UncheckedNodeScript(prmScript);
 
     }
-
 }
-

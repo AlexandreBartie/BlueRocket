@@ -320,7 +320,7 @@ namespace BlueRocket
             prmStatus.Refresh();
         }
 
-        public void SetPadrao(usrTitulo prmTitulo)
+        public void SetPadrao(usrTitle prmTitulo)
         {
             prmTitulo.BackColor = Color.Yellow;
             prmTitulo.ForeColor = Color.Black;

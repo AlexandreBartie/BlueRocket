@@ -8,17 +8,17 @@ using System.Windows.Forms;
 
 namespace BlueRocket
 {
-    public delegate void Notify_TituloClick();
-    public partial class usrTitulo : UserControl
+    public delegate void Notify_TitleClick();
+    public partial class usrTitle : UserControl
     {
 
-        public event Notify_TituloClick TituloClick;
+        public event Notify_TitleClick TitleClick;
 
         private EditorCLI Editor;
 
-        private void cmdTitulo_Click(object sender, EventArgs e) => TituloClick?.Invoke();
+        private void cmdTitulo_Click(object sender, EventArgs e) => TitleClick?.Invoke();
 
-        public usrTitulo()
+        public usrTitle()
         {
             InitializeComponent();
         }
@@ -27,10 +27,10 @@ namespace BlueRocket
         {
             Editor = prmEditor;
 
-            Editor.Format.SetPadrao(cmdTitulo);
+            Editor.Format.SetPadrao(cmdTitle);
         }
 
-        public void SetTitle(string prmText) { cmdTitulo.Text = prmText; }
+        public void SetText(string prmText) { cmdTitle.Text = prmText; }
 
     }
 }

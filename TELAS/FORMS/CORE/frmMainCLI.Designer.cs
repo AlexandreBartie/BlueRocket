@@ -31,9 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMainCLI));
             this.usrMenu = new BlueRocket.usrActionMenu();
             this.usrStatus = new BlueRocket.usrActionStatus();
-            this.pagScripts = new BlueRocket.pagProject();
-            this.separadorV = new System.Windows.Forms.Splitter();
-            this.pagEdition = new BlueRocket.pagEdition();
             this.SuspendLayout();
             // 
             // usrMenu
@@ -52,40 +49,12 @@
             this.usrStatus.Size = new System.Drawing.Size(1257, 25);
             this.usrStatus.TabIndex = 19;
             // 
-            // pagScripts
-            // 
-            this.pagScripts.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.pagScripts.Dock = System.Windows.Forms.DockStyle.Left;
-            this.pagScripts.Location = new System.Drawing.Point(0, 27);
-            this.pagScripts.Name = "pagScripts";
-            this.pagScripts.Size = new System.Drawing.Size(402, 728);
-            this.pagScripts.TabIndex = 20;
-            // 
-            // separadorV
-            // 
-            this.separadorV.Location = new System.Drawing.Point(402, 27);
-            this.separadorV.Name = "separadorV";
-            this.separadorV.Size = new System.Drawing.Size(3, 728);
-            this.separadorV.TabIndex = 21;
-            this.separadorV.TabStop = false;
-            // 
-            // pagEdition
-            // 
-            this.pagEdition.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pagEdition.Location = new System.Drawing.Point(405, 27);
-            this.pagEdition.Name = "pagEdition";
-            this.pagEdition.Size = new System.Drawing.Size(852, 728);
-            this.pagEdition.TabIndex = 22;
-            // 
             // frmMainCLI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(1257, 780);
-            this.Controls.Add(this.pagEdition);
-            this.Controls.Add(this.separadorV);
-            this.Controls.Add(this.pagScripts);
             this.Controls.Add(this.usrStatus);
             this.Controls.Add(this.usrMenu);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -100,8 +69,5 @@
         #endregion
         private usrActionMenu usrMenu;
         private usrActionStatus usrStatus;
-        private pagProject pagScripts;
-        private System.Windows.Forms.Splitter separadorV;
-        private pagEdition pagEdition;
     }
 }

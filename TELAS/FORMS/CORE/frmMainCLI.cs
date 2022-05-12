@@ -1,4 +1,5 @@
 ﻿using BlueRocket;
+using BlueRocket.UX;
 using Katty;
 using System;
 using System.Collections.Generic;
@@ -14,10 +15,10 @@ using System.Windows.Forms;
 namespace BlueRocket
 {
 
-    public partial class frmMainCLI : Form
+    public partial class frmMainCLI : FormControl
     {
 
-        public EditorCLI Editor;
+        private PanelMain Panel;
 
         private MainProject Project;
 
@@ -25,8 +26,8 @@ namespace BlueRocket
 
         private MainThread Thread;
 
-        internal pagProject PageScripts => this.pagScripts;
-        internal pagEdition PageEdition => this.pagEdition;
+        internal PanelProject pagProject => Panel.pagProject;
+        internal PanelEdition pagEdition => Panel.pagEdition;
 
         private void frmMainCLI_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -34,15 +35,17 @@ namespace BlueRocket
                 e.Cancel = Project.AskForExit();
         }
 
-        public bool IsMultiSelected => pagScripts.IsMultiSelected;
+        public bool IsMultiSelected => pagProject.IsMultiSelected;
 
-        public bool FindScript(ScriptCLI prmScript) => pagScripts.FindScript(prmScript);
+        public bool FindScript(ScriptCLI prmScript) => pagProject.FindScript(prmScript);
 
-        public void GetSelected() => pagScripts.GetSelected();
+        public void GetSelected() => pagProject.GetSelected();
 
         public frmMainCLI(EditorCLI prmEditor)
         {
-            InitializeComponent(); Editor = prmEditor;
+            InitializeComponent();
+            
+            Panel = new PanelMain(this, prmEditor);
 
             Project = new MainProject(this);
 
@@ -104,7 +107,7 @@ namespace BlueRocket
         internal void OnScriptLocked() => Editor.CodeLocked();
         private void OnFilterTagChecked(string prmTag, string prmOption, bool prmChecked) => Project.SetFilter(prmTag, prmOption, prmChecked);
 
-        internal void OnScriptView() { pagScripts.ViewCurrent(); pagEdition.View(); MenuStatusView(); }
+        internal void OnScriptView() { pagProject.ViewCurrent(); pagEdition.View(); MenuStatusView(); }
 
         internal void OnScriptLogOK() => pagEdition.ViewResult(prmPage: ePageResult.ePageMassaDados);
         internal void OnScriptLogError() => pagEdition.ViewResult(prmPage: ePageResult.ePageLogErrors);
@@ -123,8 +126,8 @@ namespace BlueRocket
         private void OnSelectedPlayAll() => Process.SelectedPlaySaveAll(prmPlay: true, prmSave: false);
         private void OnSelectedSaveAll() => Process.SelectedPlaySaveAll(prmPlay: false, prmSave: true);
 
-        private void OnBatchStart() => pagScripts.ViewSelections();
-        private void OnBatchSet() => pagScripts.ViewCurrent();  
+        private void OnBatchStart() => pagProject.ViewSelections();
+        private void OnBatchSet() => pagProject.ViewCurrent();  
 
         private void OnBatchEnd() => usrMenu.Refresh();
 
@@ -136,6 +139,7 @@ namespace BlueRocket
 
     internal class MainProject : MainBase
     {
+
         public MainProject(frmMainCLI prmMain) : base(prmMain) { }
 
         internal void Setup()
@@ -143,8 +147,8 @@ namespace BlueRocket
 
             Main.Text = Editor.App.Info.productName;
 
-            Main.PageScripts.Setup(Editor);
-            Main.PageEdition.Setup(Editor);
+            Main.pagProject.Setup(Editor);
+            Main.pagEdition.Setup(Editor);
 
             Editor.Build();
 
@@ -156,7 +160,7 @@ namespace BlueRocket
         {
             Editor.DoConnect();
 
-            Main.PageEdition.View();
+            Main.pagEdition.View();
 
             Main.MenuStatusView();
         }
@@ -171,9 +175,9 @@ namespace BlueRocket
         {
             Editor.Build();
 
-            Main.PageScripts.Build();
+            Main.pagProject.Build();
 
-            Main.PageEdition.View();
+            Main.pagEdition.View();
 
         }
 
@@ -181,7 +185,7 @@ namespace BlueRocket
         {
             Editor.Filter.SetTagOption(prmTag, prmOption, prmChecked);
 
-            Main.PageScripts.ViewAll(prmSetup: true);
+            Main.pagProject.ViewAll(prmSetup: true);
 
             Main.MenuStatusView();
         }
