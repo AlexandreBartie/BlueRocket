@@ -41,7 +41,6 @@
             this.trvTags.Name = "trvTags";
             this.trvTags.Size = new System.Drawing.Size(446, 520);
             this.trvTags.TabIndex = 9;
-            this.trvTags.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.trvTags_AfterCheck);
             // 
             // usrFilterTags
             // 

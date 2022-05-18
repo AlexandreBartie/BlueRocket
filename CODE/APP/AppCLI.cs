@@ -134,19 +134,19 @@ namespace BlueRocket
         {
             App.Register.Script.DataCount.Check();
 
-            App.Events.OnViewScriptChanged();
+            App.Events.OnScriptChanged();
         }
         public void OnViewScriptTimeAnalisys()
         {
             App.Register.Script.TimeAnalisys.Check();
 
-            App.Events.OnViewScriptChanged();
+            App.Events.OnScriptChanged();
         }
         public void OnViewScriptAssociatedTags()
         {
             App.Register.Script.AssociatedTags.Check();
 
-            App.Events.OnViewScriptChanged();
+            App.Events.OnScriptChanged();
         }
 
         private void Reset()

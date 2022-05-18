@@ -308,7 +308,7 @@ namespace BlueRocket
 
         public bool IsMassaDados => HasScript && ICanPlay;
 
-        public bool IsFree => !(IsRunning);
+        public bool IsFree => !(IsRunning) && IsWorking;
         public bool IsRunning => Batch.IsRunning;
         public bool IsWorking => Load.IsWorking;
         public bool IsPlaying { get { if (HasScript) return Script.IsPlaying; return false; } }

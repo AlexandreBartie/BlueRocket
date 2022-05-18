@@ -8,41 +8,65 @@ using System.Windows.Forms;
 
 namespace BlueRocket.PAGES.ListScripts
 {
-    internal class PageListScripts : PageBuilder
+    internal class PageListScripts
     {
 
-        //internal PageViewCode pagTestCode;
-        //internal PageViewData pagTestData;
+        internal PageBuilder Page;
 
-        internal PageListScripts(UserControl prmPage, Control prmListView) : base(prmPage, prmListView)
+        public bool IsMultiSelected => Page.Resources.IsMultiSelected;
+
+        internal PageListScripts()
         {
-            //pagTestCode = new  PageViewCode();
-            //pagTestData = new  PageViewData();
+            Page = new PageBuilder(new ListView());
         }
+
+        public void Setup(EditorCLI prmEditor) => Page.Setup(prmEditor);
+
+        public void Build() => Page.Build();
+
+        //
+        // Views
+        //
+
+        public void ViewCurrent() => Page.ViewCurrent();
+
+        public void ViewScript(ScriptCLI prmScript) => Page.ViewScript(prmScript);
+
+        public void ViewAll(bool prmSetup) => Page.ViewAll(prmSetup);
+
+        //
+        // Actions
+        //
+
+        public void SetFocus(ScriptCLI prmScript) => Page.Actions.SetFocus(prmScript);
+
+        public bool FindScript(ScriptCLI prmScript) => Page.Actions.FindScript(prmScript);
+
+        public void GetSelected() => Page.Actions.GetSelected();
+
+        public void ViewSelections() => Page.Actions.ViewSelections();
     }
 
     internal class PageBuilder : PageControl
     {
 
-        internal PageResources Resources;
-
         internal PageActions Actions;
+
+        internal PageResources Resources;
 
         internal PageStructure Structure;
 
         internal PageElements Elements;
 
-        internal PageBuilder(UserControl prmPage, Control prmListView)
+        internal PageBuilder(Control prmControl) : base(prmControl)
         {
+            Actions = new PageActions(this);
+
             Resources = new PageResources(this);
 
             Structure = new PageStructure(this);
 
             Elements = new PageElements(this);
-
-            Actions = new PageActions(this);
-
-            Resources.SetPage(prmPage, prmListView);
         }
 
         internal new void Setup(EditorCLI prmEditor)
@@ -54,7 +78,7 @@ namespace BlueRocket.PAGES.ListScripts
 
             Resources.Setup();
 
-            Structure.Setup();
+            Structure.Build();
 
             ViewAll(prmSetup: true);
         }
@@ -69,34 +93,24 @@ namespace BlueRocket.PAGES.ListScripts
             Reset(); ViewAll(prmSetup: true);
         }
 
-        internal void ViewAll(bool prmSetup)
-        {
-            Elements.ViewAll(prmSetup);
-        }
+        internal void ViewCurrent() => ViewScript(prmScript: Editor.Script);
 
-        internal void ViewCurrent()
-        {
-            Elements.ViewScript(Editor.Script);
-        }
-        internal void ViewScript(ScriptCLI prmScript)
-        {
-            Elements.ViewScript(prmScript);
-        }
+        internal void ViewScript(ScriptCLI prmScript) => Elements.ViewScript(prmScript);
 
+        internal void ViewAll(bool prmSetup) => Elements.ViewAll(prmSetup);
     }
     internal class PageResources
     {
         private PageBuilder Builder;
 
-        internal usrListScripts Page;
+        internal PageEvents Events;
 
-        internal ListView ListView;
+        internal ListView ListView => (ListView)Builder.GetControl();
 
         internal bool IsMultiSelected => (ListView.SelectedItems.Count > 1);
 
         internal ListView.ListViewItemCollection Itens => ListView.Items;
         internal ListView.SelectedListViewItemCollection Selecionados => ListView.SelectedItems;
-
 
         internal int qtde_colunas;
 
@@ -105,22 +119,18 @@ namespace BlueRocket.PAGES.ListScripts
             Builder = prmBuilder;
         }
 
+        internal void Setup()
+        {
+            Events = new PageEvents(Builder);
+
+            Builder.Format.SetPadrao(ListView);
+
+            ListView.SmallImageList = GetViewImages(new ImageList());
+        }
+
         internal void SetFocus()
         {
             ListView.Refresh();
-        }
-
-        internal void SetPage(UserControl prmPage, Control prmListView)
-        {
-            Page = (usrListScripts)prmPage;
-
-            ListView = (ListView)prmListView;
-
-        }
-
-        internal void Setup()
-        {
-            ListView.SmallImageList = GetViewImages(new ImageList());
         }
 
         private ImageList GetViewImages(ImageList prmListImage)
@@ -138,24 +148,56 @@ namespace BlueRocket.PAGES.ListScripts
         }
 
     }
+
+    internal class PageEvents : PageBase
+    {
+        private PageActions Actions => Builder.Actions;
+
+        internal PageEvents(PageBuilder prmBuilder) : base(prmBuilder)
+        {
+            ListView.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(ItemSelectionChanged);
+            ListView.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(MouseDoubleClick);
+        }
+
+        private void ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
+        {
+            Actions.SetFocus(prmScript: Actions.GetTag(e.Item));
+        }
+
+        private void MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            ListViewItem line = GetListItem(prmMouseX: e.X, prmMouseY: e.Y);
+
+            if (line != null)
+                Actions.SelectScript(prmLine: line);
+        }
+
+        private ListViewItem GetListItem(int prmMouseX, int prmMouseY)
+        {
+            ListViewHitTestInfo info = Resources.ListView.HitTest(prmMouseX, prmMouseY);
+            ListViewItem item = info.Item;
+
+            return (item);
+        }
+
+    }
     internal class PageActions : PageBase
     {
+
         internal PageActions(PageBuilder prmBuilder) : base(prmBuilder) { }
 
         internal void Setup()
         {
-            App.Events.ViewScriptChanged += ViewScriptChanged;
+            App.Events.ScriptChanged += ScriptChanged;
         }
 
-        internal void DoubleClick(int prmMouseX, int prmMouseY)
+        private void ScriptChanged()
         {
-            ListViewItem item = GetListItem(prmMouseX, prmMouseY);
-
-            if (item != null)
-                SelectScript(prmScript: GetTag(item));
+            Builder.Structure.ChangeSkin();
         }
 
-        private void SelectScript(string prmScript)
+        internal void SelectScript(ListViewItem prmLine) => SelectScript(prmScript: GetTag(prmLine));
+        internal void SelectScript(string prmScript)
         {
             SetFocus(prmScript);
 
@@ -191,25 +233,12 @@ namespace BlueRocket.PAGES.ListScripts
             Resources.ListView.SelectedItems.Clear();
         }
 
-        private void ViewScriptChanged()
-        {
-            Builder.Structure.ChangeSkin();
-        }
-
         internal void ViewSelections()
         {
             foreach (ScriptCLI Script in Editor.Batch.Select)
                 Builder.ViewScript(Script);
         }
         internal string GetTag(ListViewItem prmItem) => prmItem.Tag.ToString();
-
-        private ListViewItem GetListItem(int prmMouseX, int prmMouseY)
-        {
-            ListViewHitTestInfo info = Resources.ListView.HitTest(prmMouseX, prmMouseY);
-            ListViewItem item = info.Item;
-
-            return (item);
-        }
 
     }
     internal class PageStructure : PageBase
@@ -218,12 +247,6 @@ namespace BlueRocket.PAGES.ListScripts
 
         internal PageStructure(PageBuilder prmBuilder) : base(prmBuilder) { }
 
-        internal void Setup()
-        {
-            Editor.Format.SetPadrao(ListView);
-
-            Build();
-        }
         internal void Build()
         {
             HeaderScripts(); ChangeSkin();
@@ -382,7 +405,6 @@ namespace BlueRocket.PAGES.ListScripts
             }
 
         }
-
         private ListViewItem FindScript(ScriptCLI prmScript)
         {
             foreach (ListViewItem item in ListView.Items)

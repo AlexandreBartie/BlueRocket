@@ -38,7 +38,7 @@ namespace BlueRocket.UX
             Base = new BaseControl(prmEditor);
         }
     }
-    public class BaseUXBuilder : BaseBuilder
+    public class BaseUXBuilder : UXPage
     {
         public AppCLI App => Base.App;
         public EditorCLI Editor => Base.Editor;

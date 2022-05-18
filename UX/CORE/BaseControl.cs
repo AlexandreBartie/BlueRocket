@@ -11,16 +11,34 @@ namespace BlueRocket
 
         private BaseControl _Base;
 
+        private Control _Control;
+
         public EditorCLI Editor => _Base.Editor;
+
         public AppCLI App => _Base.App;
 
+        public AppFormat Format => Editor.Format;
+
         public BaseControl GetBase() => _Base;
+
+        public Control GetControl() => _Control;
+
+        public PageControl() { }
+
+        public PageControl(Control prmControl)
+        {
+            GetAttach(prmControl);
+        }
 
         public void Setup(EditorCLI prmEditor)
         {
             _Base = new BaseControl(prmEditor);
         }
 
+        private void GetAttach(Control prmControl)
+        {
+            prmControl.Parent = this; prmControl.Dock = DockStyle.Fill; _Control = prmControl;
+        }
     }
 
     public class FormControl : Form
@@ -53,6 +71,5 @@ namespace BlueRocket
         }
 
     }
-
 
 }

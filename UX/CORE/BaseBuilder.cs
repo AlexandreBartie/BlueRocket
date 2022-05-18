@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace BlueRocket.UX
 {
-    public class BaseBuilder
+    public class UXPage
     {
         public PageElements Elements;
 
@@ -20,7 +20,7 @@ namespace BlueRocket.UX
 
         internal PageControl GetElement(string prmKey) => Elements.FindKey(prmKey);
 
-        public BaseBuilder()
+        public UXPage()
         {
 
             Tab = new PageTab(this);
@@ -106,11 +106,11 @@ namespace BlueRocket.UX
     }
     public class PageTitle
     {
-        private BaseBuilder Builder;
+        private UXPage Builder;
 
         private usrTitle Title;
 
-        public PageTitle(BaseBuilder prmBuilder)
+        public PageTitle(UXPage prmBuilder)
         {
             Builder = prmBuilder; 
         }
@@ -133,11 +133,11 @@ namespace BlueRocket.UX
     }
     public class PageTab
     {
-        private BaseBuilder Builder;
+        private UXPage Builder;
 
         private TabControl Tab;
 
-        public PageTab(BaseBuilder prmBuilder)
+        public PageTab(UXPage prmBuilder)
         {
             Builder = prmBuilder; Tab = new TabControl();
         }
@@ -153,7 +153,7 @@ namespace BlueRocket.UX
             Tab.Dock = prmDockStyle;
         }
 
-        public void AddControl(string prmLabel, UserControl prmControl)
+        public void AddControl(string prmLabel, Control prmControl)
         {
             TabPage Item = new TabPage(prmLabel);
 

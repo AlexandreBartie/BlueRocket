@@ -24,6 +24,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="TELAS\CONTROLES\PROJECT\usrListTags.cs" />
+    <Compile Remove="TELAS\CONTROLES\PROJECT\usrListTags.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="TELAS\CONTROLES\PROJECT\usrListTags.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="Rocket.ico" />
   </ItemGroup>
 

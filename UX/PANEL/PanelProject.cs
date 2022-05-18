@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BlueRocket.PAGES.ListScripts;
+using BlueRocket.PAGES.ListTags;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
@@ -17,9 +19,10 @@ namespace BlueRocket.UX
 
         private UXBuilder Builder;
 
-        private usrListScripts pagListScripts => (usrListScripts)Builder.GetElement("Scripts");
-        private usrListTags pagListTags => (usrListTags)Builder.GetElement("Filter");
+        //private usrListScripts pagListScripts => (usrListScripts)Builder.GetElement("Scripts");
 
+        private PageListTags ListTags;// = new PageListTags();
+        private PageListScripts ListScripts;// = new PageListScripts();
 
         //private void tabPage_SelectedIndexChanged(object sender, EventArgs e)
         //{
@@ -27,16 +30,20 @@ namespace BlueRocket.UX
         //        Editor.OnFilterTagChanged();
         //}
 
-        public bool IsMultiSelected => pagListScripts.IsMultiSelected;
+        public bool IsMultiSelected => ListScripts.IsMultiSelected;
 
-        public void GetSelected() => pagListScripts.GetSelected();
+        public void GetSelected() => ListScripts.GetSelected();
 
         public PanelProject()
         {
+
+            ListTags = new PageListTags();
+            ListScripts = new PageListScripts();
+
             Builder = new UXBuilder(this, prmTitle: true);
 
-            Builder.AddElement("Scripts", new usrListScripts());
-            Builder.AddElement("Filter", new usrListTags());
+            Builder.AddElement("Scripts", ListScripts.Page);
+            Builder.AddElement("Filter", ListTags.Page);
 
             Builder.AddTab(prmPages: "Scripts,Filter", prmAligment: TabAlignment.Bottom);
         }
@@ -45,26 +52,27 @@ namespace BlueRocket.UX
         {
             base.Setup(prmEditor);
 
-            pagListScripts.Setup(Editor);
-            pagListTags.Setup(Editor);
+            ListScripts.Setup(Editor);
+            ListTags.Setup(Editor);
         }
 
         public void Build()
         {
             Builder.SetText(prmText: Editor.Project.GetConsoleTitle());
 
-            pagListScripts.Build();
+            ListTags.Build();
 
-            pagListTags.Build();
+            ListScripts.Build();
+
         }
 
-        public void ViewSelections() => pagListScripts.ViewSelections();
+        public void ViewSelections() => ListScripts.ViewSelections();
 
-        public void ViewAll(bool prmSetup) => pagListScripts.ViewAll(prmSetup);
-        public void ViewScript(ScriptCLI prmScript) => pagListScripts.ViewScript(prmScript);
-        public void ViewCurrent() => pagListScripts.ViewCurrent();
+        public void ViewAll(bool prmSetup) => ListScripts.ViewAll(prmSetup);
+        public void ViewScript(ScriptCLI prmScript) => ListScripts.ViewScript(prmScript);
+        public void ViewCurrent() => ListScripts.ViewCurrent();
 
-        public bool FindScript(ScriptCLI prmScript) => pagListScripts.FindScript(prmScript);
+        public bool FindScript(ScriptCLI prmScript) => ListScripts.FindScript(prmScript);
 
     }
 }
